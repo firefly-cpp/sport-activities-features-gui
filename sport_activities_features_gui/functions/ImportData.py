@@ -1,6 +1,6 @@
 import sys
 
-class MultiThread:
+class ImportData:
     def __init__(self):
         print("do something")
     

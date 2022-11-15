@@ -4,18 +4,19 @@ from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction
 from PyQt5.QtCore import QSize
 from functions import MultiThread
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        QMainWindow.__init__(self)
-        self.setMinimumSize(QSize(1024, 768))
-        self.setWindowTitle('Sports activities features gui')
+from windows.MainWindow import Ui_MainWindow
 
+import logic
+from config import app, ui_mainWindow, ui_importData
 
 def run():
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
-    mainWin = MainWindow()
-    mainWin.show()
+    MainWindow = QtWidgets.QMainWindow()
+    ui_mainWindow = Ui_MainWindow()
+    ui_mainWindow.setupUi(MainWindow)
+        
+    MainWindow.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

@@ -1,5 +1,8 @@
 __all__ = [
-    'MultiThread'
+    'Graphs',
+    'ImportData',
+    'MultiThread',
+    'Transofrmations'
 ]
 
 __version__ = '0.1.0'

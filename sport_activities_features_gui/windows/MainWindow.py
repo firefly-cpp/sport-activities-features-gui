@@ -1,9 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import qApp
-from logic import quit, setImportData
+from widgets.ImportData import Ui_ImportData
+from config import app, ui_mainWindow, ui_importData
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow : QtWidgets.QMainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.resize(800, 600)
@@ -16,7 +16,7 @@ class Ui_MainWindow(object):
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.mainLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.mainLayout.setContentsMargins(0, 0, 0, 0)
-        self.mainLayout.setObjectName("mainLayout")
+        self.mainLayout.setObjectName("mainLayout")        
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -44,12 +44,18 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.btn_Graphs.menuAction())
         self.menubar.addAction(self.btn_Transformations.menuAction())
 
+        # Add initial widget
+        importWidget = QtWidgets.QWidget()
+        ui_importData = Ui_ImportData()
+        ui_importData.setupUi(importWidget) 
+        self.mainLayout.addWidget(importWidget)
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
         self.actionExit.triggered.connect(self.appQuit)
-        self.btn_ImportData.triggered.connect(self.importData)
-    
+        self.btn_ImportData.triggered.connect(self.importDataWidget)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle('Sports activities features GUI')
@@ -60,9 +66,11 @@ class Ui_MainWindow(object):
         self.btn_Transformations.setTitle(_translate("MainWindow", "Transformations"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
 
+    def importDataWidget(self):
+        importWidget = QtWidgets.QWidget()
+        ui_importData = Ui_ImportData()
+        ui_importData.setupUi(importWidget) 
+        self.mainLayout.addWidget(importWidget)
 
-    def importData(self):
-        setImportData()
-    
     def appQuit(self):
         quit()

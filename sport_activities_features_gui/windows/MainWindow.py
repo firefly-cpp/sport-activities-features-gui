@@ -1,8 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from logic import ImportData
-
 from widgets.ImportData import Ui_ImportData
 
 class Ui_MainWindow(QMainWindow):
@@ -15,23 +13,55 @@ class Ui_MainWindow(QMainWindow):
         self.setMaximumSize(QtCore.QSize(800, 600))
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
-        self.mainStackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
-        self.mainStackedWidget.setGeometry(QtCore.QRect(0, 0, 801, 551))
-        self.mainStackedWidget.setObjectName("mainStackedWidget")
+        self.mainTabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.mainTabWidget.setGeometry(QtCore.QRect(0, 0, 811, 551))
+        self.mainTabWidget.setObjectName("mainTabWidget")
+        self.tab_ImportData = QtWidgets.QWidget()
+        self.tab_ImportData.setObjectName("tab_ImportData")
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.tab_ImportData)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 801, 521))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.mainLayout_1 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.mainLayout_1.setContentsMargins(0, 0, 0, 0)
+        self.mainLayout_1.setObjectName("mainLayout_1")
+        self.mainTabWidget.addTab(self.tab_ImportData, "")
+        self.tab_Calender = QtWidgets.QWidget()
+        self.tab_Calender.setObjectName("tab_Calender")
+        self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.tab_Calender)
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(0, 0, 801, 521))
+        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
+        self.mainLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.mainLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.mainLayout_2.setObjectName("mainLayout_2")
+        self.mainTabWidget.addTab(self.tab_Calender, "")
+        self.tab_Transformations = QtWidgets.QWidget()
+        self.tab_Transformations.setObjectName("tab_Transformations")
+        self.verticalLayoutWidget_3 = QtWidgets.QWidget(self.tab_Transformations)
+        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 801, 521))
+        self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
+        self.mainLayout_3 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_3)
+        self.mainLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.mainLayout_3.setObjectName("mainLayout_3")
+        self.mainTabWidget.addTab(self.tab_Transformations, "")
+        self.tab_Graphs = QtWidgets.QWidget()
+        self.tab_Graphs.setObjectName("tab_Graphs")
+        self.verticalLayoutWidget_4 = QtWidgets.QWidget(self.tab_Graphs)
+        self.verticalLayoutWidget_4.setGeometry(QtCore.QRect(0, 0, 801, 521))
+        self.verticalLayoutWidget_4.setObjectName("verticalLayoutWidget_4")
+        self.mainLayout_4 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_4)
+        self.mainLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.mainLayout_4.setObjectName("mainLayout_4")
+        self.mainTabWidget.addTab(self.tab_Graphs, "")
         self.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(self)
+        self.statusbar.setObjectName("statusbar")
+        self.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
-        self.btn_ImportData = QtWidgets.QMenu(self.menubar)
-        self.btn_ImportData.setObjectName("btn_ImportData")
-        self.btn_Graphs = QtWidgets.QMenu(self.menubar)
-        self.btn_Graphs.setObjectName("btn_Graphs")
         self.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(self)
-        self.statusbar.setObjectName("statusbar")
-        self.setStatusBar(self.statusbar)
         self.actionExit = QtWidgets.QAction(self)
         self.actionExit.setObjectName("actionExit")
         self.actionImport_Data = QtWidgets.QAction(self)
@@ -43,39 +73,25 @@ class Ui_MainWindow(QMainWindow):
         self.actionTransformations = QtWidgets.QAction(self)
         self.actionTransformations.setObjectName("actionTransformations")
         self.menuFile.addAction(self.actionExit)
-        self.btn_ImportData.addAction(self.actionImport_Data)
-        self.btn_ImportData.addSeparator()
-        self.btn_ImportData.addAction(self.actionCalender)
-        self.btn_ImportData.addSeparator()
-        self.btn_ImportData.addAction(self.actionTransformations)
         self.menubar.addAction(self.menuFile.menuAction())
-        self.menubar.addAction(self.btn_ImportData.menuAction())
-        self.menubar.addAction(self.btn_Graphs.menuAction())
 
         self.retranslateUi(self)
+        self.mainTabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(self)
         
-        
-        #self.mainStackedWidget.addWidget(Ui_ImportData())
-        #self.mainStackedWidget.setCurrentIndex(-1)
+        self.mainLayout_1.addWidget(Ui_ImportData())
         
         self.actionExit.triggered.connect(self.close)
-        
-        #self.actionImport_Data.triggered.connect(lambda : self.mainStackedWidget.setCurrentIndex(1))
-        
-        # ADDING WIDGETS TO MAIN STACKED WIDGET
-        self.mainStackedWidget.addWidget(Ui_ImportData())
-        
-        # TRIGGERING WIDGETS
-        self.actionImport_Data.triggered.connect(lambda : self.mainStackedWidget.setCurrentIndex(1))
         
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_ImportData), _translate("MainWindow", "Import Data"))
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Calender), _translate("MainWindow", "Calender"))
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Transformations), _translate("MainWindow", "Transformations"))
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Graphs), _translate("MainWindow", "Page"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
-        self.btn_ImportData.setTitle(_translate("MainWindow", "Options"))
-        self.btn_Graphs.setTitle(_translate("MainWindow", "Graphs"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionImport_Data.setText(_translate("MainWindow", "Import Data"))
         self.actionCalender.setText(_translate("MainWindow", "Calender"))

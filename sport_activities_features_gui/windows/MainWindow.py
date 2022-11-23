@@ -67,7 +67,7 @@ class Ui_MainWindow(QMainWindow):
         self.mainStackedWidget.addWidget(Ui_ImportData())
         
         # TRIGGERING WIDGETS
-        self.actionImport_Data.triggered.connect(lambda : ImportData(self))
+        self.actionImport_Data.triggered.connect(lambda : self.mainStackedWidget.setCurrentIndex(1))
         
 
     def retranslateUi(self, MainWindow):

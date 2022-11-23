@@ -1,14 +1,19 @@
-from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction
-from widgets.ImportData import Ui_ImportData
-from config import app, ui_mainWindow, ui_importData
+from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
+#from widgets.ImportData import Ui_ImportData
 
-def quit():
-    qApp.quit()
+#def quit():
+ #   qApp.quit()
     
-## TODO: Fix this function 
-def setImportData():
-    ui_importData = Ui_ImportData()
-    ui_mainWindow.mainLayout.addWidget(ui_importData)
-    ui_mainWindow.mainLayout.show()
-    ui_importData.show()
+
+def ImportData(self):
+    print("Import Data")
+    self.mainStackedWidget.setCurrentIndex(1)
+    
+    #importDataWidget = QWidget()
+    #config.ui_importData = Ui_ImportData()
+    #config.ui_importData.setupUi(importDataWidget)
+    #config.ui_mainWindow.mainLayout.addWidget(importDataWidget)
+    #config.mainWindow.show()
+    
+
     

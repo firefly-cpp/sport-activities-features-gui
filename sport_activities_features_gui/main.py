@@ -6,18 +6,14 @@ from functions import MultiThread
 
 from windows.MainWindow import Ui_MainWindow
 
-import logic
-from config import app, ui_mainWindow, ui_importData
-
-def run():
+def main():
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
-    MainWindow = QtWidgets.QMainWindow()
-    ui_mainWindow = Ui_MainWindow()
-    ui_mainWindow.setupUi(MainWindow)
+    
+    mainWindow = Ui_MainWindow()
         
-    MainWindow.show()
+    mainWindow.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
-    run()
+    main()

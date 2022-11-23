@@ -1,12 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
 
-
-class Ui_ImportData(object):
-    def setupUi(self, ImportData):
-        ImportData.setObjectName("ImportData")
-        ImportData.resize(709, 502)
-        self.verticalLayoutWidget = QtWidgets.QWidget(ImportData)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 711, 501))
+class Ui_ImportData(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        self.setObjectName("ImportData")
+        self.resize(800, 600)
+        self.verticalLayoutWidget = QtWidgets.QWidget(self)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 800, 600))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(15, 15, 15, 15)
@@ -43,8 +44,8 @@ class Ui_ImportData(object):
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
-        self.retranslateUi(ImportData)
-        QtCore.QMetaObject.connectSlotsByName(ImportData)
+        self.retranslateUi(self)
+        QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self, ImportData):
         _translate = QtCore.QCoreApplication.translate

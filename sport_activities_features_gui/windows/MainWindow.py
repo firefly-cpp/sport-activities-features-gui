@@ -1,8 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from logic import ImportData
-
 from widgets.ImportData import Ui_ImportData
 
 class Ui_MainWindow(QMainWindow):
@@ -55,13 +53,7 @@ class Ui_MainWindow(QMainWindow):
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
         
-        
-        #self.mainStackedWidget.addWidget(Ui_ImportData())
-        #self.mainStackedWidget.setCurrentIndex(-1)
-        
         self.actionExit.triggered.connect(self.close)
-        
-        #self.actionImport_Data.triggered.connect(lambda : self.mainStackedWidget.setCurrentIndex(1))
         
         # ADDING WIDGETS TO MAIN STACKED WIDGET
         self.mainStackedWidget.addWidget(Ui_ImportData())

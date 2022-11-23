@@ -1,4 +1,4 @@
-from main import MainWindow
+# from main import MainWindow
 
 __all__ = [
     'Main'

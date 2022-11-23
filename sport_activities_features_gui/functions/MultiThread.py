@@ -1,10 +1,7 @@
 from sport_activities_features.tcx_manipulation import TCXFile
 from sport_activities_features.hill_identification import HillIdentification
 from sport_activities_features.topographic_features import TopographicFeatures
-from sport_activities_features.interval_identification import (
-    IntervalIdentificationByHeartRate,
-    IntervalIdentificationByPower
-)
+
 from multiprocessing import Pool, Manager
 
 class MultiThread:

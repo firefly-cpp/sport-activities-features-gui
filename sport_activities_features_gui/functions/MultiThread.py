@@ -1,6 +1,6 @@
 from sport_activities_features.tcx_manipulation import TCXFile
 import pandas as pd
-
+from itertools import product
 from multiprocessing import Pool, Manager
 
 class MultiThread:
@@ -14,21 +14,20 @@ class MultiThread:
             integral_metrics = tcx_file.extract_integral_metrics(path_of_file)
             all_data= activity | integral_metrics
             df = pd.DataFrame(all_data)
-            
             return df
         except:
             return pd.DataFrame
 
-    def _single_load_inner(path_of_file: str, arr: list, count: int): 
+    def _single_load_inner(self, path_of_file: str, data): 
         try:
             tcx_file = TCXFile()
             activity = tcx_file.read_one_file(path_of_file)
             integral_metrics = tcx_file.extract_integral_metrics(path_of_file)
             all_data= activity | integral_metrics
-            arr.append(all_data)
+            data.append(all_data)
         except:
+            a=1
             # better error handling
-            count+=1
     
     def bulk_load(self, directory_path: str, num_of_processes: int) -> dict:
         tcx_file = None
@@ -41,13 +40,12 @@ class MultiThread:
             return None
         with Manager() as manager:
             data = manager.list()
-            count = manager.Value('i')
             with Pool(processes=num_of_processes) as pool:
-                # this might work i think 
-                pool.starmap(self._single_load_inner, [(file, data, count) for file in files])
-            # print(data)
+                pool.starmap(self._single_load_inner, [(file, data) for file in files])
+                # pool.map(self._single_load_inner, product(files, data, arrError))
+                
             return {
-                'data' : pd.DataFrame(data),
+                'data' : pd.DataFrame(list(data)),
                 'numOfFiles': len(files),
-                'numOfFilesNotRead' : count 
+                'numOfFilesNotRead' : (len(files) - len(data))
             }

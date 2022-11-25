@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
+from functions import ImportData, MultiThread
 
 class Ui_ImportData(QWidget):
     def __init__(self):
@@ -44,9 +45,19 @@ class Ui_ImportData(QWidget):
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
+
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
+        
+        #self.actionOpenFile = QtWidgets.QAction(self)
+        #self.actionOpenFile.setObjectName("actionOpenFile")
+        
+        #self.pushButton.addAction(self.actionOpenFile)
+        #self.actionOpenFile.triggered.connect(ImportData.ImportData.openFile())
 
+        self.pushButton.clicked.connect(self.readFiles)
+        
+   
     def retranslateUi(self, ImportData):
         _translate = QtCore.QCoreApplication.translate
         ImportData.setWindowTitle(_translate("ImportData", "Form"))
@@ -57,3 +68,6 @@ class Ui_ImportData(QWidget):
         self.btn_Csv.setText(_translate("ImportData", "CSV"))
         self.btn_Json.setText(_translate("ImportData", "JSON"))
         self.btn_Pickle.setText(_translate("ImportData", "Pickle"))
+    
+    def readFiles(self):
+        ImportData.ImportData.openFileDialog(self)

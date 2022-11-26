@@ -56,7 +56,9 @@ class Ui_ImportData(QWidget):
         #self.actionOpenFile.triggered.connect(ImportData.ImportData.openFile())
 
         self.pushButton.clicked.connect(self.readFiles)
-        
+        self.btn_Csv.clicked.connect(self.exportCSV)
+        self.btn_Json.clicked.connect(self.exportJSON)
+        self.btn_Pickle.clicked.connect(self.exportPickle)
    
     def retranslateUi(self, ImportData):
         _translate = QtCore.QCoreApplication.translate
@@ -71,3 +73,12 @@ class Ui_ImportData(QWidget):
     
     def readFiles(self):
         ImportData.ImportData.openFileDialog(self)
+        
+    def exportCSV(self):
+        ImportData.ImportData.exportCSV()
+        
+    def exportJSON(self):
+        ImportData.ImportData.exportJSON()
+    
+    def exportPickle(self):
+        ImportData.ImportData.exportPickle()

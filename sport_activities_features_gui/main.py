@@ -5,8 +5,12 @@ from PyQt5.QtCore import QSize
 from functions import MultiThread
 from sport_activities_features_gui.windows.ProfilesWindow import Ui_ProfilesWindow
 from windows.MainWindow import Ui_MainWindow
+from models.User import User
 
 def main():
+    
+    User()
+    
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
     profilesWindow = Ui_ProfilesWindow()

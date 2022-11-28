@@ -3,10 +3,7 @@ import pandas as pd
 from itertools import product
 from multiprocessing import Pool, Manager
 
-class MultiThread:
-    def __init__(self):
-        print("Not implemented")
-    
+class MultiThread:  
     def single_load(path_of_file: str) -> pd.DataFrame: 
         try:
             tcx_file = TCXFile()

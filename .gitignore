@@ -130,3 +130,7 @@ dmypy.json
 
 # VS code
 .vscode
+
+# store files
+store/
+test

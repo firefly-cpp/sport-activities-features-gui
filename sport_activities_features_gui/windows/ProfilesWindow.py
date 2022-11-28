@@ -1,10 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
+from models.User import User
 from windows.MainWindow import Ui_MainWindow
-import sys
 
 class Ui_ProfilesWindow(QMainWindow):
-    currentProfile = 'anoymous'
+    currentProfile = 'anonymous'
+
     
     def __init__(self):
         QMainWindow.__init__(self)
@@ -27,26 +28,27 @@ class Ui_ProfilesWindow(QMainWindow):
         self.profilesLV = QtWidgets.QListWidget(self.groupBox)
         self.profilesLV.setGeometry(QtCore.QRect(20, 20, 256, 192))
         self.profilesLV.setObjectName("profilesLV")
-        item = QtWidgets.QListWidgetItem()
+        item = QtWidgets.QListWidgetItem("anonymous")
         self.profilesLV.addItem(item)
+        self.profilesLV.setCurrentRow(0)
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
         
-        self.profilesLV.itemActivated.connect(self.profileSelected)
+        self.profilesLV.itemClicked.connect(self.profileSelected)
         self.btnLogin.clicked.connect(self.login)
         self.dialog = Ui_MainWindow()
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
         
-    def profileSelected(profile):
-        print(profile.text())
-        global currentProfile 
-        currentProfile = profile.text()
+    def profileSelected(root):
+        global currentProfile
+        currentProfile = str(root.profilesLV.currentItem().text()).lower()
     
     def login(self):
+        User.__init1__(User, self.currentProfile, [])
         self.hide()
         self.dialog.show()
         

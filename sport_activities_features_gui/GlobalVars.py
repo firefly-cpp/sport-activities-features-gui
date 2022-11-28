@@ -1,0 +1,1 @@
+path = '\\sport_activities_features_gui\\store\\'

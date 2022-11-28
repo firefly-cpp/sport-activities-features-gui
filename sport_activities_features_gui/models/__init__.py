@@ -1,5 +1,5 @@
 __all__ = [
-    'User'
+    'User',
 ]
 
 __version__ = '0.1.0'

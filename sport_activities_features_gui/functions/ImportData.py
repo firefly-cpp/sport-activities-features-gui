@@ -1,9 +1,10 @@
 import sys
 from PyQt5.QtWidgets import QFileDialog
 from functions import MultiThread
+from sport_activities_features_gui.models.User import User
 import widgets.ImportData as ImportData
 import pandas as pd
-from models.User import User
+from GlobalVars import *
 
 class ImportData:
     
@@ -17,7 +18,8 @@ class ImportData:
             dirPath = dialog.selectedFiles()
             
             mt = MultiThread.MultiThread()
-            User.data = mt.bulk_load(dirPath[0],4)
+            data = mt.bulk_load(dirPath[0],4)
+            User.data = data # tukaj ni vrednosti v User.data global variablu
             
             ImportData.pte_Output.clear()
             ImportData.pte_Output.appendPlainText('Num Of Files: ' + str(User.data['numOfFiles']))

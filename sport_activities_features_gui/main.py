@@ -8,7 +8,7 @@ from windows.MainWindow import Ui_MainWindow
 from models.User import User
 
 def main():
-    
+ 
     User()
     
     app = QtWidgets.QApplication(sys.argv)

@@ -1,10 +1,16 @@
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+import shutil
+from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from models.User import initGlobalUser, User
+from windows.AddProfile import Ui_AddProfileWindow
 from windows.MainWindow import Ui_MainWindow
+import os
+from globalVars import *
 
 class Ui_ProfilesWindow(QMainWindow):
     currentProfile = 'anonymous'
+    profileList = []
+    itemIndex = 0
     
     def __init__(self):
         QMainWindow.__init__(self)
@@ -25,11 +31,9 @@ class Ui_ProfilesWindow(QMainWindow):
         self.btnRemoveProfile.setGeometry(QtCore.QRect(150, 220, 121, 28))
         self.btnRemoveProfile.setObjectName("btnRemoveProfile")
         self.profilesLV = QtWidgets.QListWidget(self.groupBox)
-        self.profilesLV.setGeometry(QtCore.QRect(20, 20, 256, 192))
-        self.profilesLV.setObjectName("profilesLV")
-        item = QtWidgets.QListWidgetItem("anonymous")
-        self.profilesLV.addItem(item)
-        self.profilesLV.setCurrentRow(0)
+        # self.profilesLV.setGeometry(QtCore.QRect(20, 20, 256, 192))
+        self.profilesLV.setGeometry(QtCore.QRect(20, 30, 256, 185))
+        
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
@@ -37,36 +41,80 @@ class Ui_ProfilesWindow(QMainWindow):
         
         self.profilesLV.itemClicked.connect(self.profileSelected)
         self.btnLogin.clicked.connect(self.login)
+        self.btnAddProfile.clicked.connect(self.showAddProfileWindow)
+        self.btnRemoveProfile.clicked.connect(self.removeProfile)
+        
         self.dialog = Ui_MainWindow()
+        self.addProfileWindow = Ui_AddProfileWindow(self)
 
-        self.retranslateUi(self)
+        with os.scandir(getStorePath()) as entries:
+            for entry in entries:
+                self.profileList.append(entry.name)
+        
+        # Add profiles to list view        
+        for profile in self.profileList:
+            self.profilesLV.addItem(profile)
+            self.itemIndex += 1
+        self.profilesLV.setCurrentRow(0)
+
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
         
-    def profileSelected(root):
-        global currentProfile
-        currentProfile = str(root.profilesLV.currentItem().text()).lower()
+    def retranslateUi(self):
+        self.setWindowTitle("Profiles")
+        self.groupBox.setTitle("Profiles")
+        self.btnLogin.setText("Log in")
+        self.btnAddProfile.setText("Add profile")
+        self.btnRemoveProfile.setText("Remove profile")
+        __sortingEnabled = self.profilesLV.isSortingEnabled()
+        self.profilesLV.setSortingEnabled(False)
+        self.profilesLV.setSortingEnabled(__sortingEnabled)
     
+    # SELECTR PROFILE               
+    def profileSelected(self):
+        self.currentProfile = str(self.profilesLV.currentItem().text()).lower()
+    
+    # LOGIN
     def login(self):
         self.hide()
         user: User = initGlobalUser(self.currentProfile, [])
         self.dialog.importGlobalUser(user)
         self.dialog.show()
+    
+    # ADD PROFILE
+    def showAddProfileWindow(self):
+        self.addProfileWindow.show()
+    def addProfile(self, newProfile: str):
+        if newProfile in self.profileList:
+            QMessageBox.warning(self, 'Warning', 'The profile you entered already exists', QMessageBox.Ok)
+            return
         
-    def addProfile():
-        print("Not implemented")
+        newProfileItem = QtWidgets.QListWidgetItem(newProfile)
+        newProfileItem.setText(newProfile)
+        self.profilesLV.addItem(newProfileItem)
+        self.profileList.append(newProfile)
         
-    def removeProfile():
-        print("Not implemented")
+        newProfilePath = getStorePath() + newProfile
+        if not os.path.isdir(newProfilePath):
+            os.makedirs(newProfilePath)
+    
+    # REMOVE PROFILE
+    def removeProfile(self):
+        reply = QMessageBox.question(self, 'Message',
+            f"Do you really want to delete the profile \"{str(self.currentProfile)}\"", 
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.groupBox.setTitle(_translate("MainWindow", "Profiles"))
-        self.btnLogin.setText(_translate("MainWindow", "Log in"))
-        self.btnAddProfile.setText(_translate("MainWindow", "Add profile"))
-        self.btnRemoveProfile.setText(_translate("MainWindow", "Remove profile"))
-        __sortingEnabled = self.profilesLV.isSortingEnabled()
-        self.profilesLV.setSortingEnabled(False)
-        item = self.profilesLV.item(0)
-        item.setText(_translate("MainWindow", "Anonymous"))
-        self.profilesLV.setSortingEnabled(__sortingEnabled)
+        if reply == QMessageBox.Yes:
+            deletePath = getStorePath() + self.currentProfile
+            try:
+                listItems = self.profilesLV.selectedItems()
+                if not listItems: return 
+                shutil.rmtree(deletePath)        
+                for item in listItems:
+                    self.profilesLV.takeItem(self.profilesLV.row(item))
+            except OSError as e:
+                print("Error: %s : %s" % (deletePath, e.strerror))
+        
+
+
+

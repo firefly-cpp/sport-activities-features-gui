@@ -2,7 +2,12 @@
 name = "sport-activities-features-gui"
 version = "0.1.0"
 description = "GUI for sport-activities-features package"
-authors = ["firefly-cpp <iztok@iztok-jr-fister.eu>"]
+authors = [
+    "otiv33 <vito.abeln@gmail.com>",
+    "garyjellyarms <Reyzo.P@gmail.com>",
+    "Mtvrt123 <mlinaricnejc@gmail.com>",
+    "firefly-cpp <iztok@iztok-jr-fister.eu>"
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"

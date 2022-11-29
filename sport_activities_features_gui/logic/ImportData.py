@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QFileDialog
-from functions import MultiThread
+from logic import MultiThread
 from sport_activities_features_gui.models.User import User
 from widgets import ImportDataWidget
 import pandas as pd

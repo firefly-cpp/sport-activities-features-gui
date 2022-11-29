@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget
 
-class Ui_Graphs(QWidget):
+class Ui_GraphsWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
         self.setObjectName("Form")

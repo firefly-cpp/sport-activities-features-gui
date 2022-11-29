@@ -1,5 +1,5 @@
 
-class Ui_Calendar:
+class Ui_CalendarWidget:
     def __init__(self):
         print("Not implemented")
         

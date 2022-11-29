@@ -1,9 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
-from functions.ImportData import ImportData
+from logic.ImportData import ImportData
 from models.User import User
 
-class Ui_ImportData(QWidget):
+class Ui_ImportDataWidget(QWidget):
     globalUser: User
     importDataFn: ImportData
 

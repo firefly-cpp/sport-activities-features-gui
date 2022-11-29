@@ -1,9 +1,13 @@
-# from windows.MainWindow import Ui_MainWindow
-# from windows.ProfilesWindow import Ui_ProfilesWindow
+from sport_activities_features_gui import windows
+from sport_activities_features_gui import widgets
+from sport_activities_features_gui import models
+from sport_activities_features_gui import logic
 
 __all__ = [
-    'Ui_MainWindow',
-    'Ui_ProfilesWindow'
+    'windows',
+    'widgets',
+    'models',
+    'logic',
 ]
 
 __version__ = '0.1.0'

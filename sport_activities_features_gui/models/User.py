@@ -1,11 +1,8 @@
 import pickle
 import pandas as pd
-# from GlobalVars import path
 import os
+from globalVars import *
 
-# global user
-
-path = '\\sport_activities_features_gui\\store\\'
 
 def initGlobalUser(userName, settings):
     global user
@@ -20,9 +17,8 @@ class User:
         
     def __init__(self, _username: str, _setting: dict):
         self.username: str = _username
-        currentPath = os.getcwd()
-        self.userPath: str = str(currentPath + path + _username + '/')
-        self.setting:dict = _setting
+        self.userPath: str = str(getStorePath() + _username + '/')
+        self.setting: dict = _setting
         self.checkForExistingData()
    
     # creates directory in store

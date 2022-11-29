@@ -1,15 +1,15 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from widgets.ImportDataWidget import Ui_ImportData
-from widgets.GraphsWidget import Ui_Graphs
+from widgets.ImportDataWidget import Ui_ImportDataWidget
+from widgets.GraphsWidget import Ui_GraphsWidget
 from models.User import User
 
 
 class Ui_MainWindow(QMainWindow):
     globalUser: User
-    importDataUi: Ui_ImportData
-    graphsUi = Ui_Graphs
+    importDataUi: Ui_ImportDataWidget
+    graphsUi = Ui_GraphsWidget
     transofrmationsUi = [] # placeholder
     calendarUi = [] # placeholder
     
@@ -31,7 +31,6 @@ class Ui_MainWindow(QMainWindow):
         self.verticalLayoutWidget = QtWidgets.QWidget(self.tab_ImportData)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 801, 521))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        # LAYOUT 1
         self.mainLayout_1 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.mainLayout_1.setContentsMargins(0, 0, 0, 0)
         self.mainLayout_1.setObjectName("mainLayout_1")
@@ -74,8 +73,8 @@ class Ui_MainWindow(QMainWindow):
         self.menubar = QtWidgets.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
-        self.menuFile = QtWidgets.QMenu(self.menubar)
-        self.menuFile.setObjectName("menuFile")
+        # self.menuFile = QtWidgets.QMenu(self.menubar)
+        # self.menuFile.setObjectName("menuFile")
         self.setMenuBar(self.menubar)
         self.actionExit = QtWidgets.QAction(self)
         self.actionExit.setObjectName("actionExit")
@@ -87,35 +86,34 @@ class Ui_MainWindow(QMainWindow):
         self.actionGraphs.setObjectName("actionGraphs")
         self.actionTransformations = QtWidgets.QAction(self)
         self.actionTransformations.setObjectName("actionTransformations")
-        self.menuFile.addAction(self.actionExit)
-        self.menubar.addAction(self.menuFile.menuAction())
+        # self.menuFile.addAction(self.actionExit)
+        # self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(self)
         self.mainTabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(self)
         
-        self.importDataUi = Ui_ImportData()
+        self.importDataUi = Ui_ImportDataWidget()
         self.mainLayout_1.addWidget(self.importDataUi)
-        self.graphsUi = Ui_Graphs()
+        self.graphsUi = Ui_GraphsWidget()
         self.mainLayout_2.addWidget(self.graphsUi)
         
         self.actionExit.triggered.connect(self.close)
         
 
     def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_ImportData), _translate("MainWindow", "Import Data"))
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Graphs), _translate("MainWindow", "Graphs"))
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Transformations), _translate("MainWindow", "Transformations"))
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Calender), _translate("MainWindow", "Calendar"))
+        MainWindow.setWindowTitle("Sport activites features GUI")
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_ImportData), "Import Data")
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Graphs), "Graphs")
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Transformations), "Transformations")
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Calender), "Calendar")
         
-        self.menuFile.setTitle(_translate("MainWindow", "File"))
-        self.actionExit.setText(_translate("MainWindow", "Exit"))
-        self.actionImport_Data.setText(_translate("MainWindow", "Import Data"))
-        self.actionGraphs.setText(_translate("MainWindow", "Graphs"))
-        self.actionTransformations.setText(_translate("MainWindow", "Transformations"))
-        self.actionCalender.setText(_translate("MainWindow", "Calender"))
+        # self.menuFile.setTitle("File")
+        # self.actionExit.setText("Exit")
+        self.actionImport_Data.setText("Import Data")
+        self.actionGraphs.setText("Graphs")
+        self.actionTransformations.setText("Transformations")
+        self.actionCalender.setText("Calender")
 
     # IMPORT GLOBAL USER
     def importGlobalUser(self, user):

@@ -1,5 +1,5 @@
 
-class Ui_Transoformations:
+class Ui_TransoformationsWidget:
     def __init__(self):
         print("Not implemented")
         

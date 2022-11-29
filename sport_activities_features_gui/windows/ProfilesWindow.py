@@ -31,7 +31,8 @@ class Ui_ProfilesWindow(QMainWindow):
         self.btnRemoveProfile.setGeometry(QtCore.QRect(150, 220, 121, 28))
         self.btnRemoveProfile.setObjectName("btnRemoveProfile")
         self.profilesLV = QtWidgets.QListWidget(self.groupBox)
-        self.profilesLV.setGeometry(QtCore.QRect(20, 20, 256, 192))
+        # self.profilesLV.setGeometry(QtCore.QRect(20, 20, 256, 192))
+        self.profilesLV.setGeometry(QtCore.QRect(20, 30, 256, 185))
         
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self)

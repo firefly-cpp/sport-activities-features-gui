@@ -1,49 +1,51 @@
 import pickle
 import pandas as pd
-import json
-from GlobalVars import *
+# from GlobalVars import path
 import os
+
+# global user
+
+path = '\\sport_activities_features_gui\\store\\'
+
+def initGlobalUser(userName, settings):
+    global user
+    user = User(userName, settings)
+    return user
 
 class User:
     global username
     global data
     global userPath
     global setting
-    
-    def __init__(self) -> None:
-        self.username = ''
-        self.data = dict()
-        self.userPath = ''
-        self.setting = None
         
-    def __init1__(self, _username: str, _setting: dict):
-        self.username = _username
+    def __init__(self, _username: str, _setting: dict):
+        self.username: str = _username
         currentPath = os.getcwd()
-        self.userPath = str(currentPath + path + _username + '/')
-        self.setting = _setting
-        User.checkForExistingData(self.userPath)
+        self.userPath: str = str(currentPath + path + _username + '/')
+        self.setting:dict = _setting
+        self.checkForExistingData()
    
     # creates directory in store
-    def checkForExistingData(userPath):
-        if not os.path.isdir(userPath):
-            os.makedirs(userPath)
+    def checkForExistingData(self):
+        if not os.path.isdir(self.userPath):
+            os.makedirs(self.userPath)
         found = 0
-        with os.scandir(userPath) as entries:
+        with os.scandir(self.userPath) as entries:
             for entry in entries:
                 if entry.name == 'data.pickle':
-                    User.loadData(userPath)
-        if(found == 0):
-            User.saveData(userPath, [])
+                    self.loadData()
+                    found = 1
+        if not found:
+            self.saveData(pd.DataFrame())
 
-    def saveData(userPath, data):
-        pickleFile = open(userPath+'data.pickle', 'wb')
+    def saveData(self, data: pd.DataFrame):
+        pickleFile = open(self.userPath+'data.pickle', 'wb')
         pickle.dump(data, pickleFile)
         pickleFile.close()
-        return data
+        self.data: pd.DataFrame = data
         
-    def loadData(userPath):
-        pickleFile = open(userPath+'data.pickle', 'rb')
-        data = pickle.load(pickleFile)
+    def loadData(self):
+        pickleFile = open(self.userPath+'data.pickle', 'rb')
+        self.data: pd.DataFrame = pickle.load(pickleFile)
         pickleFile.close()
-        return data
              

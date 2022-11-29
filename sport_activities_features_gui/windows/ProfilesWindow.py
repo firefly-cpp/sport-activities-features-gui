@@ -1,11 +1,10 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
-from models.User import User
+from models.User import initGlobalUser, User
 from windows.MainWindow import Ui_MainWindow
 
 class Ui_ProfilesWindow(QMainWindow):
     currentProfile = 'anonymous'
-
     
     def __init__(self):
         QMainWindow.__init__(self)
@@ -48,8 +47,9 @@ class Ui_ProfilesWindow(QMainWindow):
         currentProfile = str(root.profilesLV.currentItem().text()).lower()
     
     def login(self):
-        User.__init1__(User, self.currentProfile, [])
         self.hide()
+        user: User = initGlobalUser(self.currentProfile, [])
+        self.dialog.importGlobalUser(user)
         self.dialog.show()
         
     def addProfile():

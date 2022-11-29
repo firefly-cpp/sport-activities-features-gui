@@ -1,8 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
-from functions import ImportData, MultiThread
+from functions.ImportData import ImportData
+from models.User import User
 
 class Ui_ImportData(QWidget):
+    globalUser: User
+    importDataFn: ImportData
+
     def __init__(self):
         QWidget.__init__(self)
         self.setObjectName("ImportData")
@@ -72,13 +76,25 @@ class Ui_ImportData(QWidget):
         self.btn_Pickle.setText(_translate("ImportData", "Pickle"))
     
     def readFiles(self):
-        ImportData.ImportData.openFileDialog(self)
+        self.importDataFn.openFileDialog(self)
         
     def exportCSV(self):
-        ImportData.ImportData.exportCSV()
+        self.importDataFn.exportCSV()
         
     def exportJSON(self):
-        ImportData.ImportData.exportJSON()
+        self.importDataFn.exportJSON()
     
     def exportPickle(self):
-        ImportData.ImportData.exportPickle()
+        self.importDataFn.exportPickle()
+        
+    # IMPORT GLOBAL USER
+    def importGlobalUser(self, user: User):
+        self.globalUser = user
+        self.importDataFn = ImportData(user)
+        self.consoleOutputExistingData()
+        
+    def consoleOutputExistingData(self):
+        if self.globalUser.data.empty is False :
+            self.pte_Output.clear()
+            self.pte_Output.appendPlainText('Num Of Existing Files: ' + str(len(self.globalUser.data.index)))
+            self.pte_Output.appendPlainText(str(self.globalUser.data))

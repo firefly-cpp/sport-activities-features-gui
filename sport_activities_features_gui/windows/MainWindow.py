@@ -1,10 +1,18 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from widgets import ImportData, Graphs
+from widgets.ImportDataWidget import Ui_ImportData
+from widgets.GraphsWidget import Ui_Graphs
+from models.User import User
 
 
 class Ui_MainWindow(QMainWindow):
+    globalUser: User
+    importDataUi: Ui_ImportData
+    graphsUi = Ui_Graphs
+    transofrmationsUi = [] # placeholder
+    calendarUi = [] # placeholder
+    
     def __init__(self):
         QMainWindow.__init__(self)
         self.setObjectName("Sport Activities Features GUI")
@@ -58,7 +66,6 @@ class Ui_MainWindow(QMainWindow):
         self.mainLayout_3.setContentsMargins(0, 0, 0, 0)
         self.mainLayout_3.setObjectName("mainLayout_3")
         self.mainTabWidget.addTab(self.tab_Transformations, "")
-
         
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self)
@@ -87,8 +94,10 @@ class Ui_MainWindow(QMainWindow):
         self.mainTabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(self)
         
-        self.mainLayout_1.addWidget(ImportData.Ui_ImportData())
-        self.mainLayout_2.addWidget(Graphs.Ui_Graphs())
+        self.importDataUi = Ui_ImportData()
+        self.mainLayout_1.addWidget(self.importDataUi)
+        self.graphsUi = Ui_Graphs()
+        self.mainLayout_2.addWidget(self.graphsUi)
         
         self.actionExit.triggered.connect(self.close)
         
@@ -107,3 +116,9 @@ class Ui_MainWindow(QMainWindow):
         self.actionGraphs.setText(_translate("MainWindow", "Graphs"))
         self.actionTransformations.setText(_translate("MainWindow", "Transformations"))
         self.actionCalender.setText(_translate("MainWindow", "Calender"))
+
+    # IMPORT GLOBAL USER
+    def importGlobalUser(self, user):
+        self.globalUser = user
+        self.importDataUi.importGlobalUser(user)
+        self.graphsUi.importGlobalUser(user)

@@ -2,38 +2,38 @@ import sys
 from PyQt5.QtWidgets import QFileDialog
 from functions import MultiThread
 from sport_activities_features_gui.models.User import User
-import widgets.ImportData as ImportData
+from widgets import ImportDataWidget
 import pandas as pd
-from GlobalVars import *
 
 class ImportData:
+    globalUser: User
     
-    def __init__(self):
-        pass
+    def __init__(self, user: User):
+        self.globalUser = user
     
-    @staticmethod
-    def openFileDialog(ImportData: ImportData):
+    def openFileDialog(self, importDataWidget: ImportDataWidget):
         dialog = FileDialog()
         if dialog.exec_() == dialog.Accepted:
             dirPath = dialog.selectedFiles()
             
             mt = MultiThread.MultiThread()
             data = mt.bulk_load(dirPath[0],4)
-            User.data = data # tukaj ni vrednosti v User.data global variablu
+            dataFrame = pd.DataFrame(data['data'])
+            self.globalUser.saveData(dataFrame)
             
-            ImportData.pte_Output.clear()
-            ImportData.pte_Output.appendPlainText('Num Of Files: ' + str(User.data['numOfFiles']))
-            ImportData.pte_Output.appendPlainText('Num Of Error Files: ' + str(User.data['numOfFilesNotRead']))
-            ImportData.pte_Output.appendPlainText(str(User.data['data']))
+            importDataWidget.pte_Output.clear()
+            importDataWidget.pte_Output.appendPlainText('Num Of Files: ' + str(data['numOfFiles']))
+            importDataWidget.pte_Output.appendPlainText('Num Of Error Files: ' + str(data['numOfFilesNotRead']))
+            importDataWidget.pte_Output.appendPlainText(str(data['data']))
     
-    def exportCSV():
-        pd.DataFrame(User.data['data']).to_csv('data.csv', index=False)
+    def exportCSV(self):
+        pd.DataFrame(self.globalUser.data).to_csv('data.csv', index=False)
     
-    def exportJSON():
-        pd.DataFrame(User.data['data']).to_json('data.json', orient='records')
+    def exportJSON(self):
+        pd.DataFrame(self.globalUser.data).to_json('data.json', orient='records')
         
-    def exportPickle():
-        pd.DataFrame(User.data['data']).to_pickle('data.pkl')
+    def exportPickle(self):
+        pd.DataFrame(self.globalUser.data).to_pickle('data.pkl')
     
 class FileDialog(QFileDialog):
     def __init__(self, *args, **kwargs):

@@ -98,4 +98,5 @@ class Ui_Graphs(QWidget):
         self.btnViewAttributes.setText(_translate("Form", "View data attributes"))
 
     
-    
+    def importGlobalUser(self, user):
+        self.globalUser = user

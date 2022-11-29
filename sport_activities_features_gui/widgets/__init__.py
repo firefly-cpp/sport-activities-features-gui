@@ -1,9 +1,12 @@
-from widgets.ImportData import Ui_ImportData
+# from widgets.ImportDataWidget import Ui_ImportData
+# from widgets.CalendarWidget import Ui_Calendar
+# from widgets.TransformationsWidget import Ui_Transoformations
+# from widgets.GraphsWidget import Ui_Graphs
 
 __all__ = [
     'Ui_ImportData',
     'Ui_Calendar',
-    'Ui_Transofrmations',
+    'Ui_Transoformations',
     'Ui_Graphs'
 ]
 

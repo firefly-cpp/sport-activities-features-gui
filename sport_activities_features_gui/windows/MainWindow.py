@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from widgets.ImportDataWidget import Ui_ImportDataWidget
 from widgets.GraphsWidget import Ui_GraphsWidget
+from widgets.CalendarWidget import Ui_CalendarWidget
 from models.User import User
 
 
@@ -10,8 +11,8 @@ class Ui_MainWindow(QMainWindow):
     globalUser: User
     importDataUi: Ui_ImportDataWidget
     graphsUi = Ui_GraphsWidget
+    calendarUi = Ui_CalendarWidget
     transofrmationsUi = [] # placeholder
-    calendarUi = [] # placeholder
     
     def __init__(self):
         QMainWindow.__init__(self)
@@ -97,6 +98,9 @@ class Ui_MainWindow(QMainWindow):
         self.mainLayout_1.addWidget(self.importDataUi)
         self.graphsUi = Ui_GraphsWidget()
         self.mainLayout_2.addWidget(self.graphsUi)
+        self.calendarUi = Ui_CalendarWidget()
+        self.mainLayout_4.addWidget(self.calendarUi)
+        
         
         self.actionExit.triggered.connect(self.close)
         
@@ -119,4 +123,5 @@ class Ui_MainWindow(QMainWindow):
     def importGlobalUser(self, user):
         self.globalUser = user
         self.importDataUi.importGlobalUser(user)
+        self.calendarUi.importGlobalUser(user)
         self.graphsUi.importGlobalUser(user)

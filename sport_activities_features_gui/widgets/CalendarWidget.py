@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QApplication, QCalendarWidget
 from models.User import User
 from datetime import datetime
 import numpy as np
+import math
 
 
 class Ui_CalendarWidget(QWidget):
@@ -49,7 +50,7 @@ class Ui_CalendarWidget(QWidget):
         self.setup()
  
     def highlightDates(self):
-        if('start_time' in self.globalUser.data):    
+        if('start_time' in self.globalUser.data):
             for date in self.globalUser.data['start_time'].unique():
                 self.calendarWidget.setDateTextFormat(self.toDatetime(date), self.highlight_format)
         else:
@@ -65,7 +66,7 @@ class Ui_CalendarWidget(QWidget):
         DATE - a python datetime object
         """
         
-        if(date != None and date != np.datetime64('NaT')):
+        if(date != None and str(date) != str(np.datetime64('NaT'))):
             timestamp = ((date - np.datetime64('1970-01-01T00:00:00'))
                         / np.timedelta64(1, 's'))
             return datetime.utcfromtimestamp(timestamp)
@@ -78,7 +79,6 @@ class Ui_CalendarWidget(QWidget):
         self.calendarWidget.setNavigationBarVisible(True)
         self.calendarWidget.setFirstDayOfWeek(Qt.Monday)
         self.calendarWidget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.NoVerticalHeader)
-                
         self.highlightDates()
         
         

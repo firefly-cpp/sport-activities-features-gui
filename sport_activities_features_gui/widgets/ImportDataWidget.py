@@ -2,7 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
 from logic.ImportData import ImportData
 from models.User import User
-
+from sport_activities_features_gui.widgets.CalendarWidget import Ui_CalendarWidget
+import sip
 
 class PandasModel(QtCore.QAbstractTableModel):
     """
@@ -33,6 +34,7 @@ class PandasModel(QtCore.QAbstractTableModel):
 class Ui_ImportDataWidget(QWidget):
     globalUser: User
     importDataFn: ImportData
+    refMainWindow = None
 
     def __init__(self):
         QWidget.__init__(self)
@@ -57,8 +59,8 @@ class Ui_ImportDataWidget(QWidget):
         self.pte_Output = QtWidgets.QTableView(self.verticalLayoutWidget)
         self.pte_Output.setEnabled(True)
         self.pte_Output.setObjectName("pte_Output")
-        
         self.verticalLayout.addWidget(self.pte_Output)
+        
         self.lbl_ExportRawData = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.lbl_ExportRawData.setObjectName("lbl_ExportRawData")
         self.verticalLayout.addWidget(self.lbl_ExportRawData)
@@ -105,6 +107,10 @@ class Ui_ImportDataWidget(QWidget):
     
     def readFiles(self):
         self.importDataFn.openFileDialog(self)
+        # Refresh table in import data
+        # self.refreshTable()
+        # Refresh calendar widget
+        self.refreshCalendarWidget()
         
     def exportCSV(self):
         self.importDataFn.exportCSV()
@@ -131,3 +137,20 @@ class Ui_ImportDataWidget(QWidget):
             
             model = PandasModel(df2)
             self.pte_Output.setModel(model)
+            
+    def refreshTable(self):
+        self.verticalLayout.removeWidget(self.pte_Output)
+        sip.delete(self.pte_Output)
+        self.pte_Output = QtWidgets.QTableView(self.verticalLayoutWidget)
+        self.pte_Output.setEnabled(True)
+        self.pte_Output.setObjectName("pte_Output")
+        self.verticalLayout.addWidget(self.pte_Output)
+        self.importGlobalUser(self.globalUser)
+        
+    def refreshCalendarWidget(self):
+        self.refMainWindow.mainLayout_4.removeWidget(self.refMainWindow.calendarUi)
+        sip.delete(self.refMainWindow.calendarUi)
+        self.refMainWindow.calendarUi = None
+        self.refMainWindow.calendarUi = Ui_CalendarWidget()
+        self.refMainWindow.mainLayout_4.addWidget(self.refMainWindow.calendarUi)
+        self.refMainWindow.calendarUi.importGlobalUser(self.globalUser)

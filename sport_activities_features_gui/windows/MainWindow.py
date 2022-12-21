@@ -74,8 +74,6 @@ class Ui_MainWindow(QMainWindow):
         self.menubar = QtWidgets.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
-        # self.menuFile = QtWidgets.QMenu(self.menubar)
-        # self.menuFile.setObjectName("menuFile")
         self.setMenuBar(self.menubar)
         self.actionExit = QtWidgets.QAction(self)
         self.actionExit.setObjectName("actionExit")
@@ -87,24 +85,23 @@ class Ui_MainWindow(QMainWindow):
         self.actionGraphs.setObjectName("actionGraphs")
         self.actionTransformations = QtWidgets.QAction(self)
         self.actionTransformations.setObjectName("actionTransformations")
-        # self.menuFile.addAction(self.actionExit)
-        # self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(self)
         self.mainTabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(self)
         
+        # TAB WIDGETS
         self.importDataUi = Ui_ImportDataWidget()
         self.mainLayout_1.addWidget(self.importDataUi)
         self.graphsUi = Ui_GraphsWidget()
         self.mainLayout_2.addWidget(self.graphsUi)
         self.calendarUi = Ui_CalendarWidget()
         self.mainLayout_4.addWidget(self.calendarUi)
-        
+        # Pass references
+        self.importDataUi.refMainWindow = self
         
         self.actionExit.triggered.connect(self.close)
         
-
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle("Sport activites features GUI")
         self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_ImportData), "Import Data")
@@ -112,8 +109,6 @@ class Ui_MainWindow(QMainWindow):
         self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Transformations), "Transformations")
         self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Calender), "Calendar")
         
-        # self.menuFile.setTitle("File")
-        # self.actionExit.setText("Exit")
         self.actionImport_Data.setText("Import Data")
         self.actionGraphs.setText("Graphs")
         self.actionTransformations.setText("Transformations")

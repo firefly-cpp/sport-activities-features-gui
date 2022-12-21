@@ -49,8 +49,8 @@ class Ui_CalendarWidget(QWidget):
         self.setup()
  
     def highlightDates(self):
-        if('date' in self.globalUser.data):    
-            for date in self.globalUser.data['date'].unique():
+        if('start_time' in self.globalUser.data):    
+            for date in self.globalUser.data['start_time'].unique():
                 self.calendarWidget.setDateTextFormat(self.toDatetime(date), self.highlight_format)
         else:
             print('No dates to highlight')

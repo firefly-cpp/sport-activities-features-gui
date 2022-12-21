@@ -15,11 +15,17 @@ class ImportData:
     def openFileDialog(self, importDataWidget: ImportDataWidget):
         dialog = FileDialog()
         if dialog.exec_() == dialog.Accepted:
-            dirPath = dialog.selectedFiles()
             
+            dirPath = dialog.selectedFiles()
             mt = MultiThread.MultiThread()
-            data = mt.bulk_load(dirPath[0],4)
+            
+            #if(len(dirPath) == 1):
+                #dataFrame = mt.single_load(dirPath[0])
+            #else:
+            
+            data = mt.bulk_load(dirPath,4)
             dataFrame = pd.DataFrame(data['data'])
+
             self.globalUser.saveData(dataFrame)
             
             importDataWidget.OutputExistingData(dataFrame)
@@ -37,7 +43,7 @@ class FileDialog(QFileDialog):
     def __init__(self, *args, **kwargs):
         super(FileDialog, self).__init__(*args, **kwargs)
         self.setOption(QFileDialog.DontUseNativeDialog, True)
-        self.setFileMode(QFileDialog.Directory)
+        self.setFileMode(QFileDialog.ExistingFiles)
         self.setNameFilters(["TCX Files (*.tcx)"])
 
     def accept(self):

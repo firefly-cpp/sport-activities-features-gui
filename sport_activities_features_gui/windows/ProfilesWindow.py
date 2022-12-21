@@ -46,7 +46,8 @@ class Ui_ProfilesWindow(QMainWindow):
         
         self.dialog = Ui_MainWindow()
         self.addProfileWindow = Ui_AddProfileWindow(self)
-
+        if not os.path.exists(getStorePath()) : 
+            os.mkdir(getStorePath())
         with os.scandir(getStorePath()) as entries:
             for entry in entries:
                 self.profileList.append(entry.name)

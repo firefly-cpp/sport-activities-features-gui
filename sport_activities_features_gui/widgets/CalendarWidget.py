@@ -47,13 +47,14 @@ class Ui_CalendarWidget(QWidget):
     def importGlobalUser(self, user):
         self.globalUser = user
         self.setup()
-
-    def getDates(self):
-        return self.globalUser.data['date'].unique()
-    
+ 
     def highlightDates(self):
-        for date in self.getDates():
-            self.calendarWidget.setDateTextFormat(self.toDatetime(date), self.highlight_format)
+        if('date' in self.globalUser.data):    
+            for date in self.globalUser.data['date'].unique():
+                self.calendarWidget.setDateTextFormat(self.toDatetime(date), self.highlight_format)
+        else:
+            print('No dates to highlight')
+        
     
     def toDatetime(self, date):
         """

@@ -3,6 +3,33 @@ from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
 from logic.ImportData import ImportData
 from models.User import User
 
+
+class PandasModel(QtCore.QAbstractTableModel):
+    """
+    Class to populate a table view with a pandas dataframe
+    """
+
+    def __init__(self, data, parent=None):
+        QtCore.QAbstractTableModel.__init__(self, parent)
+        self._data = data
+
+    def rowCount(self, parent=None):
+        return len(self._data.values)
+
+    def columnCount(self, parent=None):
+        return self._data.columns.size
+
+    def data(self, index, role=QtCore.Qt.DisplayRole):
+        if index.isValid():
+            if role == QtCore.Qt.DisplayRole:
+                return str(self._data.iloc[index.row()][index.column()])
+        return None
+
+    def headerData(self, col, orientation, role):
+        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+            return self._data.columns[col]
+        return None
+
 class Ui_ImportDataWidget(QWidget):
     globalUser: User
     importDataFn: ImportData
@@ -26,10 +53,11 @@ class Ui_ImportDataWidget(QWidget):
         self.lbl_Output = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.lbl_Output.setObjectName("lbl_Output")
         self.verticalLayout.addWidget(self.lbl_Output)
-        self.pte_Output = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
+          
+        self.pte_Output = QtWidgets.QTableView(self.verticalLayoutWidget)
         self.pte_Output.setEnabled(True)
-        self.pte_Output.setReadOnly(True)
         self.pte_Output.setObjectName("pte_Output")
+        
         self.verticalLayout.addWidget(self.pte_Output)
         self.lbl_ExportRawData = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.lbl_ExportRawData.setObjectName("lbl_ExportRawData")
@@ -91,10 +119,15 @@ class Ui_ImportDataWidget(QWidget):
     def importGlobalUser(self, user: User):
         self.globalUser = user
         self.importDataFn = ImportData(user)
-        self.consoleOutputExistingData()
+        self.OutputExistingData(self.globalUser.data)
         
-    def consoleOutputExistingData(self):
+    def OutputExistingData(self, dataFrame):
         if self.globalUser.data.empty is False :
-            self.pte_Output.clear()
-            self.pte_Output.appendPlainText('Num Of Existing Files: ' + str(len(self.globalUser.data.index)))
-            self.pte_Output.appendPlainText(str(self.globalUser.data))
+            
+            df2 = dataFrame.copy()
+            for column in df2.columns :
+                if(df2[column].dtype == type(list)):
+                    df2.drop(column, axis=1, inplace=True)
+            
+            model = PandasModel(df2)
+            self.pte_Output.setModel(model)

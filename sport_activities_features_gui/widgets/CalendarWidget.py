@@ -64,9 +64,13 @@ class Ui_CalendarWidget(QWidget):
         Output:
         DATE - a python datetime object
         """
-        timestamp = ((date - np.datetime64('1970-01-01T00:00:00'))
-                    / np.timedelta64(1, 's'))
-        return datetime.utcfromtimestamp(timestamp)
+        
+        if(date != None and date != np.datetime64('NaT')):
+            timestamp = ((date - np.datetime64('1970-01-01T00:00:00'))
+                        / np.timedelta64(1, 's'))
+            return datetime.utcfromtimestamp(timestamp)
+        else:
+            return datetime.now()
     
     def setup(self):
         self.calendarWidget.setGridVisible(True)

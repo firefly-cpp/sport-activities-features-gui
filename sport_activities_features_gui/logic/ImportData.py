@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QFileDialog
+from PyQt5 import QtCore
 from logic import MultiThread
 from sport_activities_features_gui.models.User import User
 from widgets import ImportDataWidget
@@ -21,10 +22,7 @@ class ImportData:
             dataFrame = pd.DataFrame(data['data'])
             self.globalUser.saveData(dataFrame)
             
-            importDataWidget.pte_Output.clear()
-            importDataWidget.pte_Output.appendPlainText('Num Of Files: ' + str(data['numOfFiles']))
-            importDataWidget.pte_Output.appendPlainText('Num Of Error Files: ' + str(data['numOfFilesNotRead']))
-            importDataWidget.pte_Output.appendPlainText(str(data['data']))
+            importDataWidget.OutputExistingData(dataFrame)
     
     def exportCSV(self):
         pd.DataFrame(self.globalUser.data).to_csv('data.csv', index=False)

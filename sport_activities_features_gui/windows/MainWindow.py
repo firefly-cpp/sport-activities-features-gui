@@ -86,7 +86,7 @@ class Ui_MainWindow(QMainWindow):
         self.actionTransformations = QtWidgets.QAction(self)
         self.actionTransformations.setObjectName("actionTransformations")
 
-        self.retranslateUi(self)
+        self.retranslateUi()
         self.mainTabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(self)
         
@@ -102,8 +102,8 @@ class Ui_MainWindow(QMainWindow):
         
         self.actionExit.triggered.connect(self.close)
         
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle("Sport activites features GUI")
+    def retranslateUi(self):
+        self.setWindowTitle("Sport activites features GUI")
         self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_ImportData), "Import Data")
         self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Graphs), "Graphs")
         self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Transformations), "Transformations")
@@ -116,6 +116,7 @@ class Ui_MainWindow(QMainWindow):
 
     # IMPORT GLOBAL USER
     def importGlobalUser(self, user):
+        self.setWindowTitle("Sport activites features GUI - for profile : \""+user.username+"\"")
         self.globalUser = user
         self.importDataUi.importGlobalUser(user)
         self.calendarUi.importGlobalUser(user)

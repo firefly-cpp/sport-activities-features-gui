@@ -79,15 +79,8 @@ class Ui_ImportDataWidget(QWidget):
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
-
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
-        
-        #self.actionOpenFile = QtWidgets.QAction(self)
-        #self.actionOpenFile.setObjectName("actionOpenFile")
-        
-        #self.pushButton.addAction(self.actionOpenFile)
-        #self.actionOpenFile.triggered.connect(ImportData.ImportData.openFile())
 
         self.pushButton.clicked.connect(self.readFiles)
         self.btn_Csv.clicked.connect(self.exportCSV)

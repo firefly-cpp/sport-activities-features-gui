@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
+from PyQt5.QtWidgets import QWidget, QFileDialog
 from logic.ImportData import ImportData
 from models.User import User
 from sport_activities_features_gui.widgets.CalendarWidget import Ui_CalendarWidget
@@ -79,7 +79,7 @@ class Ui_ImportDataWidget(QWidget):
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
-        self.retranslateUi(self)
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
         self.pushButton.clicked.connect(self.readFiles)
@@ -87,9 +87,9 @@ class Ui_ImportDataWidget(QWidget):
         self.btn_Json.clicked.connect(self.exportJSON)
         self.btn_Pickle.clicked.connect(self.exportPickle)
    
-    def retranslateUi(self, ImportData):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        ImportData.setWindowTitle(_translate("ImportData", "Form"))
+        self.setWindowTitle(_translate("ImportData", "Form"))
         self.lbl_ImportData.setText(_translate("ImportData", "Import Data:"))
         self.pushButton.setText(_translate("ImportData", "Select folder / file"))
         self.lbl_Output.setText(_translate("ImportData", "Output:"))
@@ -100,19 +100,29 @@ class Ui_ImportDataWidget(QWidget):
     
     def readFiles(self):
         self.importDataFn.openFileDialog(self)
-        # Refresh table in import data
-        # self.refreshTable()
         # Refresh calendar widget
         self.refreshCalendarWidget()
         
+    def saveFileDialog(self, defaultFileName, fileFormat):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()",defaultFileName, fileFormat, options=options)
+        return fileName
+    
     def exportCSV(self):
-        self.importDataFn.exportCSV()
+        filePath = self.saveFileDialog("data.csv", "CSV File (*.csv)")
+        if(filePath != '' and filePath != None): 
+            self.importDataFn.exportCSV(filePath)
         
     def exportJSON(self):
-        self.importDataFn.exportJSON()
+        filePath = self.saveFileDialog("data.json", "Json File (*.json)")
+        if(filePath != '' and filePath != None): 
+            self.importDataFn.exportJSON(filePath)
     
     def exportPickle(self):
-        self.importDataFn.exportPickle()
+        filePath = self.saveFileDialog("data.pickle", "Pickle File (*.pickle)")
+        if(filePath != '' and filePath != None): 
+            self.importDataFn.exportPickle(filePath)
         
     # IMPORT GLOBAL USER
     def importGlobalUser(self, user: User):
@@ -130,15 +140,6 @@ class Ui_ImportDataWidget(QWidget):
             
             model = PandasModel(df2)
             self.pte_Output.setModel(model)
-            
-    def refreshTable(self):
-        self.verticalLayout.removeWidget(self.pte_Output)
-        sip.delete(self.pte_Output)
-        self.pte_Output = QtWidgets.QTableView(self.verticalLayoutWidget)
-        self.pte_Output.setEnabled(True)
-        self.pte_Output.setObjectName("pte_Output")
-        self.verticalLayout.addWidget(self.pte_Output)
-        self.importGlobalUser(self.globalUser)
         
     def refreshCalendarWidget(self):
         self.refMainWindow.mainLayout_4.removeWidget(self.refMainWindow.calendarUi)

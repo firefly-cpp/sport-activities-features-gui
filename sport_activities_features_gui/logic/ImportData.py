@@ -30,14 +30,14 @@ class ImportData:
             
             importDataWidget.OutputExistingData(dataFrame)
     
-    def exportCSV(self):
-        pd.DataFrame(self.globalUser.data).to_csv('data.csv', index=False)
+    def exportCSV(self, filePath):
+        pd.DataFrame(self.globalUser.data).to_csv(filePath, index=False)
     
-    def exportJSON(self):
-        pd.DataFrame(self.globalUser.data).to_json('data.json', orient='records')
+    def exportJSON(self, filePath):
+        pd.DataFrame(self.globalUser.data).to_json(filePath, orient='records')
         
-    def exportPickle(self):
-        pd.DataFrame(self.globalUser.data).to_pickle('data.pkl')
+    def exportPickle(self, filePath):
+        pd.DataFrame(self.globalUser.data).to_pickle(filePath)
     
 class FileDialog(QFileDialog):
     def __init__(self, *args, **kwargs):

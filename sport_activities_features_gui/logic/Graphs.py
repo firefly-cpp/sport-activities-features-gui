@@ -13,10 +13,22 @@ class Graphs:
     def __init__(self, data):
         self.activity_list = data
         
+    def _sum(self, arr):
+        sum = 0
+        for i in arr:
+            sum = sum + i
+        return(sum)
+    
+    def _sumProp(self, array, property):
+        sum = 0
+        for i in array:
+            if i[property] is not None:
+                sum = sum + i[property]
+        return(sum)
+    
     def allBikingDistanceRidden(self):
-        dict = self.activity_list.to_dict('records')
         gData = []
-        for a in dict:
+        for a in self.activity_list.to_dict('records'):
             if (a['activity_type'] == 'Biking'):
                 gData.append(a['distance'])
         plt.plot(gData)
@@ -106,19 +118,6 @@ class Graphs:
         all_intervals = Intervals.return_intervals()
         Map = PlotData()
         Map.draw_intervals_in_map(el.timestamps, el.distances, all_intervals)
-        
-    def _sum(arr):
-        sum = 0
-        for i in arr:
-            sum = sum + i
-        return(sum)
-    
-    def _sumProp(array, property):
-        sum = 0
-        for i in array:
-            if i[property] is not None:
-                sum = sum + i[property]
-        return(sum)
     
     def customGraph(self):
         print("Not implemented")

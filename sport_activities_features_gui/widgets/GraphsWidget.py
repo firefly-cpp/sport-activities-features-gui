@@ -1,7 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget
-
+from logic.Graphs import Graphs
 class Ui_GraphsWidget(QWidget):
+    exampleGraphs = [ "All biking distances ridden",
+                     "Sum of biking duration for competitor",
+                     "Altitude vs calories",
+                     "Activity type vs calories",
+                     "Map with identified hills",
+                     "Map with identified intervals" ]
+    graphFn = None
+    
     def __init__(self):
         QWidget.__init__(self)
         self.setObjectName("Form")
@@ -19,22 +27,13 @@ class Ui_GraphsWidget(QWidget):
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(9, 19, 761, 201))
         self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.gridLayoutWidget_3)
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_3.setContentsMargins(0, 10, 0, 0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.listWidget = QtWidgets.QListWidget(self.gridLayoutWidget_3)
         self.listWidget.setObjectName("listWidget")
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
+        # Add example graphs to combo box
+        self.listWidget.addItems(self.exampleGraphs)
+        self.listWidget.setCurrentRow(0)
         self.gridLayout_3.addWidget(self.listWidget, 0, 0, 1, 1)
         self.btnGenerateGraph = QtWidgets.QPushButton(self.gridLayoutWidget_3)
         self.btnGenerateGraph.setObjectName("btnGenerateGraph")
@@ -67,28 +66,19 @@ class Ui_GraphsWidget(QWidget):
         self.btnViewAttributes.setObjectName("btnViewAttributes")
         self.gridLayout.addWidget(self.btnViewAttributes, 1, 2, 1, 1)
         self.gridLayout_2.addWidget(self.groupBox, 1, 0, 1, 1)
+        
+        self.btnGenerateGraph.pressed.connect(self.generateGraph)
+        self.btnGenerateCustomGraph.pressed.connect(self.generateCustomGraph)
 
-        self.retranslateUi(self)
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        self.setWindowTitle(_translate("Form", "Form"))
         self.exampleGraphGroupBox.setTitle(_translate("Form", "Example graphs"))
         __sortingEnabled = self.listWidget.isSortingEnabled()
         self.listWidget.setSortingEnabled(False)
-        item = self.listWidget.item(0)
-        item.setText(_translate("Form", "All biking distance ridden"))
-        item = self.listWidget.item(1)
-        item.setText(_translate("Form", "Sum of biking duration for competitor"))
-        item = self.listWidget.item(2)
-        item.setText(_translate("Form", "Altitude vs calories"))
-        item = self.listWidget.item(3)
-        item.setText(_translate("Form", "Activity type vs calories"))
-        item = self.listWidget.item(4)
-        item.setText(_translate("Form", "Map with identified hills"))
-        item = self.listWidget.item(5)
-        item.setText(_translate("Form", "Map with identified intervals"))
         self.listWidget.setSortingEnabled(__sortingEnabled)
         self.btnGenerateGraph.setText(_translate("Form", "Generate graph"))
         self.groupBox.setTitle(_translate("Form", "Custom graph"))
@@ -97,6 +87,30 @@ class Ui_GraphsWidget(QWidget):
         self.label_2.setText(_translate("Form", "Y axis"))
         self.btnViewAttributes.setText(_translate("Form", "View data attributes"))
 
-    
     def importGlobalUser(self, user):
         self.globalUser = user
+        self.graphFn = Graphs(user.data)
+        
+    def generateGraph(self):
+        chosenGraph = self.listWidget.currentItem().text()
+        i = self.exampleGraphs.index(chosenGraph)
+        if i != -1:
+           match i:
+            case 0:
+                self.graphFn.allBikingDistanceRidden()
+            case 1:
+                self.graphFn.sumOfBikingDurationForCompetitor()
+            case 2:
+                self.graphFn.altitudeVsCalories()
+            case 3:
+                self.graphFn.activityTypeVsCalories()
+            case 4:
+                self.graphFn.mapWithIdentifiedHills()
+            case 5:
+                self.graphFn.mapWithIdentifiedIntervals()
+                
+    def generateCustomGraph(self):
+        # Get attribute 1
+        # Get attribute 2
+        # Call function
+        self.graphFn.customGraph()

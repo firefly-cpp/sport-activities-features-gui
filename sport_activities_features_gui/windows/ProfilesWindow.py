@@ -8,9 +8,8 @@ import os
 from globalVars import *
 
 class Ui_ProfilesWindow(QMainWindow):
-    currentProfile = 'anonymous'
+    currentProfile = None
     profileList = []
-    itemIndex = 0
     
     def __init__(self):
         QMainWindow.__init__(self)
@@ -31,7 +30,6 @@ class Ui_ProfilesWindow(QMainWindow):
         self.btnRemoveProfile.setGeometry(QtCore.QRect(150, 220, 121, 28))
         self.btnRemoveProfile.setObjectName("btnRemoveProfile")
         self.profilesLV = QtWidgets.QListWidget(self.groupBox)
-        # self.profilesLV.setGeometry(QtCore.QRect(20, 20, 256, 192))
         self.profilesLV.setGeometry(QtCore.QRect(20, 30, 256, 185))
         
         self.setCentralWidget(self.centralwidget)
@@ -44,7 +42,6 @@ class Ui_ProfilesWindow(QMainWindow):
         self.btnAddProfile.clicked.connect(self.showAddProfileWindow)
         self.btnRemoveProfile.clicked.connect(self.removeProfile)
         
-        self.dialog = Ui_MainWindow()
         self.addProfileWindow = Ui_AddProfileWindow(self)
         if not os.path.exists(getStorePath()) : 
             os.mkdir(getStorePath())
@@ -52,11 +49,13 @@ class Ui_ProfilesWindow(QMainWindow):
             for entry in entries:
                 self.profileList.append(entry.name)
         
-        # Add profiles to list view        
+        # Add profiles to list view
         for profile in self.profileList:
             self.profilesLV.addItem(profile)
-            self.itemIndex += 1
-        self.profilesLV.setCurrentRow(0)
+        # Set initial chosen profile
+        if(len(self.profileList) > 0):
+            self.profilesLV.setCurrentRow(0)
+            self.currentProfile = self.profileList[0]
 
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -77,10 +76,14 @@ class Ui_ProfilesWindow(QMainWindow):
     
     # LOGIN
     def login(self):
-        self.hide()
-        user: User = initGlobalUser(self.currentProfile, [])
-        self.dialog.importGlobalUser(user)
-        self.dialog.show()
+        if (self.currentProfile != None):
+            self.hide()
+            user: User = initGlobalUser(self.currentProfile, [])
+            self.dialog = Ui_MainWindow()
+            self.dialog.importGlobalUser(user)
+            self.dialog.show()
+        else:
+            QMessageBox.warning(self, 'Warning', 'Add a profile first', QMessageBox.Ok)
     
     # ADD PROFILE
     def showAddProfileWindow(self):
@@ -94,6 +97,8 @@ class Ui_ProfilesWindow(QMainWindow):
         newProfileItem.setText(newProfile)
         self.profilesLV.addItem(newProfileItem)
         self.profileList.append(newProfile)
+        self.profilesLV.setCurrentRow(len(self.profileList)-1)
+        self.currentProfile = newProfile
         
         newProfilePath = getStorePath() + newProfile
         if not os.path.isdir(newProfilePath):

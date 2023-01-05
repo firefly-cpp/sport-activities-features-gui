@@ -134,10 +134,11 @@ class Ui_ImportDataWidget(QWidget):
         if self.globalUser.data.empty is False :
             
             df2 = dataFrame.copy()
-            for column in df2.columns :
-                if(df2[column].dtype == type(list)):
-                    df2.drop(column, axis=1, inplace=True)
-            
+            # for column in df2.columns :
+            #     if(df2[column] != None):
+            #         if(df2[column].dtype == type(list)):
+            #             df2 = df2.drop(column, axis=1, inplace=True)
+            df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
             model = PandasModel(df2)
             self.pte_Output.setModel(model)
         

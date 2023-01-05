@@ -13,7 +13,7 @@ class Ui_TransformationsWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 800, 600))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 800, 300))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.setObjectName("Transformations")
         self.resize(800, 600)
@@ -30,14 +30,13 @@ class Ui_TransformationsWidget(QWidget):
         self.checkBox.setGeometry(QtCore.QRect(10, 430, 121, 17))
         self.checkBox.setObjectName("checkBox")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setContentsMargins(15, 15, 15, 15)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
 
-        self.tableWidget = QtWidgets.QTableWidget(self.verticalLayoutWidget)
-        self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(0)
-        self.tableWidget.setRowCount(0)
+        self.tableWidget = QtWidgets.QTableView(self.verticalLayoutWidget)
         self.tableWidget.setEnabled(True)
+        self.tableWidget.setObjectName("tableWidget")
+        self.verticalLayout_2.addWidget(self.tableWidget)
         
         self.verticalLayout_2.addWidget(self.tableWidget)
         self.retranslateUi(self)
@@ -61,14 +60,12 @@ class Ui_TransformationsWidget(QWidget):
         self.OutPutExistingData(self.globalUser.data)
 
     def OutPutExistingData(self, dataframe : pd.DataFrame):
-        if self.globalUser.data.empty is False :
-            self.tableWidget.clear()
+        # if self.globalUser.data.empty is False :
+            # self.tableWidget.clear()
 
         df2 = dataframe.copy()
-        for column in df2.columns :
-            if(df2[column].dtype == type(list)):
-                df2.drop(column, axis=1, inplace=True)
-
+        df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
+        
         model = PandasModel(df2)
         self.tableWidget.setModel(model)
 

@@ -4,7 +4,7 @@ from itertools import product
 from multiprocessing import Pool, Manager
 
 class MultiThread:  
-    def single_load(path_of_file: str) -> pd.DataFrame: 
+    def single_load(self, path_of_file: str) -> pd.DataFrame: 
         try:
             tcx_file = TCXFile()
             activity = tcx_file.read_one_file(path_of_file)
@@ -26,15 +26,16 @@ class MultiThread:
             a=1
             # better error handling
     
-    def bulk_load(self, directory_path: str, num_of_processes: int) -> dict:
+    def bulk_load(self, files: list, num_of_processes: int) -> dict:
         tcx_file = None
-        files = None
-        try:
-            tcx_file = TCXFile()
-            files = tcx_file.read_directory(directory_name=directory_path)
-        except:
-            # better error handling 
-            return None
+        # files = None
+        # try:
+        #     tcx_file = TCXFile()
+        #     files = tcx_file.read_directory(directory_name=directory_path)
+        # except:
+        #     # better error handling 
+        #     return None
+        
         with Manager() as manager:
             data = manager.list()
             with Pool(processes=num_of_processes) as pool:

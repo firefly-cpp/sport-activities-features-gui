@@ -15,4 +15,6 @@ A simple GUI application which uses the library sports-activities-features to im
   <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_1.jpg?raw=true" alt="Profiles window" width="200"/>
   <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_2.jpg?raw=true" alt="Import tab" width="350"/>
   <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_3.jpg?raw=true" alt="Graphs tab" width="350"/>
+  <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_4.jpg?raw=true" alt="Calendar tab" width="350"/>
+  <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_5.jpg?raw=true" alt="Transformations tab" width="350"/>
 </p>

@@ -27,7 +27,7 @@ class Ui_GraphsWidget(QWidget):
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(9, 19, 761, 201))
         self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.gridLayoutWidget_3)
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_3.setContentsMargins(0, 10, 0, 0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.listWidget = QtWidgets.QListWidget(self.gridLayoutWidget_3)
         self.listWidget.setObjectName("listWidget")

@@ -9,9 +9,13 @@ class Ui_TransformationsWidget(QWidget):
     globalUser: User
     importDataFn: ImportData
     transformations: Transformations
+    mainDF : pd.DataFrame
+    
     
     def __init__(self):
         QWidget.__init__(self)
+        self.mainDF = pd.DataFrame
+        self.transformations = Transformations()
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 800, 300))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -41,6 +45,10 @@ class Ui_TransformationsWidget(QWidget):
         self.verticalLayout_2.addWidget(self.tableWidget)
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
+        self.pushButton.clicked.connect(self.minmax_norm)
+        self.pushButton_2.clicked.connect(self.log_norm)
+        self.pushButton_3.clicked.connect(self.zscore_norm)
+        
         
 
 
@@ -62,12 +70,38 @@ class Ui_TransformationsWidget(QWidget):
     def OutPutExistingData(self, dataframe : pd.DataFrame):
         # if self.globalUser.data.empty is False :
             # self.tableWidget.clear()
-
+        self.mainDF = dataframe.copy()
         df2 = dataframe.copy()
         df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
         
         model = PandasModel(df2)
         self.tableWidget.setModel(model)
+    
+    def minmax_norm(self):
+        if self.mainDF.empty:
+            return 
+        copyDf = self.mainDF.copy()
+        if self.checkBox.isChecked():
+            copyDf = self.transformations.one_hot_encoding(copyDf)
+        copyDf = PandasModel(self.transformations.min_max_normalization(df=copyDf))
+        self.tableWidget.setModel(copyDf)
+
+    def zscore_norm(self):
+        if self.mainDF.empty:
+            return 
+        copyDf = self.mainDF.copy()
+        if self.checkBox.isChecked():
+            copyDf = self.transformations.one_hot_encoding(df=copyDf)
+        copyDf = PandasModel(self.transformations.zscore_normalization(df=copyDf))
+        self.tableWidget.setModel(copyDf)
+
+    def log_norm(self):
+        if self.mainDF.empty:
+            return 
+        copyDf = self.mainDF.copy()
+        if self.checkBox.isChecked():
+            copyDf = self.transformations.one_hot_encoding(copyDf)
+        self.tableWidget.setModel(PandasModel(self.transformations.min_max_normalization(copyDf)))
 
 
 

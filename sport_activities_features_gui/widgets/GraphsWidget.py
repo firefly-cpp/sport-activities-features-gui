@@ -81,6 +81,9 @@ class Ui_GraphsWidget(QWidget):
         self.viewAttributesWindow = Ui_ViewAttributesWindow()
         
         self.plotTypeComboBox.setCurrentText("Bar")
+        self.xAxisInput.setEnabled(False)
+        self.yAxisInput.setEnabled(True)
+        self.plotTypeComboBox.currentTextChanged.connect(self.on_combobox_changed)
         self.btnGenerateGraph.pressed.connect(self.generateGraph)
         self.btnGenerateCustomGraph.pressed.connect(self.generateCustomGraph)
         self.btnViewAttributes.pressed.connect(self.viewAttributes)
@@ -131,3 +134,11 @@ class Ui_GraphsWidget(QWidget):
         
     def viewAttributes(self):
         self.viewAttributesWindow.show()
+        
+    def on_combobox_changed(self, value):
+        if(value == "Bar" or value == "Line"):
+            self.xAxisInput.setEnabled(False)
+            self.yAxisInput.setEnabled(True)
+        else:
+            self.xAxisInput.setEnabled(True)
+            self.yAxisInput.setEnabled(True)

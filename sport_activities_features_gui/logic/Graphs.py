@@ -118,37 +118,30 @@ class Graphs:
         try:
             match plotType:
                 case "Bar":
-                    self.customBarPlot(xAttr, yAttr)
+                    self.customBarPlot(yAttr)
                 case "Scatter":
                     self.customScatterPlot(xAttr, yAttr)
                 case "Line":
-                    self.customLinePlot(xAttr, yAttr)
+                    self.customLinePlot(yAttr)
         except Exception as e:
             QMessageBox.warning(self, 'Warning', e, QMessageBox.Ok)
         
         
-    def customBarPlot(self, xAttr, yAttr):           
+    def customBarPlot(self, yAttr):           
         activityNum = []
-        x = []
         y = []
         activities = self.activity_list.to_dict('records')
         
-        for act in activities:
-            if(xAttr != ''):
-                res = act[xAttr] if math.isnan(act[xAttr]) == False else 0
-                x.append(res)
         for act in activities:
             if(yAttr != ''):
                 res = act[yAttr] if math.isnan(act[yAttr]) == False else 0
                 y.append(res)
 
-        if(xAttr == ''):
-            i=1
-            for y1 in y:
-                activityNum.append(i)
-                i += 1
-            plt.bar(activityNum, y)
-        plt.xlabel(xAttr)
+        i=1
+        for y1 in y:
+            activityNum.append(i)
+            i += 1
+        plt.bar(activityNum, y)
         plt.ylabel(yAttr)
         plt.show()
         
@@ -173,22 +166,14 @@ class Graphs:
             plt.ylabel(yAttr)
             plt.show()
             
-    def customLinePlot(self, xAttr, yAttr):
-        x = []
+    def customLinePlot(self, yAttr):
         y = []
         activities = self.activity_list.to_dict('records')
         
-        for act in activities:
-            if(xAttr != ''):
-                res = act[xAttr] if math.isnan(act[xAttr]) is False else 0
-                x.append(res)
         for act in activities:
             if(yAttr != ''):
                 res = act[yAttr] if math.isnan(act[yAttr]) is False else 0
                 y.append(res)
                     
-        if(xAttr == ''):
-            plt.plot(y, linestyle = 'dotted')
-        else:
-            plt.plot(x, linestyle = 'dotted')
+        plt.plot(y, linestyle = 'dotted')
         plt.show()

@@ -1,7 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget
-
-class Ui_Graphs(QWidget):
+from logic.Graphs import Graphs
+from windows.ViewAttributesWindow import Ui_ViewAttributesWindow
+class Ui_GraphsWidget(QWidget):
+    exampleGraphs = [ "All biking distances ridden",
+                     "Sum of biking duration for competitor",
+                     "Altitude vs calories",
+                     "Activity type vs calories",
+                     "Heart rate by activities"]
+    graphFn = None
+    
     def __init__(self):
         QWidget.__init__(self)
         self.setObjectName("Form")
@@ -19,22 +27,13 @@ class Ui_Graphs(QWidget):
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(9, 19, 761, 201))
         self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.gridLayoutWidget_3)
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_3.setContentsMargins(0, 10, 0, 0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.listWidget = QtWidgets.QListWidget(self.gridLayoutWidget_3)
         self.listWidget.setObjectName("listWidget")
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listWidget.addItem(item)
+        # Add example graphs to combo box
+        self.listWidget.addItems(self.exampleGraphs)
+        self.listWidget.setCurrentRow(0)
         self.gridLayout_3.addWidget(self.listWidget, 0, 0, 1, 1)
         self.btnGenerateGraph = QtWidgets.QPushButton(self.gridLayoutWidget_3)
         self.btnGenerateGraph.setObjectName("btnGenerateGraph")
@@ -43,7 +42,7 @@ class Ui_Graphs(QWidget):
         self.groupBox = QtWidgets.QGroupBox(self.gridLayoutWidget_2)
         self.groupBox.setObjectName("groupBox")
         self.gridLayoutWidget = QtWidgets.QWidget(self.groupBox)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(9, 19, 761, 101))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(9, 19, 761, 171))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -54,41 +53,50 @@ class Ui_Graphs(QWidget):
         self.xAxisInput = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.xAxisInput.setObjectName("xAxisInput")
         self.gridLayout.addWidget(self.xAxisInput, 0, 1, 1, 1)
-        self.btnGenerateCustomGraph = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.btnGenerateCustomGraph.setObjectName("btnGenerateCustomGraph")
-        self.gridLayout.addWidget(self.btnGenerateCustomGraph, 0, 2, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.gridLayoutWidget)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
         self.yAxisInput = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.yAxisInput.setObjectName("yAxisInput")
         self.gridLayout.addWidget(self.yAxisInput, 1, 1, 1, 1)
+        self.gridLayout_4 = QtWidgets.QGridLayout()
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.plotTypeComboBox = QtWidgets.QComboBox(self.gridLayoutWidget)
+        self.plotTypeComboBox.setObjectName("comboBox")
+        self.plotTypeComboBox.addItem("Bar")
+        self.plotTypeComboBox.addItem("Scatter")
+        self.plotTypeComboBox.addItem("Line")
+        self.gridLayout_4.addWidget(self.plotTypeComboBox, 0, 0, 1, 1)
+        self.gridLayout.addLayout(self.gridLayout_4, 2, 1, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout.addWidget(self.label_3, 2, 0, 1, 1)
+        self.btnGenerateCustomGraph = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.btnGenerateCustomGraph.setObjectName("btnGenerateCustomGraph")
+        self.gridLayout.addWidget(self.btnGenerateCustomGraph, 2, 2, 1, 1)
         self.btnViewAttributes = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.btnViewAttributes.setObjectName("btnViewAttributes")
-        self.gridLayout.addWidget(self.btnViewAttributes, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.btnViewAttributes, 0, 2, 1, 1)
         self.gridLayout_2.addWidget(self.groupBox, 1, 0, 1, 1)
+        self.viewAttributesWindow = Ui_ViewAttributesWindow()
+        
+        self.plotTypeComboBox.setCurrentText("Bar")
+        self.xAxisInput.setEnabled(False)
+        self.yAxisInput.setEnabled(True)
+        self.plotTypeComboBox.currentTextChanged.connect(self.on_combobox_changed)
+        self.btnGenerateGraph.pressed.connect(self.generateGraph)
+        self.btnGenerateCustomGraph.pressed.connect(self.generateCustomGraph)
+        self.btnViewAttributes.pressed.connect(self.viewAttributes)
 
-        self.retranslateUi(self)
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        self.setWindowTitle(_translate("Form", "Form"))
         self.exampleGraphGroupBox.setTitle(_translate("Form", "Example graphs"))
         __sortingEnabled = self.listWidget.isSortingEnabled()
         self.listWidget.setSortingEnabled(False)
-        item = self.listWidget.item(0)
-        item.setText(_translate("Form", "All biking distance ridden"))
-        item = self.listWidget.item(1)
-        item.setText(_translate("Form", "Sum of biking duration for competitor"))
-        item = self.listWidget.item(2)
-        item.setText(_translate("Form", "Altitude vs calories"))
-        item = self.listWidget.item(3)
-        item.setText(_translate("Form", "Activity type vs calories"))
-        item = self.listWidget.item(4)
-        item.setText(_translate("Form", "Map with identified hills"))
-        item = self.listWidget.item(5)
-        item.setText(_translate("Form", "Map with identified intervals"))
         self.listWidget.setSortingEnabled(__sortingEnabled)
         self.btnGenerateGraph.setText(_translate("Form", "Generate graph"))
         self.groupBox.setTitle(_translate("Form", "Custom graph"))
@@ -97,6 +105,40 @@ class Ui_Graphs(QWidget):
         self.label_2.setText(_translate("Form", "Y axis"))
         self.btnViewAttributes.setText(_translate("Form", "View data attributes"))
 
-    
     def importGlobalUser(self, user):
         self.globalUser = user
+        self.graphFn = Graphs(user)
+        self.viewAttributesWindow.importData(user.data)
+        
+    def generateGraph(self):
+        chosenGraph = self.listWidget.currentItem().text()
+        i = self.exampleGraphs.index(chosenGraph)
+        if i != -1:
+           match i:
+            case 0:
+                self.graphFn.allBikingDistanceRidden()
+            case 1:
+                self.graphFn.sumOfBikingDurationForCompetitor()
+            case 2:
+                self.graphFn.altitudeVsCalories()
+            case 3:
+                self.graphFn.activityTypeVsCalories()
+            case 4:
+                self.graphFn.heartRateByActivities()
+                
+    def generateCustomGraph(self):
+        xAttr = self.xAxisInput.text()
+        yAttr = self.yAxisInput.text()
+        plotType = self.plotTypeComboBox.currentText()
+        self.graphFn.customGraph(xAttr, yAttr, plotType)
+        
+    def viewAttributes(self):
+        self.viewAttributesWindow.show()
+        
+    def on_combobox_changed(self, value):
+        if(value == "Bar" or value == "Line"):
+            self.xAxisInput.setEnabled(False)
+            self.yAxisInput.setEnabled(True)
+        else:
+            self.xAxisInput.setEnabled(True)
+            self.yAxisInput.setEnabled(True)

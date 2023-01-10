@@ -1,11 +1,40 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
-from functions.ImportData import ImportData
+from PyQt5.QtWidgets import QWidget, QFileDialog
+from logic.ImportData import ImportData
 from models.User import User
+from sport_activities_features_gui.widgets.CalendarWidget import Ui_CalendarWidget
+import sip
 
-class Ui_ImportData(QWidget):
+class PandasModel(QtCore.QAbstractTableModel):
+    """
+    Class to populate a table view with a pandas dataframe
+    """
+
+    def __init__(self, data, parent=None):
+        QtCore.QAbstractTableModel.__init__(self, parent)
+        self._data = data
+
+    def rowCount(self, parent=None):
+        return len(self._data.values)
+
+    def columnCount(self, parent=None):
+        return self._data.columns.size
+
+    def data(self, index, role=QtCore.Qt.DisplayRole):
+        if index.isValid():
+            if role == QtCore.Qt.DisplayRole:
+                return str(self._data.iloc[index.row()][index.column()])
+        return None
+
+    def headerData(self, col, orientation, role):
+        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+            return self._data.columns[col]
+        return None
+
+class Ui_ImportDataWidget(QWidget):
     globalUser: User
     importDataFn: ImportData
+    refMainWindow = None
 
     def __init__(self):
         QWidget.__init__(self)
@@ -26,11 +55,12 @@ class Ui_ImportData(QWidget):
         self.lbl_Output = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.lbl_Output.setObjectName("lbl_Output")
         self.verticalLayout.addWidget(self.lbl_Output)
-        self.pte_Output = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
+          
+        self.pte_Output = QtWidgets.QTableView(self.verticalLayoutWidget)
         self.pte_Output.setEnabled(True)
-        self.pte_Output.setReadOnly(True)
         self.pte_Output.setObjectName("pte_Output")
         self.verticalLayout.addWidget(self.pte_Output)
+        
         self.lbl_ExportRawData = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.lbl_ExportRawData.setObjectName("lbl_ExportRawData")
         self.verticalLayout.addWidget(self.lbl_ExportRawData)
@@ -49,24 +79,17 @@ class Ui_ImportData(QWidget):
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
-
-        self.retranslateUi(self)
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
-        
-        #self.actionOpenFile = QtWidgets.QAction(self)
-        #self.actionOpenFile.setObjectName("actionOpenFile")
-        
-        #self.pushButton.addAction(self.actionOpenFile)
-        #self.actionOpenFile.triggered.connect(ImportData.ImportData.openFile())
 
         self.pushButton.clicked.connect(self.readFiles)
         self.btn_Csv.clicked.connect(self.exportCSV)
         self.btn_Json.clicked.connect(self.exportJSON)
         self.btn_Pickle.clicked.connect(self.exportPickle)
    
-    def retranslateUi(self, ImportData):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        ImportData.setWindowTitle(_translate("ImportData", "Form"))
+        self.setWindowTitle(_translate("ImportData", "Form"))
         self.lbl_ImportData.setText(_translate("ImportData", "Import Data:"))
         self.pushButton.setText(_translate("ImportData", "Select folder / file"))
         self.lbl_Output.setText(_translate("ImportData", "Output:"))
@@ -77,24 +100,52 @@ class Ui_ImportData(QWidget):
     
     def readFiles(self):
         self.importDataFn.openFileDialog(self)
+        # Refresh calendar widget
+        self.refreshCalendarWidget()
         
+    def saveFileDialog(self, defaultFileName, fileFormat):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()",defaultFileName, fileFormat, options=options)
+        return fileName
+    
     def exportCSV(self):
-        self.importDataFn.exportCSV()
+        filePath = self.saveFileDialog("data.csv", "CSV File (*.csv)")
+        if(filePath != '' and filePath != None): 
+            self.importDataFn.exportCSV(filePath)
         
     def exportJSON(self):
-        self.importDataFn.exportJSON()
+        filePath = self.saveFileDialog("data.json", "Json File (*.json)")
+        if(filePath != '' and filePath != None): 
+            self.importDataFn.exportJSON(filePath)
     
     def exportPickle(self):
-        self.importDataFn.exportPickle()
+        filePath = self.saveFileDialog("data.pickle", "Pickle File (*.pickle)")
+        if(filePath != '' and filePath != None): 
+            self.importDataFn.exportPickle(filePath)
         
     # IMPORT GLOBAL USER
     def importGlobalUser(self, user: User):
         self.globalUser = user
         self.importDataFn = ImportData(user)
-        self.consoleOutputExistingData()
+        self.OutputExistingData(self.globalUser.data)
         
-    def consoleOutputExistingData(self):
+    def OutputExistingData(self, dataFrame):
         if self.globalUser.data.empty is False :
-            self.pte_Output.clear()
-            self.pte_Output.appendPlainText('Num Of Existing Files: ' + str(len(self.globalUser.data.index)))
-            self.pte_Output.appendPlainText(str(self.globalUser.data))
+            
+            df2 = dataFrame.copy()
+            # for column in df2.columns :
+            #     if(df2[column] != None):
+            #         if(df2[column].dtype == type(list)):
+            #             df2 = df2.drop(column, axis=1, inplace=True)
+            df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
+            model = PandasModel(df2)
+            self.pte_Output.setModel(model)
+        
+    def refreshCalendarWidget(self):
+        self.refMainWindow.mainLayout_4.removeWidget(self.refMainWindow.calendarUi)
+        sip.delete(self.refMainWindow.calendarUi)
+        self.refMainWindow.calendarUi = None
+        self.refMainWindow.calendarUi = Ui_CalendarWidget()
+        self.refMainWindow.mainLayout_4.addWidget(self.refMainWindow.calendarUi)
+        self.refMainWindow.calendarUi.importGlobalUser(self.globalUser)

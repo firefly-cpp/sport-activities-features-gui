@@ -70,12 +70,13 @@ class Ui_TransformationsWidget(QWidget):
     def OutPutExistingData(self, dataframe : pd.DataFrame):
         # if self.globalUser.data.empty is False :
             # self.tableWidget.clear()
-        self.mainDF = dataframe.copy()
-        df2 = dataframe.copy()
-        df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
-        
-        model = PandasModel(df2)
-        self.tableWidget.setModel(model)
+        if self.globalUser.data.empty is False :
+            self.mainDF = dataframe.copy()
+            df2 = dataframe.copy()
+            df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
+            
+            model = PandasModel(df2)
+            self.tableWidget.setModel(model)
     
     def minmax_norm(self):
         if self.mainDF.empty:

@@ -21,7 +21,7 @@ A simple GUI application which uses the library sports-activities-features to im
 
 ## Installation
 0. Prerequisites
-    - [Python 3.9](https://www.python.org/downloads/release/python-390/) or newer
+    - [Python 3.10](https://www.python.org/downloads/)
     - [Poetry](https://python-poetry.org/docs/#installation)
 1. Clone [this](https://github.com/firefly-cpp/sport-activities-features-gui) repository from GitHub.
 2. Create a virtual environment and install the dependencies using poetry:

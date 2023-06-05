@@ -10,7 +10,7 @@ authors = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 sport-activities-features = "^0.3.7"
 PyQt5 = "^5.15.7"
 QtAwesome = "^1.2.1"

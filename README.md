@@ -19,6 +19,20 @@ A simple GUI application which uses the library sports-activities-features to im
   <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_5.jpg?raw=true" alt="Transformations tab" width="350"/>
 </p>
 
+## Installation
+0. Prerequisites
+    - [Python 3.9](https://www.python.org/downloads/release/python-390/) or newer
+    - [Poetry](https://python-poetry.org/docs/#installation)
+1. Clone [this](https://github.com/firefly-cpp/sport-activities-features-gui) repository from GitHub.
+2. Create a virtual environment and install the dependencies using poetry:
+    ```bash
+    poetry install
+    ```
+3. Run the main.py file
+   1. Script path: `<project_folder>/sport-activities-features-gui/main.py`
+   2. Working directory: `<project_folder>/sport-activities-features-gui/`
+4. On first run 
+
 ## License
 
 This package is distributed under the MIT License. This license can be found online at <http://www.opensource.org/licenses/MIT>.

@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPalette, QTextCharFormat
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QCalendarWidget
 
-from models.User import User
+from sport_activities_features_gui.models.User import User
 from datetime import datetime
 import numpy as np
 import math

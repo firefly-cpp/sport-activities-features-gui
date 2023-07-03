@@ -1,3 +1,9 @@
+<p align="center">
+  <img width="200" src="https://raw.githubusercontent.com/firefly-cpp/sport-activities-features-gui/main/.github/logo/sport_activities.png">
+</p>
+
+---
+
 # sport-activities-features-gui
 
 A simple GUI application which uses the library sports-activities-features to import sports activity files (TCX) and makes it easy to view and transform the data in a GUI environment.

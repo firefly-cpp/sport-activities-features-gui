@@ -13,7 +13,7 @@ class Ui_MainWindow(QMainWindow):
     importDataUi: Ui_ImportDataWidget
     graphsUi = Ui_GraphsWidget
     calendarUi = Ui_CalendarWidget
-    transofrmationsUi = Ui_TransformationsWidget
+    transformationsUi = Ui_TransformationsWidget
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -99,8 +99,8 @@ class Ui_MainWindow(QMainWindow):
         self.mainLayout_2.addWidget(self.graphsUi)
         self.calendarUi = Ui_CalendarWidget()
         self.mainLayout_4.addWidget(self.calendarUi)
-        self.transofrmationsUi = Ui_TransformationsWidget()
-        self.mainLayout_3.addWidget(self.transofrmationsUi)
+        self.transformationsUi = Ui_TransformationsWidget()
+        self.mainLayout_3.addWidget(self.transformationsUi)
         # Pass references
         self.importDataUi.refMainWindow = self
 
@@ -125,4 +125,4 @@ class Ui_MainWindow(QMainWindow):
         self.importDataUi.importGlobalUser(user)
         self.calendarUi.importGlobalUser(user)
         self.graphsUi.importGlobalUser(user)
-        self.transofrmationsUi.importGlobalUser(user)
+        self.transformationsUi.importGlobalUser(user)

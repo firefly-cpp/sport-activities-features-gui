@@ -13,14 +13,15 @@ class Ui_TransformationsWidget(QWidget):
     
     def __init__(self):
         QWidget.__init__(self)
+        self.transformationsFn = None
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 800, 300))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.setObjectName("Transformations")
         self.resize(800, 600)
-        self.pushButton = QtWidgets.QPushButton(self)
-        self.pushButton.setGeometry(QtCore.QRect(10, 340, 75, 23))
-        self.pushButton.setObjectName("pushButton")
+        self.minMaxButton = QtWidgets.QPushButton(self)
+        self.minMaxButton.setGeometry(QtCore.QRect(10, 340, 75, 23))
+        self.minMaxButton.setObjectName("minMaxButton")
         self.pushButton_2 = QtWidgets.QPushButton(self)
         self.pushButton_2.setGeometry(QtCore.QRect(10, 370, 75, 23))
         self.pushButton_2.setObjectName("pushButton_2")
@@ -42,6 +43,9 @@ class Ui_TransformationsWidget(QWidget):
         self.verticalLayout_2.addWidget(self.tableWidget)
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
+
+        self.minMaxButton.pressed.connect(self.minMax)
+
         
 
 
@@ -49,21 +53,29 @@ class Ui_TransformationsWidget(QWidget):
     def retranslateUi(self, Transformations):
         _translate = QtCore.QCoreApplication.translate
         Transformations.setWindowTitle(_translate("Transformations", "Frame"))
-        self.pushButton.setText(_translate("Transformations", "Min-Max"))
+        self.minMaxButton.setText(_translate("Transformations", "Min-Max"))
         self.pushButton_2.setText(_translate("Transformations", "Log"))
         self.pushButton_3.setText(_translate("Transformations", "Z-Score"))
         self.checkBox.setText(_translate("Transformations", "One hot encoding"))
-    
+
+    def minMax(self):
+        transformedData = self.transformationsFn.min_max_normalization(self.globalUser.data)
+        self.OutPutExistingData(transformedData)
+        print("minMax")
 
     def importGlobalUser(self, user: User):
         self.globalUser = user
+        self.transformationsFn= Transformations(user)
         self.importDataFn = ImportData(user)
         if(self.globalUser.data.empty is False):
             self.OutPutExistingData(self.globalUser.data)
 
     def OutPutExistingData(self, dataframe : pd.DataFrame):
         df2 = dataframe.copy()
-        df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
+
+        for column in ['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates']:
+            if column in df2.columns:
+                df2.drop(column, axis=1, inplace=True)
 
         model = PandasModel(df2)
         self.tableWidget.setModel(model)

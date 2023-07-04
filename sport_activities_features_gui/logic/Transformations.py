@@ -7,7 +7,8 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 class Transformations:
-    def __init__(self):
+    def __init__(self,user):
+        self.user = user
         print("Not implemented")
     
     def one_hot_encoding(df) : 
@@ -35,7 +36,7 @@ class Transformations:
             log_df[column] = np.log(log_df[column])
         return log_df
 
-    def clean_df(df: pd.DataFrame) -> pd.DataFrame:
+    def clean_df(self, df: pd.DataFrame) -> pd.DataFrame:
         for column in df:
             column_dtype = str(type(df[column][0]))
             if not ('int' in column_dtype or 'float' in column_dtype) :

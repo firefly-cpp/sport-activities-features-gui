@@ -1,6 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5 import QtCore
+from PyQt6.QtWidgets import QFileDialog
 from logic import MultiThread
 from models.User import User
 from widgets import ImportDataWidget
@@ -14,7 +13,8 @@ class ImportData:
     
     def openFileDialog(self, importDataWidget: ImportDataWidget):
         dialog = FileDialog()
-        if dialog.exec_() == dialog.Accepted:
+        dialog_execution = dialog.exec()
+        if dialog_execution == 1:
             
             dirPath = dialog.selectedFiles()
             mt = MultiThread.MultiThread()
@@ -42,8 +42,8 @@ class ImportData:
 class FileDialog(QFileDialog):
     def __init__(self, *args, **kwargs):
         super(FileDialog, self).__init__(*args, **kwargs)
-        self.setOption(QFileDialog.DontUseNativeDialog, True)
-        self.setFileMode(QFileDialog.ExistingFiles)
+        self.setOption(QFileDialog.options(self).DontUseNativeDialog, True)
+        self.setFileMode(QFileDialog.FileMode.ExistingFiles)
         self.setNameFilters(["TCX Files (*.tcx)"])
 
     def accept(self):

@@ -1,9 +1,12 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QWidget, QFileDialog
+
+import widgets
 from logic.ImportData import ImportData
 from models.User import User
-from sport_activities_features_gui.widgets.CalendarWidget import Ui_CalendarWidget
-import sip
+from PyQt6 import sip
+from PyQt6.QtCore import Qt
+# Rest of the code
 
 class PandasModel(QtCore.QAbstractTableModel):
     """
@@ -20,14 +23,14 @@ class PandasModel(QtCore.QAbstractTableModel):
     def columnCount(self, parent=None):
         return self._data.columns.size
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):
+    def data(self, index, role=QtCore.Qt.ItemDataRole.DisplayRole):
         if index.isValid():
-            if role == QtCore.Qt.DisplayRole:
+            if role == QtCore.Qt.ItemDataRole.DisplayRole:
                 return str(self._data.iloc[index.row()][index.column()])
         return None
 
     def headerData(self, col, orientation, role):
-        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+        if orientation == Qt.Orientation.Horizontal and role == QtCore.Qt.ItemDataRole.DisplayRole:
             return self._data.columns[col]
         return None
 
@@ -76,7 +79,7 @@ class Ui_ImportDataWidget(QWidget):
         self.btn_Pickle.setObjectName("btn_Pickle")
         self.horizontalLayout.addWidget(self.btn_Pickle)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
         self.retranslateUi()
@@ -104,9 +107,9 @@ class Ui_ImportDataWidget(QWidget):
         self.refreshCalendarWidget()
         
     def saveFileDialog(self, defaultFileName, fileFormat):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()",defaultFileName, fileFormat, options=options)
+        fd = QFileDialog()
+        fd.setOption(QFileDialog.Option.DontUseNativeDialog, True)
+        fileName, _ = fd.getSaveFileName(self,"QFileDialog.getSaveFileName()",defaultFileName, fileFormat)
         return fileName
     
     def exportCSV(self):
@@ -131,7 +134,7 @@ class Ui_ImportDataWidget(QWidget):
         self.OutputExistingData(self.globalUser.data)
         
     def OutputExistingData(self, dataFrame):
-        if self.globalUser.data.empty is False :
+        if self.globalUser.data.empty is False:
             
             df2 = dataFrame.copy()
             # for column in df2.columns :
@@ -146,6 +149,6 @@ class Ui_ImportDataWidget(QWidget):
         self.refMainWindow.mainLayout_4.removeWidget(self.refMainWindow.calendarUi)
         sip.delete(self.refMainWindow.calendarUi)
         self.refMainWindow.calendarUi = None
-        self.refMainWindow.calendarUi = Ui_CalendarWidget()
+        self.refMainWindow.calendarUi = widgets.Ui_ImportDataWidget()
         self.refMainWindow.mainLayout_4.addWidget(self.refMainWindow.calendarUi)
         self.refMainWindow.calendarUi.importGlobalUser(self.globalUser)

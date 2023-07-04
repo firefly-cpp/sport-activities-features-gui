@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sport-activities-features-gui"
-version = "0.1.0"
+version = "0.2.0"
 description = "GUI for sport-activities-features package"
 authors = [
     "otiv33 <vito.abeln@gmail.com>",
@@ -14,7 +14,8 @@ python = "^3.10"
 sport-activities-features = "^0.3.7"
 PyQt5 = "^5.15.7"
 QtAwesome = "^1.2.1"
-sip = "^6.7.5"
+PyQt6 = "^6.5.1"
+sip = "^6.7.9"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

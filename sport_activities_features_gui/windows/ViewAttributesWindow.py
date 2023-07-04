@@ -1,10 +1,12 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QMainWindow, QMessageBox, QPushButton
+
 
 class Ui_ViewAttributesWindow(QMainWindow):
     data = []
+
     def __init__(self):
-        QMainWindow.__init__(self)
+        super().__init__()
         self.setObjectName("ViewAttributesWindow")
         self.resize(389, 597)
         self.centralwidget = QtWidgets.QWidget(self)
@@ -23,9 +25,27 @@ class Ui_ViewAttributesWindow(QMainWindow):
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
 
+        self.selectedAttribute = None
+        self.result = False # True if user clicked Save, False if user clicked Close
+        self.save_button = QPushButton("Save")
+        self.save_button.clicked.connect(self.save)
+        self.verticalLayout.addWidget(self.save_button)
+
+        self.close_button = QPushButton("Close")
+        self.close_button.clicked.connect(self.close)
+        self.verticalLayout.addWidget(self.close_button)
+        self.axis=None
+
+        self.callback=None
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
+
+    def save(self):
+        self.selectedAttribute = self.listWidget.currentItem().text()
+        self.result = True
+        self.callback()
+        self.close()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

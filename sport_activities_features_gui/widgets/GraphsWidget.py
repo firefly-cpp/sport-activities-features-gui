@@ -1,15 +1,17 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QWidget, QMessageBox
 from logic.Graphs import Graphs
 from windows.ViewAttributesWindow import Ui_ViewAttributesWindow
+
+
 class Ui_GraphsWidget(QWidget):
-    exampleGraphs = [ "All biking distances ridden",
+    exampleGraphs = ["All biking distances ridden",
                      "Sum of biking duration for competitor",
                      "Altitude vs calories",
-                     "Activity type vs calories",
+                     "Calories by activity type",
                      "Heart rate by activities"]
     graphFn = None
-    
+
     def __init__(self):
         QWidget.__init__(self)
         self.setObjectName("Form")
@@ -74,71 +76,94 @@ class Ui_GraphsWidget(QWidget):
         self.btnGenerateCustomGraph = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.btnGenerateCustomGraph.setObjectName("btnGenerateCustomGraph")
         self.gridLayout.addWidget(self.btnGenerateCustomGraph, 2, 2, 1, 1)
-        self.btnViewAttributes = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.btnViewAttributes.setObjectName("btnViewAttributes")
-        self.gridLayout.addWidget(self.btnViewAttributes, 0, 2, 1, 1)
+
+        self.btnViewAttributesX = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.btnViewAttributesX.setObjectName("btnViewAttributesX")
+        self.gridLayout.addWidget(self.btnViewAttributesX, 0, 2, 1, 1)
+
+        self.btnViewAttributesY = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.btnViewAttributesY.setObjectName("btnViewAttributesY")
+        self.gridLayout.addWidget(self.btnViewAttributesY, 1, 2, 1, 1)
+
+
         self.gridLayout_2.addWidget(self.groupBox, 1, 0, 1, 1)
         self.viewAttributesWindow = Ui_ViewAttributesWindow()
-        
+        self.viewAttributesWindow.callback=self.setSelectedAtribute
+
         self.plotTypeComboBox.setCurrentText("Bar")
         self.xAxisInput.setEnabled(False)
+        self.btnViewAttributesX.setEnabled(False)
         self.yAxisInput.setEnabled(True)
         self.plotTypeComboBox.currentTextChanged.connect(self.on_combobox_changed)
         self.btnGenerateGraph.pressed.connect(self.generateGraph)
         self.btnGenerateCustomGraph.pressed.connect(self.generateCustomGraph)
-        self.btnViewAttributes.pressed.connect(self.viewAttributes)
+        self.btnViewAttributesX.pressed.connect(lambda:self.viewAttributes("X"))
+        self.btnViewAttributesY.pressed.connect(lambda:self.viewAttributes("Y"))
 
         self.retranslateUi()
-        QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Form", "Form"))
         self.exampleGraphGroupBox.setTitle(_translate("Form", "Example graphs"))
-        __sortingEnabled = self.listWidget.isSortingEnabled()
-        self.listWidget.setSortingEnabled(False)
-        self.listWidget.setSortingEnabled(__sortingEnabled)
         self.btnGenerateGraph.setText(_translate("Form", "Generate graph"))
         self.groupBox.setTitle(_translate("Form", "Custom graph"))
         self.label.setText(_translate("Form", "X axis"))
         self.btnGenerateCustomGraph.setText(_translate("Form", "Generate graph"))
         self.label_2.setText(_translate("Form", "Y axis"))
-        self.btnViewAttributes.setText(_translate("Form", "View data attributes"))
+        self.btnViewAttributesX.setText(_translate("Form", "View data attributes for X"))
+        self.btnViewAttributesY.setText(_translate("Form", "View data attributes for Y"))
+
 
     def importGlobalUser(self, user):
         self.globalUser = user
         self.graphFn = Graphs(user)
         self.viewAttributesWindow.importData(user.data)
-        
+
     def generateGraph(self):
         chosenGraph = self.listWidget.currentItem().text()
         i = self.exampleGraphs.index(chosenGraph)
         if i != -1:
-           match i:
-            case 0:
-                self.graphFn.allBikingDistanceRidden()
-            case 1:
-                self.graphFn.sumOfBikingDurationForCompetitor()
-            case 2:
-                self.graphFn.altitudeVsCalories()
-            case 3:
-                self.graphFn.activityTypeVsCalories()
-            case 4:
-                self.graphFn.heartRateByActivities()
-                
+            match i:
+                case 0:
+                    self.graphFn.allBikingDistanceRidden()
+                case 1:
+                    self.graphFn.sumOfBikingDurationForCompetitor()
+                case 2:
+                    self.graphFn.altitudeVsCalories()
+                case 3:
+                    self.graphFn.caloriesByActivityType()
+                case 4:
+                    self.graphFn.heartRateByActivities()
+
     def generateCustomGraph(self):
         xAttr = self.xAxisInput.text()
         yAttr = self.yAxisInput.text()
         plotType = self.plotTypeComboBox.currentText()
-        self.graphFn.customGraph(xAttr, yAttr, plotType)
-        
-    def viewAttributes(self):
+        try:
+            self.graphFn.customGraph(xAttr, yAttr, plotType)
+        except Exception as e:
+            if type(e) == KeyError:
+                QMessageBox.warning(self, 'Warning', f"Please enter valid attributes. {str(e)} is not a valid attribute.")
+            else:
+                QMessageBox.warning(self, 'Warning', str(e))
+
+    def viewAttributes(self, axis):
+        self.viewAttributesWindow.axis = axis
         self.viewAttributesWindow.show()
-        
+
+    def setSelectedAtribute(self):
+        if self.viewAttributesWindow.result:
+            if self.viewAttributesWindow.axis == "X":
+                self.xAxisInput.setText(self.viewAttributesWindow.selectedAttribute)
+            else:
+                self.yAxisInput.setText(self.viewAttributesWindow.selectedAttribute)
+
+
     def on_combobox_changed(self, value):
-        if(value == "Bar" or value == "Line"):
+        if (value == "Bar" or value == "Line"):
             self.xAxisInput.setEnabled(False)
-            self.yAxisInput.setEnabled(True)
+            self.btnViewAttributesX.setEnabled(False)
         else:
             self.xAxisInput.setEnabled(True)
-            self.yAxisInput.setEnabled(True)
+            self.btnViewAttributesX.setEnabled(True)

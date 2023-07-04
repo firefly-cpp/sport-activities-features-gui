@@ -1,5 +1,6 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QWidget
+from PyQt6.QtGui import QAction
 from logic.ImportData import ImportData
 from logic.Transformations import Transformations
 from models.User import User
@@ -12,22 +13,23 @@ class Ui_TransformationsWidget(QWidget):
     
     def __init__(self):
         QWidget.__init__(self)
+        self.transformationsFn = None
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 800, 300))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.setObjectName("Transformations")
         self.resize(800, 600)
-        self.pushButton = QtWidgets.QPushButton(self)
-        self.pushButton.setGeometry(QtCore.QRect(10, 340, 75, 23))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 370, 75, 23))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self)
-        self.pushButton_3.setGeometry(QtCore.QRect(10, 400, 75, 23))
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.minMaxButton = QtWidgets.QPushButton(self)
+        self.minMaxButton.setGeometry(QtCore.QRect(10, 340, 120, 23))
+        self.minMaxButton.setObjectName("minMaxButton")
+        self.logNormalizationButton = QtWidgets.QPushButton(self)
+        self.logNormalizationButton.setGeometry(QtCore.QRect(10, 370, 120, 23))
+        self.logNormalizationButton.setObjectName("logNormalizationButton")
+        self.zScoreNormalizationButton = QtWidgets.QPushButton(self)
+        self.zScoreNormalizationButton.setGeometry(QtCore.QRect(10, 400, 120, 23))
+        self.zScoreNormalizationButton.setObjectName("pushButton_3")
         self.checkBox = QtWidgets.QCheckBox(self)
-        self.checkBox.setGeometry(QtCore.QRect(10, 430, 121, 17))
+        self.checkBox.setGeometry(QtCore.QRect(10, 430, 120, 17))
         self.checkBox.setObjectName("checkBox")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout_2.setContentsMargins(15, 15, 15, 15)
@@ -41,6 +43,10 @@ class Ui_TransformationsWidget(QWidget):
         self.verticalLayout_2.addWidget(self.tableWidget)
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
+
+        self.minMaxButton.pressed.connect(self.minMax)
+        self.logNormalizationButton.pressed.connect(self.logNormalization)
+        self.zScoreNormalizationButton.pressed.connect(self.zScoreNormalization)
         
 
 
@@ -48,21 +54,37 @@ class Ui_TransformationsWidget(QWidget):
     def retranslateUi(self, Transformations):
         _translate = QtCore.QCoreApplication.translate
         Transformations.setWindowTitle(_translate("Transformations", "Frame"))
-        self.pushButton.setText(_translate("Transformations", "Min-Max"))
-        self.pushButton_2.setText(_translate("Transformations", "Log"))
-        self.pushButton_3.setText(_translate("Transformations", "Z-Score"))
-        self.checkBox.setText(_translate("Transformations", "One hot encoding"))
-    
+        self.minMaxButton.setText(_translate("Transformations", "Min-Max Normalization"))
+        self.logNormalizationButton.setText(_translate("Transformations", "Log Normalization"))
+        self.zScoreNormalizationButton.setText(_translate("Transformations", "Z-Score Normalization"))
+        self.checkBox.setText(_translate("Transformations", "One hot encoding (not implemented)"))
+
+    def minMax(self):
+        transformedData = self.transformationsFn.min_max_normalization(self.globalUser.data)
+        self.OutPutExistingData(transformedData)
+        print("minMax")
+
+    def logNormalization(self):
+        transformedData = self.transformationsFn.log_normalization(self.globalUser.data)
+        self.OutPutExistingData(transformedData)
+
+    def zScoreNormalization(self):
+        transformedData = self.transformationsFn.zscore_normalization(self.globalUser.data)
+        self.OutPutExistingData(transformedData)
 
     def importGlobalUser(self, user: User):
         self.globalUser = user
+        self.transformationsFn= Transformations(user)
         self.importDataFn = ImportData(user)
         if(self.globalUser.data.empty is False):
             self.OutPutExistingData(self.globalUser.data)
 
     def OutPutExistingData(self, dataframe : pd.DataFrame):
         df2 = dataframe.copy()
-        df2 = df2.drop(columns=['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates'])
+
+        for column in ['positions', 'altitudes', 'distances', 'timestamps', 'speeds','heartrates']:
+            if column in df2.columns:
+                df2.drop(column, axis=1, inplace=True)
 
         model = PandasModel(df2)
         self.tableWidget.setModel(model)
@@ -84,13 +106,13 @@ class PandasModel(QtCore.QAbstractTableModel):
     def columnCount(self, parent=None):
         return self._data.columns.size
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):
+    def data(self, index, role=QtCore.Qt.ItemDataRole.DisplayRole):
         if index.isValid():
-            if role == QtCore.Qt.DisplayRole:
+            if role == QtCore.Qt.ItemDataRole.DisplayRole:
                 return str(self._data.iloc[index.row()][index.column()])
         return None
 
     def headerData(self, col, orientation, role):
-        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+        if orientation == QtCore.Qt.Orientation.Horizontal and role == QtCore.Qt.ItemDataRole.DisplayRole:
             return self._data.columns[col]
         return None

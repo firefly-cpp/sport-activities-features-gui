@@ -120,7 +120,7 @@ class Ui_GraphsWidget(QWidget):
                 case 2:
                     self.graphFn.altitudeVsCalories()
                 case 3:
-                    self.graphFn.activityTypeVsCalories()
+                    self.graphFn.caloriesByActivityType()
                 case 4:
                     self.graphFn.heartRateByActivities()
 

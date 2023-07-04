@@ -5,11 +5,9 @@ from PyQt6.QtWidgets import QMessageBox
 
 
 class Graphs:
-    activity_list = []
     user = None
 
     def __init__(self, user):
-        self.activity_list = user.data
         self.user = user
 
     def _sum(self, arr):
@@ -27,7 +25,7 @@ class Graphs:
 
     def allBikingDistanceRidden(self):
         gData = []
-        for a in self.activity_list.to_dict('records'):
+        for a in self.user.data.to_dict('records'):
             if (a['activity_type'] == 'Biking'):
                 gData.append(a['distance'])
         plt.plot(gData)
@@ -38,7 +36,7 @@ class Graphs:
 
     def sumOfBikingDurationForCompetitor(self):
         sum = 0
-        for act in filter(lambda x: x['activity_type'] == 'Biking', self.activity_list.to_dict('records')):
+        for act in filter(lambda x: x['activity_type'] == 'Biking', self.user.data.to_dict('records')):
             sum += act['duration'] if act['duration'] != None and math.isnan(act['duration']) == False else 0
 
         plt.subplot(131)
@@ -51,7 +49,7 @@ class Graphs:
     def altitudeVsCalories(self):
         calories = []
         altitude = []
-        for a in self.activity_list.to_dict('records'):
+        for a in self.user.data.to_dict('records'):
             calories.append(a['calories'])
             altitude.append(a['altitude_avg'])
         plt.scatter(altitude, calories)
@@ -60,14 +58,14 @@ class Graphs:
         plt.ylabel('Calories')
         plt.show()
 
-    def activityTypeVsCalories(self):
+    def caloriesByActivityType(self):
 
-        activity_types=list(set(self.activity_list["activity_type"]))
+        activity_types=list(set(self.user.data["activity_type"]))
         caloriesDictionary = {}
         for activity in activity_types:
             caloriesDictionary[activity] = 0
 
-        for record in self.activity_list.to_dict('records'):
+        for record in self.user.data.to_dict('records'):
             caloriesDictionary[record['activity_type']] += record['calories']
 
         plt.subplot(131)
@@ -82,7 +80,7 @@ class Graphs:
         hr_max = []
         hr_min = []
         i = 1
-        for a in self.activity_list.to_dict('records'):
+        for a in self.user.data.to_dict('records'):
             activity_number.append(i)
             hr_avg.append(a['hr_avg'])
             hr_max.append(a['hr_max'])
@@ -123,7 +121,7 @@ class Graphs:
     def customBarPlot(self, yAttr):
         activityNum = []
         y = []
-        activities = self.activity_list.to_dict('records')
+        activities = self.user.data.to_dict('records')
 
         for act in activities:
             if (yAttr != ''):
@@ -142,7 +140,7 @@ class Graphs:
         x = []
         y = []
         if (xAttr != '' and yAttr != ''):
-            activities = self.activity_list.to_dict('records')
+            activities = self.user.data.to_dict('records')
 
             for act in activities:
                 if (xAttr != ''):
@@ -161,7 +159,7 @@ class Graphs:
 
     def customLinePlot(self, yAttr):
         y = []
-        activities = self.activity_list.to_dict('records')
+        activities = self.user.data.to_dict('records')
 
         for act in activities:
             if (yAttr != ''):

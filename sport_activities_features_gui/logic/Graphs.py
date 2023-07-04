@@ -79,7 +79,7 @@ class Graphs:
         hr_avg = []
         hr_max = []
         hr_min = []
-        i = 1
+        i = 0
         for a in self.user.data.to_dict('records'):
             activity_number.append(i)
             hr_avg.append(a['hr_avg'])

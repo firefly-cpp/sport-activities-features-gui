@@ -107,16 +107,13 @@ class Graphs:
         plt.show()
 
     def customGraph(self, xAttr, yAttr, plotType):
-        try:
-            match plotType:
-                case "Bar":
-                    self.customBarPlot(yAttr)
-                case "Scatter":
-                    self.customScatterPlot(xAttr, yAttr)
-                case "Line":
-                    self.customLinePlot(yAttr)
-        except Exception as e:
-            QMessageBox.warning(self, 'Warning', str(e))
+        match plotType:
+            case "Bar":
+                self.customBarPlot(yAttr)
+            case "Scatter":
+                self.customScatterPlot(xAttr, yAttr)
+            case "Line":
+                self.customLinePlot(yAttr)
 
     def customBarPlot(self, yAttr):
         activityNum = []

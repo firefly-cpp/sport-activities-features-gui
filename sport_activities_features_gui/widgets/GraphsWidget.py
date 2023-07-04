@@ -1,5 +1,5 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QWidget, QMessageBox
 from logic.Graphs import Graphs
 from windows.ViewAttributesWindow import Ui_ViewAttributesWindow
 
@@ -140,7 +140,13 @@ class Ui_GraphsWidget(QWidget):
         xAttr = self.xAxisInput.text()
         yAttr = self.yAxisInput.text()
         plotType = self.plotTypeComboBox.currentText()
-        self.graphFn.customGraph(xAttr, yAttr, plotType)
+        try:
+            self.graphFn.customGraph(xAttr, yAttr, plotType)
+        except Exception as e:
+            if type(e) == KeyError:
+                QMessageBox.warning(self, 'Warning', f"Please enter valid attributes. {str(e)} is not a valid attribute.")
+            else:
+                QMessageBox.warning(self, 'Warning', str(e))
 
     def viewAttributes(self, axis):
         self.viewAttributesWindow.axis = axis

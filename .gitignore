@@ -131,6 +131,9 @@ dmypy.json
 # VS code
 .vscode
 
+# PyCharm
+.idea
+
 # store files
 store/
 test

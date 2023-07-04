@@ -61,24 +61,18 @@ class Graphs:
         plt.show()
 
     def activityTypeVsCalories(self):
-        caloriesBiking = []
-        caloriesRunning = []
-        caloriesOther = []
-        for a in self.activity_list.to_dict('records'):
-            if a['activity_type'] == 'Biking':
-                caloriesBiking.append(a['calories'])
-            if a['activity_type'] == 'Running':
-                caloriesRunning.append(a['calories'])
-            if a['activity_type'] == 'Other':
-                caloriesOther.append(a['calories'])
 
-        sum = []
-        sum.append(self._sum(caloriesBiking))
-        sum.append(self._sum(caloriesRunning))
-        sum.append(self._sum(caloriesOther))
+        activity_types=list(set(self.activity_list["activity_type"]))
+        caloriesDictionary = {}
+        for activity in activity_types:
+            caloriesDictionary[activity] = 0
+
+        for record in self.activity_list.to_dict('records'):
+            caloriesDictionary[record['activity_type']] += record['calories']
+
         plt.subplot(131)
-        plt.bar(['Biking', 'Running', 'Other'], sum)
-        plt.title('Activity type vs calories')
+        plt.bar(caloriesDictionary.keys(), caloriesDictionary.values())
+        plt.title('Calories by activity type')
         plt.ylabel('Calories')
         plt.show()
 

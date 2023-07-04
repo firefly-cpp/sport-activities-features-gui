@@ -8,7 +8,7 @@ class Ui_GraphsWidget(QWidget):
     exampleGraphs = ["All biking distances ridden",
                      "Sum of biking duration for competitor",
                      "Altitude vs calories",
-                     "Activity type vs calories",
+                     "Calories by activity type",
                      "Heart rate by activities"]
     graphFn = None
 

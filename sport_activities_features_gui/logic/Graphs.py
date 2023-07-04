@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
 import math
 import numpy as np
-from PyQt6.QtWidgets import QMessageBox
-
 
 class Graphs:
     user = None

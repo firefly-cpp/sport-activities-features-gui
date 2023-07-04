@@ -1,6 +1,5 @@
 import sys
 from PyQt6.QtWidgets import QFileDialog
-from PyQt6 import QtCore
 from logic import MultiThread
 from models.User import User
 from widgets import ImportDataWidget

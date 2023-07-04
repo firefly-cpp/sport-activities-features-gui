@@ -18,6 +18,7 @@ class Ui_MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setObjectName("Sport Activities Features GUI")
+        self.setWindowIcon(QtGui.QIcon('./media/Icon.png'))
         self.setEnabled(True)
         self.resize(800, 600)
         self.setMinimumSize(QtCore.QSize(800, 600))

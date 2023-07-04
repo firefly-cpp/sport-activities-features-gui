@@ -15,6 +15,8 @@ class Ui_ProfilesWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setObjectName("ProfileWindow")
+        self.setWindowIcon(QtGui.QIcon('./media/Icon.png'))
+
         self.resize(325, 328)
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")

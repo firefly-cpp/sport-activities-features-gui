@@ -31,7 +31,7 @@ class Transformations:
         print(log_df) 
         for column in log_df : 
             # usage of the natural logaritem ln 
-            if (column in var) :  
+            if column in var:
                 continue
             log_df[column] = np.log(log_df[column])
         return log_df

@@ -22,12 +22,12 @@ class Ui_TransformationsWidget(QWidget):
         self.minMaxButton = QtWidgets.QPushButton(self)
         self.minMaxButton.setGeometry(QtCore.QRect(10, 340, 120, 23))
         self.minMaxButton.setObjectName("minMaxButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 370, 120, 23))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self)
-        self.pushButton_3.setGeometry(QtCore.QRect(10, 400, 120, 23))
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.logNormalizationButton = QtWidgets.QPushButton(self)
+        self.logNormalizationButton.setGeometry(QtCore.QRect(10, 370, 120, 23))
+        self.logNormalizationButton.setObjectName("logNormalizationButton")
+        self.zScoreNormalizationButton = QtWidgets.QPushButton(self)
+        self.zScoreNormalizationButton.setGeometry(QtCore.QRect(10, 400, 120, 23))
+        self.zScoreNormalizationButton.setObjectName("pushButton_3")
         self.checkBox = QtWidgets.QCheckBox(self)
         self.checkBox.setGeometry(QtCore.QRect(10, 430, 120, 17))
         self.checkBox.setObjectName("checkBox")
@@ -45,7 +45,8 @@ class Ui_TransformationsWidget(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
 
         self.minMaxButton.pressed.connect(self.minMax)
-
+        self.logNormalizationButton.pressed.connect(self.logNormalization)
+        self.zScoreNormalizationButton.pressed.connect(self.zScoreNormalization)
         
 
 
@@ -53,15 +54,23 @@ class Ui_TransformationsWidget(QWidget):
     def retranslateUi(self, Transformations):
         _translate = QtCore.QCoreApplication.translate
         Transformations.setWindowTitle(_translate("Transformations", "Frame"))
-        self.minMaxButton.setText(_translate("Transformations", "Min-Max"))
-        self.pushButton_2.setText(_translate("Transformations", "Log (not implemented)"))
-        self.pushButton_3.setText(_translate("Transformations", "Z-Score (not implemented)"))
+        self.minMaxButton.setText(_translate("Transformations", "Min-Max Normalization"))
+        self.logNormalizationButton.setText(_translate("Transformations", "Log Normalization"))
+        self.zScoreNormalizationButton.setText(_translate("Transformations", "Z-Score Normalization"))
         self.checkBox.setText(_translate("Transformations", "One hot encoding (not implemented)"))
 
     def minMax(self):
         transformedData = self.transformationsFn.min_max_normalization(self.globalUser.data)
         self.OutPutExistingData(transformedData)
         print("minMax")
+
+    def logNormalization(self):
+        transformedData = self.transformationsFn.log_normalization(self.globalUser.data)
+        self.OutPutExistingData(transformedData)
+
+    def zScoreNormalization(self):
+        transformedData = self.transformationsFn.zscore_normalization(self.globalUser.data)
+        self.OutPutExistingData(transformedData)
 
     def importGlobalUser(self, user: User):
         self.globalUser = user

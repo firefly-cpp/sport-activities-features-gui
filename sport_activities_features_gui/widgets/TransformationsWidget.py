@@ -1,5 +1,6 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QAction, QWidget
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QWidget
+from PyQt6.QtGui import QAction
 from logic.ImportData import ImportData
 from logic.Transformations import Transformations
 from models.User import User
@@ -84,13 +85,13 @@ class PandasModel(QtCore.QAbstractTableModel):
     def columnCount(self, parent=None):
         return self._data.columns.size
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):
+    def data(self, index, role=QtCore.Qt.ItemDataRole.DisplayRole):
         if index.isValid():
-            if role == QtCore.Qt.DisplayRole:
+            if role == QtCore.Qt.ItemDataRole.DisplayRole:
                 return str(self._data.iloc[index.row()][index.column()])
         return None
 
     def headerData(self, col, orientation, role):
-        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+        if orientation == QtCore.Qt.Orientation.Horizontal and role == QtCore.Qt.ItemDataRole.DisplayRole:
             return self._data.columns[col]
         return None

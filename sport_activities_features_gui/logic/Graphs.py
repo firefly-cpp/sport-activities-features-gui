@@ -1,28 +1,29 @@
 import matplotlib.pyplot as plt
 import math
 import numpy as np
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox
+
 
 class Graphs:
     activity_list = []
     user = None
-    
+
     def __init__(self, user):
         self.activity_list = user.data
         self.user = user
-        
+
     def _sum(self, arr):
         sum = 0
         for i in arr:
             sum = sum + i
-        return(sum)
-    
+        return (sum)
+
     def _sumProp(self, array, property):
         sum = 0
         for i in array:
             if i[property] is not None:
                 sum = sum + i[property]
-        return(sum)
+        return (sum)
 
     def allBikingDistanceRidden(self):
         gData = []
@@ -46,7 +47,7 @@ class Graphs:
         plt.xlabel('Competitor')
         plt.ylabel('Duration')
         plt.show()
-        
+
     def altitudeVsCalories(self):
         calories = []
         altitude = []
@@ -64,11 +65,11 @@ class Graphs:
         caloriesRunning = []
         caloriesOther = []
         for a in self.activity_list.to_dict('records'):
-            if a['activity_type'] == 'Biking' :
+            if a['activity_type'] == 'Biking':
                 caloriesBiking.append(a['calories'])
-            if a['activity_type'] == 'Running' :
+            if a['activity_type'] == 'Running':
                 caloriesRunning.append(a['calories'])
-            if a['activity_type'] == 'Other' :
+            if a['activity_type'] == 'Other':
                 caloriesOther.append(a['calories'])
 
         sum = []
@@ -76,30 +77,30 @@ class Graphs:
         sum.append(self._sum(caloriesRunning))
         sum.append(self._sum(caloriesOther))
         plt.subplot(131)
-        plt.bar(['Biking','Running','Other'], sum)
+        plt.bar(['Biking', 'Running', 'Other'], sum)
         plt.title('Activity type vs calories')
         plt.ylabel('Calories')
         plt.show()
-        
+
     def heartRateByActivities(self):
         activity_number = []
         hr_avg = []
         hr_max = []
         hr_min = []
-        i=1
+        i = 1
         for a in self.activity_list.to_dict('records'):
-           activity_number.append(i)
-           hr_avg.append(a['hr_avg']) 
-           hr_max.append(a['hr_max']) 
-           hr_min.append(a['hr_min']) 
-           i += 1
+            activity_number.append(i)
+            hr_avg.append(a['hr_avg'])
+            hr_max.append(a['hr_max'])
+            hr_min.append(a['hr_min'])
+            i += 1
 
         width = 0.35
         x = np.arange(len(activity_number))
         fig, ax = plt.subplots()
-        r1 = ax.bar(x - (width/2+0.05), hr_avg, width, label='HR-avg')
+        r1 = ax.bar(x - (width / 2 + 0.05), hr_avg, width, label='HR-avg')
         r2 = ax.bar(x, hr_max, width, label='HR-max')
-        r3 = ax.bar(x + (width/2+0.05), hr_min, width, label='HR-min')
+        r3 = ax.bar(x + (width / 2 + 0.05), hr_min, width, label='HR-min')
 
         ax.set_ylabel('Heart rate')
         ax.set_title('Heart rates by activities')
@@ -113,7 +114,6 @@ class Graphs:
         fig.tight_layout()
         plt.show()
 
-    
     def customGraph(self, xAttr, yAttr, plotType):
         try:
             match plotType:
@@ -124,56 +124,55 @@ class Graphs:
                 case "Line":
                     self.customLinePlot(yAttr)
         except Exception as e:
-            QMessageBox.warning(self, 'Warning', e, QMessageBox.Ok)
-        
-        
-    def customBarPlot(self, yAttr):           
+            QMessageBox.warning(self, 'Warning', str(e))
+
+    def customBarPlot(self, yAttr):
         activityNum = []
         y = []
         activities = self.activity_list.to_dict('records')
-        
+
         for act in activities:
-            if(yAttr != ''):
+            if (yAttr != ''):
                 res = act[yAttr] if math.isnan(act[yAttr]) == False else 0
                 y.append(res)
 
-        i=1
+        i = 1
         for y1 in y:
             activityNum.append(i)
             i += 1
         plt.bar(activityNum, y)
         plt.ylabel(yAttr)
         plt.show()
-        
+
     def customScatterPlot(self, xAttr, yAttr):
         x = []
         y = []
-        if(xAttr != '' and yAttr != ''):
+        if (xAttr != '' and yAttr != ''):
             activities = self.activity_list.to_dict('records')
-            
+
             for act in activities:
-                if(xAttr != ''):
+                if (xAttr != ''):
                     res = act[xAttr] if math.isnan(act[xAttr]) == False else 0
                     x.append(res)
             for act in activities:
-                if(yAttr != ''):
+                if (yAttr != ''):
                     res = act[yAttr] if math.isnan(act[yAttr]) == False else 0
                     y.append(res)
-                    
+
             plt.scatter(x, y)
-            plt.title(xAttr+' vs '+yAttr)
+            plt.title(xAttr + ' vs ' + yAttr)
             plt.xlabel(xAttr)
             plt.ylabel(yAttr)
             plt.show()
-            
+
     def customLinePlot(self, yAttr):
         y = []
         activities = self.activity_list.to_dict('records')
-        
+
         for act in activities:
-            if(yAttr != ''):
+            if (yAttr != ''):
                 res = act[yAttr] if math.isnan(act[yAttr]) is False else 0
                 y.append(res)
-                    
-        plt.plot(y, linestyle = 'dotted')
+
+        plt.plot(y, linestyle='dotted')
         plt.show()

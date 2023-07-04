@@ -1,10 +1,12 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QMainWindow, QMessageBox
+
 
 class Ui_ViewAttributesWindow(QMainWindow):
     data = []
+
     def __init__(self):
-        QMainWindow.__init__(self)
+        super().__init__()
         self.setObjectName("ViewAttributesWindow")
         self.resize(389, 597)
         self.centralwidget = QtWidgets.QWidget(self)
@@ -22,7 +24,6 @@ class Ui_ViewAttributesWindow(QMainWindow):
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
-
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)

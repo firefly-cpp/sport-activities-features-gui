@@ -1,30 +1,31 @@
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QMainWindow, QWidget, QGroupBox, QLineEdit, QPushButton, QStatusBar
+from PyQt6 import QtCore, QtGui, QtWidgets
+
 
 class Ui_AddProfileWindow(QMainWindow):
     _parentWindow = None
-    
+
     def __init__(self, parentWindow):
         self._parentWindow = parentWindow
         QMainWindow.__init__(self)
         self.setObjectName("AddProfileWindow")
         self.resize(291, 155)
-        self.centralwidget = QtWidgets.QWidget(self)
+        self.centralwidget = QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
-        self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setGeometry(QtCore.QRect(10, 10, 271, 111))
         self.groupBox.setObjectName("groupBox")
-        self.profileTB = QtWidgets.QLineEdit(self.groupBox)
+        self.profileTB = QLineEdit(self.groupBox)
         self.profileTB.setGeometry(QtCore.QRect(10, 30, 251, 22))
         self.profileTB.setObjectName("profileTB")
-        self.btnAddProfile = QtWidgets.QPushButton(self.groupBox)
+        self.btnAddProfile = QPushButton(self.groupBox)
         self.btnAddProfile.setGeometry(QtCore.QRect(10, 70, 251, 28))
         self.btnAddProfile.setObjectName("btnAddProfile")
         self.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(self)
+        self.statusbar = QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
-        
+
         self.btnAddProfile.clicked.connect(self.addProfile)
 
         self.retranslateUi()
@@ -41,4 +42,3 @@ class Ui_AddProfileWindow(QMainWindow):
         self.profileTB.setText(None)
         self._parentWindow.addProfile(newProfile)
         self.close()
-        

@@ -1,14 +1,11 @@
-=======
-Credits
-=======
+## Credits
 
-Maintainers
------------
+
+### Maintainers
 
 * Iztok Fister, Jr. [@firefly-cpp](https://github.com/firefly-cpp)
 
-Contributors (alphabetically by surname)
------------------------------
+### Contributors (alphabetically by surname)
 
 * Vito Abeln [@otiv33](https://github.com/otiv33)
 * Nejc Mlinarič [@Mtvrt123](https://github.com/Mtvrt123)

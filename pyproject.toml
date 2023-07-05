@@ -8,6 +8,10 @@ authors = [
     "Mtvrt123 <mlinaricnejc@gmail.com>",
     "firefly-cpp <iztok@iztok-jr-fister.eu>"
 ]
+keywords = ['computational intelligence', 'cycling', 'data mining', 'datasets', 'gpx', 'optimization', 'sport activities', 'tcx']
+homepage = "https://github.com/firefly-cpp/sport-activities-features-gui"
+repository = "https://github.com/firefly-cpp/sport-activities-features-gui"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -24,6 +24,9 @@ sip = "^6.7.9"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 
+[tool.poetry.scripts]
+sport-activities-features-gui = 'sport_activities_features_gui.main:main'
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

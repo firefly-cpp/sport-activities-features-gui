@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.firefly-cpp.sport_activities_features_gui</id>
+
+  <name>sport-activities-features-gui</name>
+  <summary>A basic graphical user interface intended for users of the sport-activities-features package.</summary>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+
+  <description>
+    <p>
+      The sport-activities-framework offers a detailed insight into the sports activity files. The framework supports both identification and extraction methods, such as identifying the number of hills, extracting the average altitudes of identified hills, measuring the total distance of identified hills, deriving climbing ratios (total distance of identified hills vs. total distance), average/total ascents of hills and so much more. The framework also integrates many other extensions, among others, historical weather parsing, statistical evaluations, and ex-post visualizations.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">io.github.firefly-cpp.sport_activities_features_gui</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/firefly-cpp/sport-activities-features-gui/main/.github/logo/sport_activities.png</image>
+    </screenshot>
+  </screenshots>
+</component>

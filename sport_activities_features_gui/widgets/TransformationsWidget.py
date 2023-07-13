@@ -1,9 +1,9 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QWidget
 from PyQt6.QtGui import QAction
-from logic.ImportData import ImportData
-from logic.Transformations import Transformations
-from models.User import User
+from sport_activities_features_gui.logic.ImportData import ImportData
+from sport_activities_features_gui.logic.Transformations import Transformations
+from sport_activities_features_gui.models.User import User
 import pandas as pd
 
 class Ui_TransformationsWidget(QWidget):

@@ -1,9 +1,9 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QWidget, QFileDialog
 
-import widgets
-from logic.ImportData import ImportData
-from models.User import User
+from sport_activities_features_gui.models import User
+from sport_activities_features_gui.logic.ImportData import ImportData
+
 from PyQt6 import sip
 from PyQt6.QtCore import Qt
 # Rest of the code
@@ -102,10 +102,12 @@ class Ui_ImportDataWidget(QWidget):
         self.btn_Pickle.setText(_translate("ImportData", "Pickle"))
     
     def readFiles(self):
-        self.importDataFn.openFileDialog(self)
+        df = self.importDataFn.openFileDialog()
+        if(df is not None):
+            self.OutputExistingData(df)
+            self.refreshCalendarWidget()
         # Refresh calendar widget
-        self.refreshCalendarWidget()
-        
+
     def saveFileDialog(self, defaultFileName, fileFormat):
         fd = QFileDialog()
         fd.setOption(QFileDialog.Option.DontUseNativeDialog, True)
@@ -149,6 +151,6 @@ class Ui_ImportDataWidget(QWidget):
         self.refMainWindow.mainLayout_4.removeWidget(self.refMainWindow.calendarUi)
         sip.delete(self.refMainWindow.calendarUi)
         self.refMainWindow.calendarUi = None
-        self.refMainWindow.calendarUi = widgets.Ui_ImportDataWidget()
+        self.refMainWindow.calendarUi = Ui_ImportDataWidget()
         self.refMainWindow.mainLayout_4.addWidget(self.refMainWindow.calendarUi)
         self.refMainWindow.calendarUi.importGlobalUser(self.globalUser)

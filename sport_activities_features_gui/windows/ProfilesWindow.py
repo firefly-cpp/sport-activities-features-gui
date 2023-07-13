@@ -1,11 +1,11 @@
 import shutil
 from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
-from models.User import initGlobalUser, User
-from windows.AddProfile import Ui_AddProfileWindow
-from windows.MainWindow import Ui_MainWindow
+from sport_activities_features_gui.models.User import initGlobalUser, User
+from sport_activities_features_gui.windows.AddProfile import Ui_AddProfileWindow
+from sport_activities_features_gui.windows.MainWindow import Ui_MainWindow
 import os
-from globalVars import *
+from ..globalVars import *
 
 
 class Ui_ProfilesWindow(QMainWindow):

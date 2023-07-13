@@ -1,7 +1,8 @@
-from windows.ViewAttributesWindow import Ui_ViewAttributesWindow
-from windows.MainWindow import Ui_MainWindow
-from windows.ProfilesWindow import Ui_AddProfileWindow as Ui_ProfileWindow
-from windows.AddProfile import Ui_AddProfileWindow as Ui_AddProfileWindow
+
+from .ViewAttributesWindow import Ui_ViewAttributesWindow
+from .ProfilesWindow import Ui_AddProfileWindow as Ui_ProfileWindow
+from .AddProfile import Ui_AddProfileWindow as Ui_AddProfileWindow
+from .MainWindow import Ui_MainWindow
 
 __all__ = [
     'Ui_ViewAttributesWindow',

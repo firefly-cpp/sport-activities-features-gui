@@ -1,11 +1,12 @@
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6 import QtCore, QtGui, QtWidgets
 
-from widgets.ImportDataWidget import Ui_ImportDataWidget
-from widgets.GraphsWidget import Ui_GraphsWidget
-from widgets.CalendarWidget import Ui_CalendarWidget
-from widgets.TransformationsWidget import Ui_TransformationsWidget
-from models.User import User
+from sport_activities_features_gui.widgets.GraphsWidget import Ui_GraphsWidget
+from sport_activities_features_gui.widgets.CalendarWidget import Ui_CalendarWidget
+from sport_activities_features_gui.widgets.TransformationsWidget import Ui_TransformationsWidget
+from sport_activities_features_gui.widgets.ImportDataWidget import Ui_ImportDataWidget
+
+from sport_activities_features_gui.models.User import User
 
 
 class Ui_MainWindow(QMainWindow):

@@ -1,7 +1,7 @@
-from widgets.ImportDataWidget import Ui_ImportDataWidget
-from widgets.CalendarWidget import Ui_CalendarWidget
-from widgets.TransformationsWidget import Ui_TransformationsWidget
-from widgets.GraphsWidget import Ui_GraphsWidget
+from .ImportDataWidget import Ui_ImportDataWidget
+from .CalendarWidget import Ui_CalendarWidget
+from .TransformationsWidget import Ui_TransformationsWidget
+from .GraphsWidget import Ui_GraphsWidget
 
 __all__ = [
     'Ui_ImportDataWidget',

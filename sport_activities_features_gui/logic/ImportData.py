@@ -1,8 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QFileDialog
-from logic import MultiThread
-from models.User import User
-from widgets import ImportDataWidget
+from sport_activities_features_gui.logic.MultiThread import MultiThread
+from sport_activities_features_gui.models.User import User
 import pandas as pd
 
 class ImportData:
@@ -11,7 +10,7 @@ class ImportData:
     def __init__(self, user: User):
         self.globalUser = user
     
-    def openFileDialog(self, importDataWidget: ImportDataWidget):
+    def openFileDialog(self):
         dialog = FileDialog()
         dialog_execution = dialog.exec()
         if dialog_execution == 1:
@@ -27,9 +26,9 @@ class ImportData:
             dataFrame = pd.DataFrame(data['data'])
 
             self.globalUser.saveData(dataFrame)
-            
-            importDataWidget.OutputExistingData(dataFrame)
-    
+            return dataFrame
+        return None
+
     def exportCSV(self, filePath):
         pd.DataFrame(self.globalUser.data).to_csv(filePath, index=False)
     

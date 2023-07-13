@@ -1,4 +1,4 @@
-from sport_activities_features_gui.models import User
+from .User import User
 
 __all__ = [
     'User',

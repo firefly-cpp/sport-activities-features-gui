@@ -6,7 +6,7 @@ from PyQt6.QtCore import Qt
 from datetime import datetime
 import numpy as np
 
-import User
+from sport_activities_features_gui.models.User import User
 
 
 class Ui_CalendarWidget(QWidget):

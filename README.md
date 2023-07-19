@@ -8,6 +8,16 @@
 
 A simple GUI application that uses the library sports-activities-features to import sports activity files (TCX) and makes it easy to view and transform the data in a GUI environment.
 
+## Installation
+
+### pip
+
+Install sport-activities-features with pip:
+
+```sh
+pip install sport-activities-features-gui
+```
+
 ## Features
 - Improved bulk importing of tcx files
 - Exporting data to different formats

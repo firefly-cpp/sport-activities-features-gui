@@ -21,7 +21,7 @@ PyQt6 = "^6.5.1"
 sip = "^6.7.9"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^6.2.5"
 
 [tool.poetry.scripts]
 sport-activities-features-gui = 'sport_activities_features_gui.main:main'

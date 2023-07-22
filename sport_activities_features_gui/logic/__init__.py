@@ -1,7 +1,7 @@
-from .Graphs import Graphs
-from .ImportData import ImportData
-from .MultiThread import MultiThread
-from .Transformations import Transformations
+from .graphs import Graphs
+from .import_data import ImportData
+from .multi_thread import MultiThread
+from .transformations import Transformations
 
 __all__ = [
     'Graphs',

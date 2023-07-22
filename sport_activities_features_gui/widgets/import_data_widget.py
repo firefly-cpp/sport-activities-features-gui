@@ -1,5 +1,5 @@
 from sport_activities_features_gui.models import User
-from sport_activities_features_gui.logic.ImportData import ImportData
+from sport_activities_features_gui.logic.import_data import ImportData
 
 import PyQt6.QtCore as QtCore
 from PyQt6.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QPushButton, QLabel, QTableView, QHBoxLayout, QSpacerItem, QSizePolicy

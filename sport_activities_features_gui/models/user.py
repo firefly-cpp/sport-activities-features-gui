@@ -1,7 +1,7 @@
 import pickle
 import pandas as pd
 import os
-from ..globalVars import *
+from ..global_vars import *
 
 
 def initGlobalUser(userName, settings):

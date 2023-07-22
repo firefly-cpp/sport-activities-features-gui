@@ -19,6 +19,7 @@ sport-activities-features = "^0.3.13"
 QtAwesome = "^1.2.1"
 PyQt6 = "^6.5.1"
 sip = "^6.7.9"
+opencv-python-headless = "^4.8.0.74"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

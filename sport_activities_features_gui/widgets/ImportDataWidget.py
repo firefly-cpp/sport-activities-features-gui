@@ -1,8 +1,8 @@
-from PyQt6 import QtCore, QtWidgets
-from PyQt6.QtWidgets import QWidget, QFileDialog
-
 from sport_activities_features_gui.models import User
 from sport_activities_features_gui.logic.ImportData import ImportData
+
+import PyQt6.QtCore as QtCore
+from PyQt6.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QPushButton, QLabel, QTableView, QHBoxLayout, QSpacerItem, QSizePolicy
 
 from PyQt6 import sip
 from PyQt6.QtCore import Qt
@@ -43,43 +43,43 @@ class Ui_ImportDataWidget(QWidget):
         QWidget.__init__(self)
         self.setObjectName("ImportData")
         self.resize(800, 600)
-        self.verticalLayoutWidget = QtWidgets.QWidget(self)
+        self.verticalLayoutWidget = QWidget(self)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 800, 600))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(15, 15, 15, 15)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.lbl_ImportData = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.lbl_ImportData = QLabel(self.verticalLayoutWidget)
         self.lbl_ImportData.setObjectName("lbl_ImportData")
         self.verticalLayout.addWidget(self.lbl_ImportData)
-        self.pushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton = QPushButton(self.verticalLayoutWidget)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout.addWidget(self.pushButton)
-        self.lbl_Output = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.lbl_Output = QLabel(self.verticalLayoutWidget)
         self.lbl_Output.setObjectName("lbl_Output")
         self.verticalLayout.addWidget(self.lbl_Output)
           
-        self.pte_Output = QtWidgets.QTableView(self.verticalLayoutWidget)
+        self.pte_Output = QTableView(self.verticalLayoutWidget)
         self.pte_Output.setEnabled(True)
         self.pte_Output.setObjectName("pte_Output")
         self.verticalLayout.addWidget(self.pte_Output)
         
-        self.lbl_ExportRawData = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.lbl_ExportRawData = QLabel(self.verticalLayoutWidget)
         self.lbl_ExportRawData.setObjectName("lbl_ExportRawData")
         self.verticalLayout.addWidget(self.lbl_ExportRawData)
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.btn_Csv = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.btn_Csv = QPushButton(self.verticalLayoutWidget)
         self.btn_Csv.setObjectName("btn_Csv")
         self.horizontalLayout.addWidget(self.btn_Csv)
-        self.btn_Json = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.btn_Json = QPushButton(self.verticalLayoutWidget)
         self.btn_Json.setObjectName("btn_Json")
         self.horizontalLayout.addWidget(self.btn_Json)
-        self.btn_Pickle = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.btn_Pickle = QPushButton(self.verticalLayoutWidget)
         self.btn_Pickle.setObjectName("btn_Pickle")
         self.horizontalLayout.addWidget(self.btn_Pickle)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
         self.retranslateUi()

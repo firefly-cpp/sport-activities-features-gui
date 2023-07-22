@@ -3,6 +3,7 @@ from .CalendarWidget import Ui_CalendarWidget
 from .TransformationsWidget import Ui_TransformationsWidget
 from .GraphsWidget import Ui_GraphsWidget
 
+
 __all__ = [
     'Ui_ImportDataWidget',
     'Ui_CalendarWidget',

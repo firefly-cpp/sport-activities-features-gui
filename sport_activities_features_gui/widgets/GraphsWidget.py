@@ -1,4 +1,4 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QWidget, QMessageBox
 class Ui_GraphsWidget(QWidget):
     exampleGraphs = ["All biking distances ridden",

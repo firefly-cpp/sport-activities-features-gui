@@ -28,14 +28,10 @@ jobs:
       id: full-python-version
       run: echo name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
     - name: Install poetry
-      run: |
-        pipx install "poetry>=1.3.0,<1.4.0"
+      run: pip install "poetry>=1.3.0,<1.4.0"
     - name: Update path
       if: ${{ matrix.os != 'windows-latest' }}
       run: echo "$HOME/.local/bin" >> $GITHUB_PATH
-    - name: Update Windows Python Version
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: env use python3.11
     - name: Update Windows path
       if: ${{ matrix.os == 'windows-latest' }}
       run: echo "$APPDATA\Python\Scripts" >> $GITHUB_PATH
@@ -43,7 +39,7 @@ jobs:
       if: ${{ matrix.os == 'ubuntu-latest' }}
       run: sudo apt-get update && sudo apt-get install -y libegl1-mesa
     - name: Configure poetry
-      run: poetry config virtualenvs.in-project true
+      run: poetry config virtualenvs.create true && poetry config virtualenvs.in-project true
     - name: Set up cache
       uses: actions/cache@v3
       id: cache

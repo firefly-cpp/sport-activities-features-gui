@@ -34,7 +34,7 @@ jobs:
       if: ${{ matrix.os != 'windows-latest' }}
       run: echo "$HOME/.local/bin" >> $GITHUB_PATH
     - name: Update Windows Python Version
-      if: ${{ matrix.os != 'windows-latest' }}
+      if: ${{ matrix.os == 'windows-latest' }}
       run: env use python3.11
     - name: Update Windows path
       if: ${{ matrix.os == 'windows-latest' }}

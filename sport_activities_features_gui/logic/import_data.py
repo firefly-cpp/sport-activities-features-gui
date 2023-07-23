@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QFileDialog
-from sport_activities_features_gui.logic.MultiThread import MultiThread
-from sport_activities_features_gui.models.User import User
+from sport_activities_features_gui.logic.multi_thread import MultiThread
+from sport_activities_features_gui.models.user import User
 import pandas as pd
 
 class ImportData:
@@ -16,7 +16,7 @@ class ImportData:
         if dialog_execution == 1:
             
             dirPath = dialog.selectedFiles()
-            mt = MultiThread.MultiThread()
+            mt = MultiThread()
             
             #if(len(dirPath) == 1):
                 #dataFrame = mt.single_load(dirPath[0])

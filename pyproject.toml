@@ -19,9 +19,10 @@ sport-activities-features = "^0.3.13"
 QtAwesome = "^1.2.1"
 PyQt6 = "^6.5.1"
 sip = "^6.7.9"
+opencv-python-headless = "^4.8.0.74"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^6.2.5"
 
 [tool.poetry.scripts]
 sport-activities-features-gui = 'sport_activities_features_gui.main:main'
@@ -29,3 +30,6 @@ sport-activities-features-gui = 'sport_activities_features_gui.main:main'
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths =  "./tests"

@@ -1,6 +1,6 @@
 import sys
 from PyQt6 import QtWidgets
-from sport_activities_features_gui.windows.ProfilesWindow import Ui_ProfilesWindow
+from sport_activities_features_gui.windows.profiles_window import Ui_ProfilesWindow
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

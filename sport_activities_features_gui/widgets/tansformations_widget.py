@@ -1,9 +1,8 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QWidget
-from PyQt6.QtGui import QAction
-from sport_activities_features_gui.logic.ImportData import ImportData
-from sport_activities_features_gui.logic.Transformations import Transformations
-from sport_activities_features_gui.models.User import User
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtWidgets import QWidget
+from sport_activities_features_gui.logic.import_data import ImportData
+from sport_activities_features_gui.logic.transformations import Transformations
+from sport_activities_features_gui.models.user import User
 import pandas as pd
 
 class Ui_TransformationsWidget(QWidget):

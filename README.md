@@ -6,6 +6,20 @@
 
 # sport-activities-features-gui
 
+---
+
+[![PyPI Version](https://img.shields.io/pypi/v/sport-activities-features-gui.svg)](https://pypi.python.org/pypi/sport-activities-features-gui)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sport-activities-features-gui.svg)
+[![Documentation Status](https://readthedocs.org/projects/sport-activities-features-gui/badge/?version=latest)](https://sport-activities-features-gui.readthedocs.io/en/latest/?badge=latest)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/sport-activities-features-gui.svg)
+[![Downloads](https://pepy.tech/badge/sport-activities-features-gui)](https://pepy.tech/project/sport-activities-features-gui)
+![GitHub repo size](https://img.shields.io/github/repo-size/firefly-cpp/sport-activities-features-gui?style=flat-square)
+[![GitHub license](https://img.shields.io/github/license/firefly-cpp/sport-activities-features-gui.svg)](https://github.com/firefly-cpp/sport-activities-features-gui/blob/master/LICENSE)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/firefly-cpp/sport-activities-features-gui.svg)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/firefly-cpp/sport-activities-features-gui.svg)](http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/firefly-cpp/sport-activities-features-gui.svg)](http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Percentage of issues still open")
+
+
 A simple GUI application that uses the library sports-activities-features to import sports activity files (TCX) and makes it easy to view and transform the data in a GUI environment.
 
 ## Installation

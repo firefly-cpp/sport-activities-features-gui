@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QGroupBox, QLineEdit, QPushButton, QStatusBar
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore
 
 
 class Ui_AddProfileWindow(QMainWindow):

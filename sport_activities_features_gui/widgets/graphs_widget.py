@@ -1,4 +1,4 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QWidget, QMessageBox
 class Ui_GraphsWidget(QWidget):
     exampleGraphs = ["All biking distances ridden",
@@ -165,5 +165,5 @@ class Ui_GraphsWidget(QWidget):
             self.btnViewAttributesX.setEnabled(True)
 
 
-from sport_activities_features_gui.logic.Graphs import Graphs
-from sport_activities_features_gui.windows.ViewAttributesWindow import Ui_ViewAttributesWindow
+from sport_activities_features_gui.logic.graphs import Graphs
+from sport_activities_features_gui.windows.view_attributes_window import Ui_ViewAttributesWindow

@@ -1,7 +1,7 @@
-from .Graphs import Graphs
-from .ImportData import ImportData
-from .MultiThread import MultiThread
-from .Transformations import Transformations
+from sport_activities_features_gui.logic.graphs import Graphs
+from sport_activities_features_gui.logic.import_data import ImportData
+from sport_activities_features_gui.logic.multi_thread import MultiThread
+from sport_activities_features_gui.logic.transformations import Transformations
 
 __all__ = [
     'Graphs',

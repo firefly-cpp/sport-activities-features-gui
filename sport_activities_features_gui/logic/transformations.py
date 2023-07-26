@@ -1,5 +1,4 @@
 # NORMALIZACIJA, STANDARDIZACIJA
-from sklearn.preprocessing import OneHotEncoder
 from scipy.stats import zscore
 import pandas as pd
 import numpy as np

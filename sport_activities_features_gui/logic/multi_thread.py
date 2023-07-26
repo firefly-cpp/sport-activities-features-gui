@@ -1,6 +1,5 @@
 from sport_activities_features.tcx_manipulation import TCXFile
 import pandas as pd
-from itertools import product
 from multiprocessing import Pool, Manager
 
 class MultiThread:  

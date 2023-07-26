@@ -1,7 +1,8 @@
-from .ImportDataWidget import Ui_ImportDataWidget
-from .CalendarWidget import Ui_CalendarWidget
-from .TransformationsWidget import Ui_TransformationsWidget
-from .GraphsWidget import Ui_GraphsWidget
+from sport_activities_features_gui.widgets.import_data_widget import Ui_ImportDataWidget
+from sport_activities_features_gui.widgets.calendarwidget import Ui_CalendarWidget
+from sport_activities_features_gui.widgets.tansformations_widget import Ui_TransformationsWidget
+from sport_activities_features_gui.widgets.graphs_widget import Ui_GraphsWidget
+
 
 __all__ = [
     'Ui_ImportDataWidget',

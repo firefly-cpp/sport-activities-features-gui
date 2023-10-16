@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sport-activities-features-gui"
-version = "0.2.2"
+version = "0.2.3"
 description = "GUI for sport-activities-features package"
 authors = [
     "otiv33 <vito.abeln@gmail.com>",

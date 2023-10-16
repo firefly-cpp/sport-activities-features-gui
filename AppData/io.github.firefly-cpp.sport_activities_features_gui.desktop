@@ -1,11 +1,11 @@
 [Desktop Entry]
-Version=0.2.0
+Version=0.2.3
 Type=Application
 
 Name=sport-activities-features-gui
 Comment=A basic graphical user interface intended for users of the sport-activities-features Python package.
 Categories=Science;ArtificialIntelligence;
 
-Icon=icon1
+Icon=sport-activities-features-gui
 Exec=sport-activities-features-gui
 Terminal=false

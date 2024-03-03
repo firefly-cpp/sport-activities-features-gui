@@ -34,7 +34,6 @@ pip install sport-activities-features-gui
 ## Features
 - Improved bulk importing of tcx files
 - Exporting data to different formats
-- Graphing data
 - Data transformations
 - Calendar view of active days
 - Individual user profiles

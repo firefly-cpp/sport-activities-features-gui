@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 
+
 class Graphs:
     user = None
 
@@ -35,7 +36,8 @@ class Graphs:
     def sumOfBikingDurationForCompetitor(self):
         sum = 0
         for act in filter(lambda x: x['activity_type'] == 'Biking', self.user.data.to_dict('records')):
-            sum += act['duration'] if act['duration'] != None and math.isnan(act['duration']) == False else 0
+            sum += act['duration'] if act['duration'] != None and math.isnan(
+                act['duration']) == False else 0
 
         plt.subplot(131)
         plt.bar([self.user.username], sum)
@@ -58,7 +60,7 @@ class Graphs:
 
     def caloriesByActivityType(self):
 
-        activity_types=list(set(self.user.data["activity_type"]))
+        activity_types = list(set(self.user.data["activity_type"]))
         caloriesDictionary = {}
         for activity in activity_types:
             caloriesDictionary[activity] = 0

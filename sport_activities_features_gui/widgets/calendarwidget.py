@@ -1,11 +1,9 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QWidget, QApplication, QCalendarWidget
-
 from PyQt6.QtGui import QPalette, QTextCharFormat
 from PyQt6.QtCore import Qt
 from datetime import datetime
 import numpy as np
-
 from sport_activities_features_gui.models.user import User
 
 
@@ -33,8 +31,10 @@ class Ui_CalendarWidget(QWidget):
         self.end_date = None
 
         self.highlight_format = QTextCharFormat()
-        self.highlight_format.setBackground(self.palette().brush(QPalette.ColorRole.Highlight))
-        self.highlight_format.setForeground(self.palette().color(QPalette.ColorRole.HighlightedText))
+        self.highlight_format.setBackground(
+            self.palette().brush(QPalette.ColorRole.Highlight))
+        self.highlight_format.setForeground(
+            self.palette().color(QPalette.ColorRole.HighlightedText))
 
         # self.calendarWidget.clicked.connect(self.date_is_clicked)
 
@@ -50,7 +50,8 @@ class Ui_CalendarWidget(QWidget):
     def highlightDates(self):
         if 'start_time' in self.globalUser.data:
             for date in self.globalUser.data['start_time'].unique():
-                self.calendarWidget.setDateTextFormat(self.toDatetime(date), self.highlight_format)
+                self.calendarWidget.setDateTextFormat(
+                    self.toDatetime(date), self.highlight_format)
         else:
             print('No dates to highlight')
 
@@ -72,8 +73,10 @@ class Ui_CalendarWidget(QWidget):
 
     def setup(self):
         self.calendarWidget.setGridVisible(True)
-        self.calendarWidget.setSelectionMode(QtWidgets.QCalendarWidget.SelectionMode.NoSelection)
+        self.calendarWidget.setSelectionMode(
+            QtWidgets.QCalendarWidget.SelectionMode.NoSelection)
         self.calendarWidget.setNavigationBarVisible(True)
         self.calendarWidget.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
-        self.calendarWidget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader)
+        self.calendarWidget.setVerticalHeaderFormat(
+            QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader)
         self.highlightDates()

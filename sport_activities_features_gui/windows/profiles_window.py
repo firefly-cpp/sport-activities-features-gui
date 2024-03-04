@@ -86,7 +86,8 @@ class Ui_ProfilesWindow(QMainWindow):
             self.dialog.importGlobalUser(user)
             self.dialog.show()
         else:
-            QMessageBox.warning(self, 'Warning', 'Add a profile first', QMessageBox.StandardButton.Ok)
+            QMessageBox.warning(
+                self, 'Warning', 'Add a profile first', QMessageBox.StandardButton.Ok)
 
     # ADD PROFILE
     def showAddProfileWindow(self):
@@ -94,7 +95,8 @@ class Ui_ProfilesWindow(QMainWindow):
 
     def addProfile(self, newProfile: str):
         if newProfile in self.profileList:
-            QMessageBox.warning(self, 'Warning', 'The profile you entered already exists', QMessageBox.StandardButton.Ok)
+            QMessageBox.warning(
+                self, 'Warning', 'The profile you entered already exists', QMessageBox.StandardButton.Ok)
             return
 
         newProfileItem = QtWidgets.QListWidgetItem(newProfile)

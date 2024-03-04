@@ -2,5 +2,6 @@ import os
 
 path = '\\store\\'
 
-def getStorePath() -> str :
+
+def getStorePath() -> str:
     return os.getcwd() + path

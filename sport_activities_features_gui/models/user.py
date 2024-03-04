@@ -9,18 +9,19 @@ def initGlobalUser(userName, settings):
     user = User(userName, settings)
     return user
 
+
 class User:
     global username
     global data
     global userPath
     global setting
-        
+
     def __init__(self, _username: str, _setting: dict):
         self.username: str = _username
         self.userPath: str = str(getStorePath() + _username + '/')
         self.setting: dict = _setting
         self.checkForExistingData()
-   
+
     # creates directory in store
     def checkForExistingData(self):
         if not os.path.isdir(self.userPath):
@@ -39,9 +40,8 @@ class User:
         pickle.dump(data, pickleFile)
         pickleFile.close()
         self.data: pd.DataFrame = data
-        
+
     def loadData(self):
         pickleFile = open(self.userPath+'data.pickle', 'rb')
         self.data: pd.DataFrame = pickle.load(pickleFile)
         pickleFile.close()
-             

@@ -1,11 +1,9 @@
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6 import QtCore, QtGui, QtWidgets
-
 from sport_activities_features_gui.widgets.graphs_widget import Ui_GraphsWidget
 from sport_activities_features_gui.widgets.calendarwidget import Ui_CalendarWidget
 from sport_activities_features_gui.widgets.tansformations_widget import Ui_TransformationsWidget
 from sport_activities_features_gui.widgets.import_data_widget import Ui_ImportDataWidget
-
 from sport_activities_features_gui.models.user import User
 
 
@@ -62,7 +60,8 @@ class Ui_MainWindow(QMainWindow):
         # TRANSFORMATIONS
         self.tab_Transformations = QtWidgets.QWidget()
         self.tab_Transformations.setObjectName("tab_Transformations")
-        self.verticalLayoutWidget_3 = QtWidgets.QWidget(self.tab_Transformations)
+        self.verticalLayoutWidget_3 = QtWidgets.QWidget(
+            self.tab_Transformations)
         self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 801, 521))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
         self.mainLayout_3 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_3)
@@ -109,10 +108,14 @@ class Ui_MainWindow(QMainWindow):
 
     def retranslateUi(self):
         self.setWindowTitle("Sport activites features GUI")
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_ImportData), "Import Data")
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Graphs), "Graphs")
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Transformations), "Transformations")
-        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(self.tab_Calendar), "Calendar")
+        self.mainTabWidget.setTabText(
+            self.mainTabWidget.indexOf(self.tab_ImportData), "Import Data")
+        self.mainTabWidget.setTabText(
+            self.mainTabWidget.indexOf(self.tab_Graphs), "Graphs")
+        self.mainTabWidget.setTabText(self.mainTabWidget.indexOf(
+            self.tab_Transformations), "Transformations")
+        self.mainTabWidget.setTabText(
+            self.mainTabWidget.indexOf(self.tab_Calendar), "Calendar")
 
         self.actionImport_Data.setText("Import Data")
         self.actionGraphs.setText("Graphs")
@@ -121,7 +124,8 @@ class Ui_MainWindow(QMainWindow):
 
     # IMPORT GLOBAL USER
     def importGlobalUser(self, user):
-        self.setWindowTitle("Sport activites features GUI - for profile : \"" + user.username + "\"")
+        self.setWindowTitle(
+            "Sport activites features GUI - for profile : \"" + user.username + "\"")
         self.globalUser = user
         self.importDataUi.importGlobalUser(user)
         self.calendarUi.importGlobalUser(user)

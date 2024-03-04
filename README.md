@@ -18,27 +18,25 @@
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/firefly-cpp/sport-activities-features-gui.svg)](http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/firefly-cpp/sport-activities-features-gui.svg)](http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Percentage of issues still open")
 
+## About 📋
+A simple GUI application that uses the library sports-activities-features to import sports activity files (TCX) and makes it easy to view and transform the data in a GUI environment. 🖥️🔄
 
-A simple GUI application that uses the library sports-activities-features to import sports activity files (TCX) and makes it easy to view and transform the data in a GUI environment.
+## Key features ✨
+- Improved bulk importing of tcx files 📁
+- Exporting data to different formats 💾
+- Data transformations 🔄
+- Calendar view of active days 📅
+- Individual user profiles 👤
 
-## Installation
-
+## Installation 📦
 ### pip
-
 Install sport-activities-features with pip:
 
 ```sh
 pip install sport-activities-features-gui
 ```
 
-## Features
-- Improved bulk importing of tcx files
-- Exporting data to different formats
-- Data transformations
-- Calendar view of active days
-- Individual user profiles
-
-## Screenshots
+## Screenshots 📸
 <p float="left">
   <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_1.jpg?raw=true" alt="Profiles window" width="200"/>
   <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_2.jpg?raw=true" alt="Import tab" width="350"/>
@@ -47,18 +45,20 @@ pip install sport-activities-features-gui
   <img src="https://github.com/otiv33/sport-activities-features-gui/blob/main/screenshots/Screenshot_5.jpg?raw=true" alt="Transformations tab" width="350"/>
 </p>
 
-## Installation
-0. Prerequisites
-    - [Python 3.10](https://www.python.org/downloads/)
-    - [Poetry](https://python-poetry.org/docs/#installation)
+## Development 🛠️
+### Prerequisites
+  - [Python 3.10](https://www.python.org/downloads/)
+  - [Poetry](https://python-poetry.org/docs/#installation)
+
+### Installation
 1. Clone [this](https://github.com/firefly-cpp/sport-activities-features-gui) repository from GitHub.
 2. Create a virtual environment and install the dependencies using poetry:
     ```bash
     poetry install
     ```
-3. Run the main.py file
-   1. Script path: `<project_folder>/sport-activities-features-gui/main.py`
-   2. Working directory: `<project_folder>/sport-activities-features-gui/`
+3. Run the `main.py` file
+    1. Script path: `<project_folder>/sport-activities-features-gui/main.py`
+    2. Working directory: `<project_folder>/sport-activities-features-gui/`
 
 ## License
 

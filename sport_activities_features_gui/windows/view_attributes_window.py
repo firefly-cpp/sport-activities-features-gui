@@ -26,7 +26,7 @@ class Ui_ViewAttributesWindow(QMainWindow):
         self.setStatusBar(self.statusbar)
 
         self.selectedAttribute = None
-        self.result = False # True if user clicked Save, False if user clicked Close
+        self.result = False  # True if user clicked Save, False if user clicked Close
         self.save_button = QPushButton("Save")
         self.save_button.clicked.connect(self.save)
         self.verticalLayout.addWidget(self.save_button)
@@ -34,9 +34,9 @@ class Ui_ViewAttributesWindow(QMainWindow):
         self.close_button = QPushButton("Close")
         self.close_button.clicked.connect(self.close)
         self.verticalLayout.addWidget(self.close_button)
-        self.axis=None
+        self.axis = None
 
-        self.callback=None
+        self.callback = None
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -49,7 +49,8 @@ class Ui_ViewAttributesWindow(QMainWindow):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("ViewAttributesWindow", "ViewAttributesWindow"))
+        MainWindow.setWindowTitle(_translate(
+            "ViewAttributesWindow", "ViewAttributesWindow"))
 
     def importData(self, data):
         self.data = data

@@ -1,5 +1,9 @@
+from sport_activities_features_gui.windows.view_attributes_window import Ui_ViewAttributesWindow
+from sport_activities_features_gui.logic.graphs import Graphs
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QWidget, QMessageBox
+
+
 class Ui_GraphsWidget(QWidget):
     exampleGraphs = ["All biking distances ridden",
                      "Sum of biking duration for competitor",
@@ -19,7 +23,8 @@ class Ui_GraphsWidget(QWidget):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.exampleGraphGroupBox = QtWidgets.QGroupBox(self.gridLayoutWidget_2)
+        self.exampleGraphGroupBox = QtWidgets.QGroupBox(
+            self.gridLayoutWidget_2)
         self.exampleGraphGroupBox.setObjectName("exampleGraphGroupBox")
         self.gridLayoutWidget_3 = QtWidgets.QWidget(self.exampleGraphGroupBox)
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(9, 19, 761, 201))
@@ -69,7 +74,8 @@ class Ui_GraphsWidget(QWidget):
         self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget)
         self.label_3.setObjectName("label_3")
         self.gridLayout.addWidget(self.label_3, 2, 0, 1, 1)
-        self.btnGenerateCustomGraph = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.btnGenerateCustomGraph = QtWidgets.QPushButton(
+            self.gridLayoutWidget)
         self.btnGenerateCustomGraph.setObjectName("btnGenerateCustomGraph")
         self.gridLayout.addWidget(self.btnGenerateCustomGraph, 2, 2, 1, 1)
 
@@ -81,35 +87,40 @@ class Ui_GraphsWidget(QWidget):
         self.btnViewAttributesY.setObjectName("btnViewAttributesY")
         self.gridLayout.addWidget(self.btnViewAttributesY, 1, 2, 1, 1)
 
-
         self.gridLayout_2.addWidget(self.groupBox, 1, 0, 1, 1)
         self.viewAttributesWindow = Ui_ViewAttributesWindow()
-        self.viewAttributesWindow.callback=self.setSelectedAtribute
+        self.viewAttributesWindow.callback = self.setSelectedAtribute
 
         self.plotTypeComboBox.setCurrentText("Bar")
         self.xAxisInput.setEnabled(False)
         self.btnViewAttributesX.setEnabled(False)
         self.yAxisInput.setEnabled(True)
-        self.plotTypeComboBox.currentTextChanged.connect(self.on_combobox_changed)
+        self.plotTypeComboBox.currentTextChanged.connect(
+            self.on_combobox_changed)
         self.btnGenerateGraph.pressed.connect(self.generateGraph)
         self.btnGenerateCustomGraph.pressed.connect(self.generateCustomGraph)
-        self.btnViewAttributesX.pressed.connect(lambda:self.viewAttributes("X"))
-        self.btnViewAttributesY.pressed.connect(lambda:self.viewAttributes("Y"))
+        self.btnViewAttributesX.pressed.connect(
+            lambda: self.viewAttributes("X"))
+        self.btnViewAttributesY.pressed.connect(
+            lambda: self.viewAttributes("Y"))
 
         self.retranslateUi()
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Form", "Form"))
-        self.exampleGraphGroupBox.setTitle(_translate("Form", "Example graphs"))
+        self.exampleGraphGroupBox.setTitle(
+            _translate("Form", "Example graphs"))
         self.btnGenerateGraph.setText(_translate("Form", "Generate graph"))
         self.groupBox.setTitle(_translate("Form", "Custom graph"))
         self.label.setText(_translate("Form", "X axis"))
-        self.btnGenerateCustomGraph.setText(_translate("Form", "Generate graph"))
+        self.btnGenerateCustomGraph.setText(
+            _translate("Form", "Generate graph"))
         self.label_2.setText(_translate("Form", "Y axis"))
-        self.btnViewAttributesX.setText(_translate("Form", "View data attributes for X"))
-        self.btnViewAttributesY.setText(_translate("Form", "View data attributes for Y"))
-
+        self.btnViewAttributesX.setText(
+            _translate("Form", "View data attributes for X"))
+        self.btnViewAttributesY.setText(
+            _translate("Form", "View data attributes for Y"))
 
     def importGlobalUser(self, user):
         self.globalUser = user
@@ -140,7 +151,8 @@ class Ui_GraphsWidget(QWidget):
             self.graphFn.customGraph(xAttr, yAttr, plotType)
         except Exception as e:
             if type(e) == KeyError:
-                QMessageBox.warning(self, 'Warning', f"Please enter valid attributes. {str(e)} is not a valid attribute.")
+                QMessageBox.warning(
+                    self, 'Warning', f"Please enter valid attributes. {str(e)} is not a valid attribute.")
             else:
                 QMessageBox.warning(self, 'Warning', str(e))
 
@@ -151,10 +163,11 @@ class Ui_GraphsWidget(QWidget):
     def setSelectedAtribute(self):
         if self.viewAttributesWindow.result:
             if self.viewAttributesWindow.axis == "X":
-                self.xAxisInput.setText(self.viewAttributesWindow.selectedAttribute)
+                self.xAxisInput.setText(
+                    self.viewAttributesWindow.selectedAttribute)
             else:
-                self.yAxisInput.setText(self.viewAttributesWindow.selectedAttribute)
-
+                self.yAxisInput.setText(
+                    self.viewAttributesWindow.selectedAttribute)
 
     def on_combobox_changed(self, value):
         if (value == "Bar" or value == "Line"):
@@ -163,7 +176,3 @@ class Ui_GraphsWidget(QWidget):
         else:
             self.xAxisInput.setEnabled(True)
             self.btnViewAttributesX.setEnabled(True)
-
-
-from sport_activities_features_gui.logic.graphs import Graphs
-from sport_activities_features_gui.windows.view_attributes_window import Ui_ViewAttributesWindow

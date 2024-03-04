@@ -34,7 +34,8 @@ class Ui_AddProfileWindow(QMainWindow):
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("AddProfileWindow", "Add profile"))
-        self.groupBox.setTitle(_translate("AddProfileWindow", "Add new profile"))
+        self.groupBox.setTitle(_translate(
+            "AddProfileWindow", "Add new profile"))
         self.btnAddProfile.setText(_translate("AddProfileWindow", "Add"))
 
     def addProfile(self):

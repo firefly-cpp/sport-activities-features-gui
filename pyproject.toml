@@ -15,7 +15,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-sport-activities-features = "^0.3.13"
+sport-activities-features = "^0.3.18"
 QtAwesome = "^1.2.1"
 PyQt6 = "^6.5.1"
 sip = "^6.7.9"

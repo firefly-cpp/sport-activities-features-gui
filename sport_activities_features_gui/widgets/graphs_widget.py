@@ -1,5 +1,3 @@
-from sport_activities_features_gui.windows.view_attributes_window import Ui_ViewAttributesWindow
-from sport_activities_features_gui.logic.graphs import Graphs
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QWidget, QMessageBox
 
@@ -176,3 +174,6 @@ class Ui_GraphsWidget(QWidget):
         else:
             self.xAxisInput.setEnabled(True)
             self.btnViewAttributesX.setEnabled(True)
+
+from sport_activities_features_gui.windows.view_attributes_window import Ui_ViewAttributesWindow
+from sport_activities_features_gui.logic.graphs import Graphs

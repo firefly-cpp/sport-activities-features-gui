@@ -1,0 +1,66 @@
+QPushButton {
+    color: white;
+    background-color: #2F3061;
+    border: 2px solid #2F3061;
+    border-radius: 6;
+    padding: 2;
+    font-weight: 600;
+}
+
+QLabel {
+    width: fit-content;
+    font-weight: 700;
+}
+
+QLineEdit {
+    border: 2px solid #2F3061;
+    border-radius:6;
+    padding: 1;
+}
+
+QComboBox::item:hover {
+    background-color: #2F3061;
+}
+
+QComboBox::item:selected:active {
+    background-color: #2F3061;
+}
+
+QTabBar::tab {
+    border-top-left-radius: 6;
+    border-top-right-radius: 6;
+    border-bottom: 0;
+    padding: 5px;
+    font-weight: 600;
+}
+
+QTabBar::tab:selected {
+    background-color: #2F3061;
+    color: white;
+}
+
+QListWidget::item {
+    border: 2px solid #2F3061;
+    border-top: 0;
+}
+
+
+QListWidget::item:selected {
+    background-color: #2F3061;
+    color: white;
+    border: 2px solid #2F3061;
+    border-top: 0;
+}
+
+QCalendarWidget QToolButton {
+    background-color: #2F3061;
+}
+
+QCalendarWidget QToolButton::hover {
+    background-color: #2F3061;
+    color: white;
+}
+
+QCalendarWidget QToolButton::pressed {
+    background-color: #CDEDF6;
+}

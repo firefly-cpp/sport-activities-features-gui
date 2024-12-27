@@ -1,7 +1,7 @@
 import pickle
 import pandas as pd
 import os
-from ..global_vars import *
+from sport_activities_features_gui.global_vars import getStorePath
 
 
 def initGlobalUser(userName, settings):
@@ -25,7 +25,7 @@ class User:
 
     def __init__(self, _username: str, _setting: dict):
         self.username: str = _username
-        self.userPath: str = str(getStorePath() + _username + '/')
+        self.userPath: str = os.path.join(getStorePath(), _username)
         self.setting: dict = _setting
         self.checkForExistingData()
 
@@ -48,7 +48,8 @@ class User:
         Args:
             data (DataFrame): The data to save.
         """
-        pickleFile = open(self.userPath+'data.pickle', 'wb')
+        path = os.path.join(self.userPath, 'data.pickle')
+        pickleFile = open(path, 'wb')
         pickle.dump(data, pickleFile)
         pickleFile.close()
         self.data: pd.DataFrame = data
@@ -58,6 +59,7 @@ class User:
         Args:
             data (DataFrame): The data to load.
         """
-        pickleFile = open(self.userPath+'data.pickle', 'rb')
+        path = os.path.join(self.userPath, 'data.pickle')
+        pickleFile = open(path, 'rb')
         self.data: pd.DataFrame = pickle.load(pickleFile)
         pickleFile.close()

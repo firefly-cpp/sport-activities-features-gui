@@ -8,10 +8,9 @@ from sklearn.preprocessing import MinMaxScaler
 class Transformations:
     """This class handles the normalization and standardization of the data."""
     def __init__(self, user):
-        self.user = user
-        print("Not implemented")
+        self.user = user        
 
-    def one_hot_encoding(df):
+    def one_hot_encoding(self,df):
         """This function performs one-hot encoding on the data.
         Args:
             df (DataFrame): The data to encode.
@@ -20,33 +19,48 @@ class Transformations:
         """
         return df.join(pd.get_dummies(df['activity_type']))
 
-    def min_max_normalization(self, df: pd.DataFrame) -> pd.DataFrame:
+    def min_max_normalization(self, df: pd.DataFrame, one_hot_encoding: bool) -> pd.DataFrame:
         """This function performs min-max normalization on the data.
         Args:
             df (DataFrame): The data to normalize.
+            one_hot_encoding (bool): Whether to perform one-hot encoding.
         Returns:
             DataFrame: The normalized data.
         """
         temp_df = self.clean_df(df)
         scaler = MinMaxScaler()
-        return pd.DataFrame(scaler.fit_transform(temp_df), columns=temp_df.columns)
+        activity_types = df['activity_type']
+        new_df = pd.DataFrame(scaler.fit_transform(temp_df), columns=temp_df.columns)
+        new_df.insert(0, 'activity_type', activity_types)
+        if one_hot_encoding:
+            new_df = self.one_hot_encoding(new_df)
+            new_df = new_df.drop(columns='activity_type')
+        return new_df
 
-    def zscore_normalization(self, df: pd.DataFrame) -> pd.DataFrame:
+    def zscore_normalization(self, df: pd.DataFrame, one_hot_encoding: bool) -> pd.DataFrame:
         """This function performs z-score normalization on the data.
         Args:
             df (DataFrame): The data to normalize.
+            one_hot_encoding (bool): Whether to perform one-hot encoding.
         Returns:
             DataFrame: The normalized data.
         """        
         temp_df = self.clean_df(df)
         for column in temp_df:
             temp_df[column] = zscore(temp_df[column])
-        return temp_df
+        activity_types = df['activity_type']
+        new_df = temp_df
+        new_df.insert(0, 'activity_type', activity_types)
+        if one_hot_encoding:
+            new_df = self.one_hot_encoding(new_df)
+            new_df = new_df.drop(columns='activity_type')
+        return new_df
 
-    def log_normalization(self, df: pd.DataFrame) -> pd.DataFrame:
+    def log_normalization(self, df: pd.DataFrame, one_hot_encoding: bool) -> pd.DataFrame:
         """This function performs logarithmic normalization on the data.
         Args:
             df (DataFrame): The data to normalize.
+            one_hot_encoding (bool): Whether to perform one-hot encoding.
         Returns:
             DataFrame: The normalized data.
         """
@@ -58,7 +72,14 @@ class Transformations:
             if column in var:
                 continue
             log_df[column] = np.log(log_df[column])
-        return log_df
+            
+        activity_types = df['activity_type']
+        new_df = log_df
+        new_df.insert(0, 'activity_type', activity_types)
+        if one_hot_encoding:
+            new_df = self.one_hot_encoding(new_df)
+            new_df = new_df.drop(columns='activity_type')
+        return new_df
 
     def clean_df(self, df: pd.DataFrame) -> pd.DataFrame:
         """This function cleans the data by removing NaN values and non-numeric columns.
@@ -75,6 +96,4 @@ class Transformations:
             procent_NaN = (df.loc[[i]].isna().sum().sum()) / (len(df.columns))
             if procent_NaN > 0.5:
                 df = df.drop(i)
-        # for column in df :
-        #     df[column] = df[column].fillna(0)
         return df

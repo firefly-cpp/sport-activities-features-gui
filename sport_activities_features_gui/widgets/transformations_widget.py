@@ -10,8 +10,9 @@ class Ui_TransformationsWidget(QWidget):
     globalUser: User
     importDataFn: ImportData
     transformations: Transformations
+    refMainWindow = None
 
-    def __init__(self):
+    def __init__(self,refMainWindow):
         QWidget.__init__(self)
         self.transformationsFn = None
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
@@ -20,17 +21,17 @@ class Ui_TransformationsWidget(QWidget):
         self.setObjectName("Transformations")
         self.resize(800, 600)
         self.minMaxButton = QtWidgets.QPushButton(self)
-        self.minMaxButton.setGeometry(QtCore.QRect(10, 340, 120, 23))
+        self.minMaxButton.setGeometry(QtCore.QRect(10, 340, 150, 23))
         self.minMaxButton.setObjectName("minMaxButton")
         self.logNormalizationButton = QtWidgets.QPushButton(self)
-        self.logNormalizationButton.setGeometry(QtCore.QRect(10, 370, 120, 23))
+        self.logNormalizationButton.setGeometry(QtCore.QRect(10, 370, 150, 23))
         self.logNormalizationButton.setObjectName("logNormalizationButton")
         self.zScoreNormalizationButton = QtWidgets.QPushButton(self)
         self.zScoreNormalizationButton.setGeometry(
-            QtCore.QRect(10, 400, 120, 23))
+            QtCore.QRect(10, 400, 150, 23))
         self.zScoreNormalizationButton.setObjectName("pushButton_3")
         self.checkBox = QtWidgets.QCheckBox(self)
-        self.checkBox.setGeometry(QtCore.QRect(10, 430, 120, 17))
+        self.checkBox.setGeometry(QtCore.QRect(10, 430, 150, 17))
         self.checkBox.setObjectName("checkBox")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(
             self.verticalLayoutWidget)
@@ -50,6 +51,7 @@ class Ui_TransformationsWidget(QWidget):
         self.logNormalizationButton.pressed.connect(self.logNormalization)
         self.zScoreNormalizationButton.pressed.connect(
             self.zScoreNormalization)
+        self.refMainWindow = refMainWindow
 
     def retranslateUi(self, Transformations):
         _translate = QtCore.QCoreApplication.translate
@@ -61,22 +63,25 @@ class Ui_TransformationsWidget(QWidget):
         self.zScoreNormalizationButton.setText(
             _translate("Transformations", "Z-Score Normalization"))
         self.checkBox.setText(_translate(
-            "Transformations", "One hot encoding (not implemented)"))
+            "Transformations", "One hot encoding"))
 
     def minMax(self):
+        one_hot_encoding = self.checkBox.isChecked()
         transformedData = self.transformationsFn.min_max_normalization(
-            self.globalUser.data)
+            self.globalUser.data,one_hot_encoding)
         self.OutPutExistingData(transformedData)
         print("minMax")
 
     def logNormalization(self):
+        one_hot_encoding = self.checkBox.isChecked()
         transformedData = self.transformationsFn.log_normalization(
-            self.globalUser.data)
+            self.globalUser.data,one_hot_encoding)
         self.OutPutExistingData(transformedData)
 
     def zScoreNormalization(self):
+        one_hot_encoding = self.checkBox.isChecked()
         transformedData = self.transformationsFn.zscore_normalization(
-            self.globalUser.data)
+            self.globalUser.data,one_hot_encoding)
         self.OutPutExistingData(transformedData)
 
     def importGlobalUser(self, user: User):

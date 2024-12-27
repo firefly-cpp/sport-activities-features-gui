@@ -1,3 +1,4 @@
+import pandas as pd
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QPushButton
 
@@ -50,9 +51,9 @@ class Ui_ViewAttributesWindow(QMainWindow):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate(
-            "ViewAttributesWindow", "ViewAttributesWindow"))
+            "ViewAttributesWindow", "Select attributes"))
 
-    def importData(self, data):
+    def importData(self, data: pd.DataFrame):
         self.data = data
         columns = self.data.columns.tolist()
         self.listWidget.addItems(columns)

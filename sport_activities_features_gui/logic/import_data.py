@@ -2,6 +2,7 @@ import sys
 from PyQt6.QtWidgets import QFileDialog
 from sport_activities_features_gui.logic.multi_thread import MultiThread
 from sport_activities_features_gui.models.user import User
+from sport_activities_features.tcx_manipulation import TCXFile
 import pandas as pd
 
 
@@ -12,6 +13,28 @@ class ImportData:
     def __init__(self, user: User):        
         self.globalUser = user
 
+    def openFolderDialog(self):
+        """This function opens a folder dialog to select a folder to import."""
+        dialog = FolderDialog()
+        dialog_execution = dialog.exec()
+        if dialog_execution == 1:
+
+            selectedFolderPath = dialog.selectedFiles()[0]
+            tcx_file = TCXFile()
+            selectedFilePaths = tcx_file.read_directory(selectedFolderPath)
+            mt = MultiThread()
+
+            # if(len(dirPath) == 1):
+            # dataFrame = mt.single_load(dirPath[0])
+            # else:
+
+            data = mt.bulk_load(selectedFilePaths, 4)
+            dataFrame = pd.DataFrame(data['data'])
+
+            self.globalUser.saveData(dataFrame)
+            return dataFrame
+        return None
+    
     def openFileDialog(self):
         """This function opens a file dialog to select a file to import.
         Returns:
@@ -21,14 +44,14 @@ class ImportData:
         dialog_execution = dialog.exec()
         if dialog_execution == 1:
 
-            dirPath = dialog.selectedFiles()
+            selectedFilePaths = dialog.selectedFiles()
             mt = MultiThread()
 
             # if(len(dirPath) == 1):
             # dataFrame = mt.single_load(dirPath[0])
             # else:
 
-            data = mt.bulk_load(dirPath, 4)
+            data = mt.bulk_load(selectedFilePaths, 4)
             dataFrame = pd.DataFrame(data['data'])
 
             self.globalUser.saveData(dataFrame)
@@ -67,3 +90,13 @@ class FileDialog(QFileDialog):
 
     def accept(self):
         super(FileDialog, self).accept()
+
+class FolderDialog(QFileDialog):
+    """This class creates a folder dialog to select a folder to import."""
+    def __init__(self, *args, **kwargs):
+        super(FolderDialog, self).__init__(*args, **kwargs)
+        self.setOption(QFileDialog.options(self).DontUseNativeDialog, True)
+        self.setFileMode(QFileDialog.FileMode.Directory)        
+
+    def accept(self):
+        super(FolderDialog, self).accept()

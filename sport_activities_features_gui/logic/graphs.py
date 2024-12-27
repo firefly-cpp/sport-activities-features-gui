@@ -56,7 +56,7 @@ class Graphs:
             calories.append(a['calories'])
             altitude.append(a['altitude_avg'])
         plt.scatter(altitude, calories)
-        plt.title('Altitude vs calories')
+        plt.title('Altitude vs Calories')
         plt.xlabel('Altitude')
         plt.ylabel('Calories')
         plt.show()

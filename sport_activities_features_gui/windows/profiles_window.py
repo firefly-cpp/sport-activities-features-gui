@@ -5,7 +5,7 @@ from sport_activities_features_gui.models.user import initGlobalUser, User
 from sport_activities_features_gui.windows.add_profile import Ui_AddProfileWindow
 from sport_activities_features_gui.windows.main_window import Ui_MainWindow
 import os
-from ..global_vars import *
+from sport_activities_features_gui.global_vars import getStorePath
 
 
 class Ui_ProfilesWindow(QMainWindow):
@@ -46,9 +46,10 @@ class Ui_ProfilesWindow(QMainWindow):
         self.btnRemoveProfile.clicked.connect(self.removeProfile)
 
         self.addProfileWindow = Ui_AddProfileWindow(self)
-        if not os.path.exists(getStorePath()):
-            os.mkdir(getStorePath())
-        with os.scandir(getStorePath()) as entries:
+        storePath = getStorePath()
+        if not os.path.exists(storePath):
+            os.mkdir(storePath)
+        with os.scandir(storePath) as entries:
             for entry in entries:
                 self.profileList.append(entry.name)
 
@@ -106,7 +107,7 @@ class Ui_ProfilesWindow(QMainWindow):
         self.profilesLV.setCurrentRow(len(self.profileList) - 1)
         self.currentProfile = newProfile
 
-        newProfilePath = getStorePath() + newProfile
+        newProfilePath = os.path.join(getStorePath(), newProfile)
         if not os.path.isdir(newProfilePath):
             os.makedirs(newProfilePath)
 
@@ -117,8 +118,8 @@ class Ui_ProfilesWindow(QMainWindow):
                                      QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                                      QMessageBox.StandardButton.No)
 
-        if reply == QMessageBox.StandardButton.Yes:
-            deletePath = getStorePath() + self.currentProfile
+        if reply == QMessageBox.StandardButton.Yes:            
+            deletePath = os.path.join(getStorePath(), self.currentProfile)
             try:
                 listItems = self.profilesLV.selectedItems()
                 if not listItems:
@@ -126,5 +127,7 @@ class Ui_ProfilesWindow(QMainWindow):
                 shutil.rmtree(deletePath)
                 for item in listItems:
                     self.profilesLV.takeItem(self.profilesLV.row(item))
+                self.profileList.remove(self.currentProfile)
+                self.currentProfile = None
             except OSError as e:
                 print("Error: %s : %s" % (deletePath, e.strerror))

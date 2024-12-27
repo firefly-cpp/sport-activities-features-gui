@@ -7,8 +7,9 @@ class MultiThread:
     def single_load(self, path_of_file: str) -> pd.DataFrame:
         try:
             tcx_file = TCXFile()
-            activity = tcx_file.read_one_file(path_of_file)
-            integral_metrics = tcx_file.extract_integral_metrics(path_of_file)
+            tcx_exercise = tcx_file.read_one_file(path_of_file)            
+            activity = tcx_file.extract_activity_data(tcx_exercise)
+            integral_metrics = tcx_file.extract_integral_metrics(tcx_exercise)
             all_data = activity | integral_metrics
             df = pd.DataFrame(all_data)
             return df
@@ -18,8 +19,9 @@ class MultiThread:
     def _single_load_inner(self, path_of_file: str, data):
         try:
             tcx_file = TCXFile()
-            activity = tcx_file.read_one_file(path_of_file)
-            integral_metrics = tcx_file.extract_integral_metrics(path_of_file)
+            tcx_exercise = tcx_file.read_one_file(path_of_file)            
+            activity = tcx_file.extract_activity_data(tcx_exercise)
+            integral_metrics = tcx_file.extract_integral_metrics(tcx_exercise)
             all_data = activity | integral_metrics
             data.append(all_data)
         except:

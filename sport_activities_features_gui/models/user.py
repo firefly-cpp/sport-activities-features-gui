@@ -5,7 +5,7 @@ from sport_activities_features_gui.global_vars import getStorePath
 
 
 def initGlobalUser(userName, settings):
-    """This function initializes the global user object.
+    """This function initializes the global user object.\n
     Args:
         userName (str): The username of the user.
         settings (dict): The settings of the user.
@@ -44,7 +44,7 @@ class User:
             self.saveData(pd.DataFrame())
 
     def saveData(self, data: pd.DataFrame):
-        """This function saves the data to a pickle file.
+        """This function saves the data to a pickle file.\n
         Args:
             data (DataFrame): The data to save.
         """
@@ -55,7 +55,7 @@ class User:
         self.data: pd.DataFrame = data
 
     def loadData(self):
-        """This function loads the data from a pickle file.
+        """This function loads the data from a pickle file.\n
         Args:
             data (DataFrame): The data to load.
         """

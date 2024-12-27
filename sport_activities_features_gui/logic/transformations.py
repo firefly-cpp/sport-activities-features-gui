@@ -11,7 +11,7 @@ class Transformations:
         self.user = user        
 
     def one_hot_encoding(self,df):
-        """This function performs one-hot encoding on the data.
+        """This function performs one-hot encoding on the data.\n
         Args:
             df (DataFrame): The data to encode.
         Returns:
@@ -20,7 +20,7 @@ class Transformations:
         return df.join(pd.get_dummies(df['activity_type']))
 
     def min_max_normalization(self, df: pd.DataFrame, one_hot_encoding: bool) -> pd.DataFrame:
-        """This function performs min-max normalization on the data.
+        """This function performs min-max normalization on the data.\n
         Args:
             df (DataFrame): The data to normalize.
             one_hot_encoding (bool): Whether to perform one-hot encoding.
@@ -38,7 +38,7 @@ class Transformations:
         return new_df
 
     def zscore_normalization(self, df: pd.DataFrame, one_hot_encoding: bool) -> pd.DataFrame:
-        """This function performs z-score normalization on the data.
+        """This function performs z-score normalization on the data.\n
         Args:
             df (DataFrame): The data to normalize.
             one_hot_encoding (bool): Whether to perform one-hot encoding.
@@ -57,7 +57,7 @@ class Transformations:
         return new_df
 
     def log_normalization(self, df: pd.DataFrame, one_hot_encoding: bool) -> pd.DataFrame:
-        """This function performs logarithmic normalization on the data.
+        """This function performs logarithmic normalization on the data.\n
         Args:
             df (DataFrame): The data to normalize.
             one_hot_encoding (bool): Whether to perform one-hot encoding.
@@ -68,7 +68,7 @@ class Transformations:
         log_df = self.clean_df(df)
         print(log_df)
         for column in log_df:
-            # usage of the natural logaritem ln
+            # usage of the natural logarithm ln
             if column in var:
                 continue
             log_df[column] = np.log(log_df[column])
@@ -82,7 +82,7 @@ class Transformations:
         return new_df
 
     def clean_df(self, df: pd.DataFrame) -> pd.DataFrame:
-        """This function cleans the data by removing NaN values and non-numeric columns.
+        """This function cleans the data by removing NaN values and non-numeric columns.\n
         Args:
             df (DataFrame): The data to clean.
         Returns:

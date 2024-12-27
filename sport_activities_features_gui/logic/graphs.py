@@ -111,7 +111,7 @@ class Graphs:
         plt.show()
 
     def customGraph(self, xAttr, yAttr, plotType):
-        """This function plots a custom graph based on the user's input.
+        """This function plots a custom graph based on the user's input.\n
         Args:
             xAttr (str): The x attribute for the graph.
             yAttr (str): The y attribute for the graph.
@@ -127,7 +127,7 @@ class Graphs:
                 self.customLinePlot(yAttr)
 
     def customBarPlot(self, yAttr):
-        """This function plots a custom bar graph based on the user's input.
+        """This function plots a custom bar graph based on the user's input.\n
         Args:
             yAttr (str): The y attribute for the graph.
         """
@@ -149,7 +149,7 @@ class Graphs:
         plt.show()
 
     def customScatterPlot(self, xAttr, yAttr):
-        """This function plots a custom scatter graph based on the user's input.
+        """This function plots a custom scatter graph based on the user's input.\n
         Args:
             xAttr (str): The x attribute for the graph.
             yAttr (str): The y attribute for the graph.
@@ -176,7 +176,7 @@ class Graphs:
             plt.show()
 
     def customLinePlot(self, yAttr):
-        """This function plots a custom line graph based on the user's input.        
+        """This function plots a custom line graph based on the user's input.\n        
         Args:
             yAttr (str): The y attribute for the graph.
         """

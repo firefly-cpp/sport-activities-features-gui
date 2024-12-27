@@ -59,11 +59,11 @@ class Ui_CalendarWidget(QWidget):
 
     def toDatetime(self, date):
         """
-        Converts a numpy datetime64 object to a python datetime object
-        Input:
-        date - a np.datetime64 object
-        Output:
-        DATE - a python datetime object
+        Converts a numpy datetime64 object to a python datetime object.\n
+        Args:
+            date (numpy.datetime64): np.datetime64 object to convert
+        Returns:
+            date (datetime): python datetime object
         """
 
         if date is not None and str(date) != str(np.datetime64('NaT')):

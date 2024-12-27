@@ -113,9 +113,7 @@ class Ui_ImportDataWidget(QWidget):
         if self.globalUser.data.empty is False:
             self.OutputExistingData(self.globalUser.data)
             self.refMainWindow.refreshAllWidgets()
-            
-            
-    
+   
     def readFolder(self):
         df = self.importDataFn.openFolderDialog()
         self.globalUser.data = df
@@ -156,12 +154,7 @@ class Ui_ImportDataWidget(QWidget):
 
     def OutputExistingData(self, dataFrame):
         if self.globalUser.data.empty is False:
-
-            df2 = dataFrame.copy()
-            # for column in df2.columns :
-            #     if(df2[column] != None):
-            #         if(df2[column].dtype == type(list)):
-            #             df2 = df2.drop(column, axis=1, inplace=True)
+            df2 = dataFrame.copy()            
             df2 = df2.drop(columns=[
                            'positions', 'altitudes', 'distances', 'timestamps', 'speeds', 'heartrates'])
             model = PandasModel(df2)

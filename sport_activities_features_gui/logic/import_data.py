@@ -14,20 +14,18 @@ class ImportData:
         self.globalUser = user
 
     def openFolderDialog(self):
-        """This function opens a folder dialog to select a folder to import."""
+        """This function opens a folder dialog to select a folder to import.\n
+        Returns:
+            DataFrame: The data from the files in the folder.
+        """
         dialog = FolderDialog()
         dialog_execution = dialog.exec()
         if dialog_execution == 1:
-
             selectedFolderPath = dialog.selectedFiles()[0]
             tcx_file = TCXFile()
             selectedFilePaths = tcx_file.read_directory(selectedFolderPath)
             mt = MultiThread()
-
-            # if(len(dirPath) == 1):
-            # dataFrame = mt.single_load(dirPath[0])
-            # else:
-
+            
             data = mt.bulk_load(selectedFilePaths, 4)
             dataFrame = pd.DataFrame(data['data'])
 
@@ -36,20 +34,15 @@ class ImportData:
         return None
     
     def openFileDialog(self):
-        """This function opens a file dialog to select a file to import.
+        """This function opens a file dialog to select a file to import.\n
         Returns:
             DataFrame: The data from the file.        
         """
         dialog = FileDialog()
         dialog_execution = dialog.exec()
         if dialog_execution == 1:
-
             selectedFilePaths = dialog.selectedFiles()
             mt = MultiThread()
-
-            # if(len(dirPath) == 1):
-            # dataFrame = mt.single_load(dirPath[0])
-            # else:
 
             data = mt.bulk_load(selectedFilePaths, 4)
             dataFrame = pd.DataFrame(data['data'])
@@ -59,21 +52,21 @@ class ImportData:
         return None
 
     def exportCSV(self, filePath):
-        """This function exports the data to a CSV file.
+        """This function exports the data to a CSV file.\n
         Args:
             filePath (str): The file path to export the data.
         """
         pd.DataFrame(self.globalUser.data).to_csv(filePath, index=False)
 
     def exportJSON(self, filePath):
-        """This function exports the data to a JSON file.
+        """This function exports the data to a JSON file.\n
         Args:
             filePath (str): The file path to export the data.
         """
         pd.DataFrame(self.globalUser.data).to_json(filePath, orient='records')
 
     def exportPickle(self, filePath):
-        """This function exports the data to a pickle file.
+        """This function exports the data to a pickle file.\n
         Args:
             filePath (str): The file path to export the data.
         """

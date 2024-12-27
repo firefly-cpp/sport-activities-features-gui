@@ -1,11 +1,11 @@
 import pickle
 import pandas as pd
 import os
-from ..global_vars import *
+from sport_activities_features_gui.global_vars import getStorePath
 
 
 def initGlobalUser(userName, settings):
-    """This function initializes the global user object.
+    """This function initializes the global user object.\n
     Args:
         userName (str): The username of the user.
         settings (dict): The settings of the user.
@@ -25,7 +25,7 @@ class User:
 
     def __init__(self, _username: str, _setting: dict):
         self.username: str = _username
-        self.userPath: str = str(getStorePath() + _username + '/')
+        self.userPath: str = os.path.join(getStorePath(), _username)
         self.setting: dict = _setting
         self.checkForExistingData()
 
@@ -44,20 +44,22 @@ class User:
             self.saveData(pd.DataFrame())
 
     def saveData(self, data: pd.DataFrame):
-        """This function saves the data to a pickle file.
+        """This function saves the data to a pickle file.\n
         Args:
             data (DataFrame): The data to save.
         """
-        pickleFile = open(self.userPath+'data.pickle', 'wb')
+        path = os.path.join(self.userPath, 'data.pickle')
+        pickleFile = open(path, 'wb')
         pickle.dump(data, pickleFile)
         pickleFile.close()
         self.data: pd.DataFrame = data
 
     def loadData(self):
-        """This function loads the data from a pickle file.
+        """This function loads the data from a pickle file.\n
         Args:
             data (DataFrame): The data to load.
         """
-        pickleFile = open(self.userPath+'data.pickle', 'rb')
+        path = os.path.join(self.userPath, 'data.pickle')
+        pickleFile = open(path, 'rb')
         self.data: pd.DataFrame = pickle.load(pickleFile)
         pickleFile.close()

@@ -1,7 +1,6 @@
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtWidgets import QWidget, QMessageBox
 
-
 class Ui_GraphsWidget(QWidget):
     exampleGraphs = ["All biking distances ridden",
                      "Sum of biking duration for competitor",
@@ -9,8 +8,9 @@ class Ui_GraphsWidget(QWidget):
                      "Calories by activity type",
                      "Heart rate by activities"]
     graphFn = None
+    refMainWindow = None
 
-    def __init__(self):
+    def __init__(self, refMainWindow):
         QWidget.__init__(self)
         self.setObjectName("Form")
         self.resize(800, 600)
@@ -103,6 +103,7 @@ class Ui_GraphsWidget(QWidget):
             lambda: self.viewAttributes("Y"))
 
         self.retranslateUi()
+        self.refMainWindow = refMainWindow
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
@@ -174,6 +175,7 @@ class Ui_GraphsWidget(QWidget):
         else:
             self.xAxisInput.setEnabled(True)
             self.btnViewAttributesX.setEnabled(True)
+
 
 from sport_activities_features_gui.windows.view_attributes_window import Ui_ViewAttributesWindow
 from sport_activities_features_gui.logic.graphs import Graphs

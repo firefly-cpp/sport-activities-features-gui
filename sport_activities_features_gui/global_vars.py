@@ -1,7 +1,7 @@
 import os
 
-path = '\\store\\'
+path = 'store/'
 
 
-def getStorePath() -> str:
-    return os.getcwd() + path
+def getStorePath() -> str:    
+    return os.path.join(os.getcwd(), path)

@@ -2,15 +2,16 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QWidget, QApplication, QCalendarWidget
 from PyQt6.QtGui import QPalette, QTextCharFormat
 from PyQt6.QtCore import Qt
-from datetime import datetime
+from datetime import datetime,timezone
 import numpy as np
 from sport_activities_features_gui.models.user import User
 
 
 class Ui_CalendarWidget(QWidget):
     globalUser: User
+    refMainWindow = None
 
-    def __init__(self):
+    def __init__(self, refMainWindow):
         super().__init__()
         self.setObjectName("calendarWidget")
         self.resize(800, 600)
@@ -37,6 +38,7 @@ class Ui_CalendarWidget(QWidget):
             self.palette().color(QPalette.ColorRole.HighlightedText))
 
         # self.calendarWidget.clicked.connect(self.date_is_clicked)
+        self.refMainWindow = refMainWindow
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -57,17 +59,17 @@ class Ui_CalendarWidget(QWidget):
 
     def toDatetime(self, date):
         """
-        Converts a numpy datetime64 object to a python datetime object
-        Input:
-        date - a np.datetime64 object
-        Output:
-        DATE - a python datetime object
+        Converts a numpy datetime64 object to a python datetime object.\n
+        Args:
+            date (numpy.datetime64): np.datetime64 object to convert
+        Returns:
+            date (datetime): python datetime object
         """
 
         if date is not None and str(date) != str(np.datetime64('NaT')):
             timestamp = ((date - np.datetime64('1970-01-01T00:00:00'))
                          / np.timedelta64(1, 's'))
-            return datetime.utcfromtimestamp(timestamp)
+            return datetime.fromtimestamp(timestamp,timezone.utc)
         else:
             return datetime.now()
 

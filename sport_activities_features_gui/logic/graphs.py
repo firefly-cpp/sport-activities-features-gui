@@ -23,6 +23,7 @@ class Graphs:
         return (sum)
 
     def allBikingDistanceRidden(self):
+        """This function plots all biking distances ridden by the competitor."""
         gData = []
         for a in self.user.data.to_dict('records'):
             if (a['activity_type'] == 'Biking'):
@@ -34,6 +35,7 @@ class Graphs:
         plt.show()
 
     def sumOfBikingDurationForCompetitor(self):
+        """This function plots the sum of biking duration for the competitor."""
         sum = 0
         for act in filter(lambda x: x['activity_type'] == 'Biking', self.user.data.to_dict('records')):
             sum += act['duration'] if act['duration'] != None and math.isnan(
@@ -47,6 +49,7 @@ class Graphs:
         plt.show()
 
     def altitudeVsCalories(self):
+        """This function plots the altitude vs calories graph for the competitor."""
         calories = []
         altitude = []
         for a in self.user.data.to_dict('records'):
@@ -59,7 +62,7 @@ class Graphs:
         plt.show()
 
     def caloriesByActivityType(self):
-
+        """This function plots the calories by activity type for the competitor."""
         activity_types = list(set(self.user.data["activity_type"]))
         caloriesDictionary = {}
         for activity in activity_types:
@@ -75,6 +78,7 @@ class Graphs:
         plt.show()
 
     def heartRateByActivities(self):
+        """This function plots the heart rates by activities for the competitor."""
         activity_number = []
         hr_avg = []
         hr_max = []
@@ -107,6 +111,13 @@ class Graphs:
         plt.show()
 
     def customGraph(self, xAttr, yAttr, plotType):
+        """This function plots a custom graph based on the user's input.
+        Args:
+            xAttr (str): The x attribute for the graph.
+            yAttr (str): The y attribute for the graph.
+            plotType (str): The type of the plot.
+        """
+        
         match plotType:
             case "Bar":
                 self.customBarPlot(yAttr)
@@ -116,6 +127,10 @@ class Graphs:
                 self.customLinePlot(yAttr)
 
     def customBarPlot(self, yAttr):
+        """This function plots a custom bar graph based on the user's input.
+        Args:
+            yAttr (str): The y attribute for the graph.
+        """
         activityNum = []
         y = []
         activities = self.user.data.to_dict('records')
@@ -134,6 +149,12 @@ class Graphs:
         plt.show()
 
     def customScatterPlot(self, xAttr, yAttr):
+        """This function plots a custom scatter graph based on the user's input.
+        Args:
+            xAttr (str): The x attribute for the graph.
+            yAttr (str): The y attribute for the graph.
+        """
+        
         x = []
         y = []
         if (xAttr != '' and yAttr != ''):
@@ -155,6 +176,10 @@ class Graphs:
             plt.show()
 
     def customLinePlot(self, yAttr):
+        """This function plots a custom line graph based on the user's input.        
+        Args:
+            yAttr (str): The y attribute for the graph.
+        """
         y = []
         activities = self.user.data.to_dict('records')
 

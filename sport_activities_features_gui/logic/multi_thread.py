@@ -4,7 +4,12 @@ from multiprocessing import Pool, Manager
 
 
 class MultiThread:
+    """This class handles the multi-threading for the TCX file loading."""
     def single_load(self, path_of_file: str) -> pd.DataFrame:
+        """This function loads a single TCX file.
+        Args:
+            path_of_file (str): The path of the file to load.
+        """
         try:
             tcx_file = TCXFile()
             tcx_exercise = tcx_file.read_one_file(path_of_file)            
@@ -17,6 +22,11 @@ class MultiThread:
             return pd.DataFrame
 
     def _single_load_inner(self, path_of_file: str, data):
+        """This internal function loads a single TCX file.
+        Args:
+            path_of_file (str): The path of the file to load.
+            data (list): The list to append the data to.
+        """
         try:
             tcx_file = TCXFile()
             tcx_exercise = tcx_file.read_one_file(path_of_file)            
@@ -29,6 +39,11 @@ class MultiThread:
             # better error handling
 
     def bulk_load(self, files: list, num_of_processes: int) -> dict:
+        """This function loads multiple TCX files with multithreading.
+        Args:
+            files (list): The list of files to load.
+            num_of_processes (int): The number of processes to use.
+        """
         tcx_file = None
         # files = None
         # try:

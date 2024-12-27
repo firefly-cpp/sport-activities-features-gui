@@ -6,25 +6,50 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 class Transformations:
+    """This class handles the normalization and standardization of the data."""
     def __init__(self, user):
         self.user = user
         print("Not implemented")
 
     def one_hot_encoding(df):
+        """This function performs one-hot encoding on the data.
+        Args:
+            df (DataFrame): The data to encode.
+        Returns:
+            DataFrame: The encoded data.
+        """
         return df.join(pd.get_dummies(df['activity_type']))
 
     def min_max_normalization(self, df: pd.DataFrame) -> pd.DataFrame:
+        """This function performs min-max normalization on the data.
+        Args:
+            df (DataFrame): The data to normalize.
+        Returns:
+            DataFrame: The normalized data.
+        """
         temp_df = self.clean_df(df)
         scaler = MinMaxScaler()
         return pd.DataFrame(scaler.fit_transform(temp_df), columns=temp_df.columns)
 
     def zscore_normalization(self, df: pd.DataFrame) -> pd.DataFrame:
+        """This function performs z-score normalization on the data.
+        Args:
+            df (DataFrame): The data to normalize.
+        Returns:
+            DataFrame: The normalized data.
+        """        
         temp_df = self.clean_df(df)
         for column in temp_df:
             temp_df[column] = zscore(temp_df[column])
         return temp_df
 
     def log_normalization(self, df: pd.DataFrame) -> pd.DataFrame:
+        """This function performs logarithmic normalization on the data.
+        Args:
+            df (DataFrame): The data to normalize.
+        Returns:
+            DataFrame: The normalized data.
+        """
         var = pd.get_dummies(df['activity_type']).columns
         log_df = self.clean_df(df)
         print(log_df)
@@ -36,6 +61,12 @@ class Transformations:
         return log_df
 
     def clean_df(self, df: pd.DataFrame) -> pd.DataFrame:
+        """This function cleans the data by removing NaN values and non-numeric columns.
+        Args:
+            df (DataFrame): The data to clean.
+        Returns:
+            DataFrame: The cleaned data.
+        """
         for column in df:
             column_dtype = str(type(df[column][0]))
             if not ('int' in column_dtype or 'float' in column_dtype):

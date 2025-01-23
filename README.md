@@ -2,66 +2,101 @@
   <img width="200" src="https://raw.githubusercontent.com/firefly-cpp/sport-activities-features-gui/main/.github/logo/sport_activities.png">
 </p>
 
----
+<h1 align="center">
+  sport-activities-features-gui
+</h1>
 
-# sport-activities-features-gui
+<p align="center">
+  <a href="https://pypi.python.org/pypi/sport-activities-features-gui">
+    <img alt="PyPI Version" src="https://img.shields.io/pypi/v/sport-activities-features-gui.svg" />
+  </a>
+  <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/sport-activities-features-gui.svg" />
+  <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/sport-activities-features-gui.svg" />
+  <a href="https://pepy.tech/project/sport-activities-features-gui">
+    <img alt="Downloads" src="https://pepy.tech/badge/sport-activities-features-gui" />
+  </a>
+  <img alt="GitHub Actions" src="https://github.com/firefly-cpp/sport-activities-features-gui/actions/workflows/test.yml/badge.svg" />
+</p>
 
----
+<p align="center">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/firefly-cpp/sport-activities-features-gui" />
+  <a href="https://github.com/firefly-cpp/sport-activities-features-gui/blob/master/LICENSE">
+    <img alt="GitHub license" src="https://img.shields.io/github/license/firefly-cpp/sport-activities-features-gui.svg" />
+  </a>
+  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/firefly-cpp/sport-activities-features-gui.svg" />
+  <a href='http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Average time to resolve an issue"'>
+    <img alt="Average time to resolve an issue" src="http://isitmaintained.com/badge/resolution/firefly-cpp/sport-activities-features-gui.svg" />
+  </a>
+  <a href='http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Percentage of issues still open"'>
+    <img alt="Percentage of issues still open" src="http://isitmaintained.com/badge/open/firefly-cpp/sport-activities-features-gui.svg" />
+  </a>
+</p>
 
-[![PyPI Version](https://img.shields.io/pypi/v/sport-activities-features-gui.svg)](https://pypi.python.org/pypi/sport-activities-features-gui)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sport-activities-features-gui.svg)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/sport-activities-features-gui.svg)
-[![Downloads](https://pepy.tech/badge/sport-activities-features-gui)](https://pepy.tech/project/sport-activities-features-gui)
-![GitHub repo size](https://img.shields.io/github/repo-size/firefly-cpp/sport-activities-features-gui?style=flat-square)
-[![GitHub license](https://img.shields.io/github/license/firefly-cpp/sport-activities-features-gui.svg)](https://github.com/firefly-cpp/sport-activities-features-gui/blob/master/LICENSE)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/firefly-cpp/sport-activities-features-gui.svg)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/firefly-cpp/sport-activities-features-gui.svg)](http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/firefly-cpp/sport-activities-features-gui.svg)](http://isitmaintained.com/project/firefly-cpp/sport-activities-features-gui "Percentage of issues still open")
+<p align="center">
+  <a href="#-key-features">✨ Key features</a> •
+  <a href="#-installation">📦 Installation</a> •
+  <a href="#-screenshots">📸 Screenshots</a> •
+  <a href="#-development">👩‍💻 Development</a> •
+  <a href="#-license">🔑 License</a>
+</p>
 
-## About 📋
 A simple GUI application that uses the library sports-activities-features to import sports activity files (TCX) and makes it easy to view and transform the data in a GUI environment. 🖥️🔄
 
-## Key features ✨
+## ✨ Key features
 - Improved bulk importing of tcx files 📁
 - Exporting data to different formats 💾
 - Data transformations 🔄
 - Calendar view of active days 📅
 - Individual user profiles 👤
 
-## Installation 📦
+## 📦 Installation
 ### pip
-Install sport-activities-features with pip:
+To install `sport-activities-features-gui` using pip, run the following command:
 
 ```sh
 pip install sport-activities-features-gui
 ```
 
-## Screenshots 📸
-<p float="left">
-  <img src="./screenshots/Screenshot_1.jpg" alt="Profiles window" width="200"/>
+## 📸 Screenshots
+<p align="center">
+  <img src="./screenshots/Screenshot_1.jpg" alt="Profiles window" width="252"/>
   <img src="./screenshots/Screenshot_2.jpg" alt="Import tab" width="350"/>
   <img src="./screenshots/Screenshot_3.jpg" alt="Graphs tab" width="350"/>
   <img src="./screenshots/Screenshot_4.jpg" alt="Calendar tab" width="350"/>
   <img src="./screenshots/Screenshot_5.jpg" alt="Transformations tab" width="350"/>
 </p>
 
-## Development 🛠️
+## 👩‍💻 Development
 ### Prerequisites
   - [Python 3.10](https://www.python.org/downloads/)
   - [Poetry](https://python-poetry.org/docs/#installation)
 
 ### Installation
-1. Clone [this](https://github.com/firefly-cpp/sport-activities-features-gui) repository from GitHub.
-2. Create a virtual environment and install the dependencies using poetry:
-    ```bash
-    poetry install
-    ```
-3. Run the `main.py` file
-    1. Script path: `<project_folder>/sport-activities-features-gui/main.py`
-    2. Working directory: `<project_folder>/sport-activities-features-gui/`
+<ol>
+  <li>
+    Clone <a href="https://github.com/firefly-cpp/sport-activities-features-gui">this</a> repository from GitHub.
+  </li>
+  <li>
+    Create a virtual environment and install the dependencies using poetry:
+    <pre><code>poetry install</code></pre>
+  </li>
+  <li>
+    Run the <code>main.py</code> file
+    <table>
+      <tr>
+        <td>Script path</td>
+        <td><code>&ltproject_folder&gt/sport-activities-features-gui/main.py</code></td>
+      </tr>
+      <tr>
+        <td>Working directory</td>
+        <td><code>&ltproject_folder&gt/sport-activities-features-gui/</code></td>
+      </tr>
+    </table>
+  </li>
+</ol>
 
-## License
 
+## 🔑 License
 This package is distributed under the MIT License. This license can be found online at <http://www.opensource.org/licenses/MIT>.
 
 ## Disclaimer
